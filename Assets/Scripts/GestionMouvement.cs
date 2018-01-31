@@ -74,6 +74,7 @@ public class GestionMouvement : MonoBehaviour
         }
         if (Input.GetKey("s")) //déplacement vers l'arrière
         {
+            //personnage.AddForce()
             transform.Translate(Vector3.back * Time.deltaTime * Vitesse);
         }
         if (Input.GetKey("d")) //déplacement de coté vers la droite

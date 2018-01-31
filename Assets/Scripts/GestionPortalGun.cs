@@ -9,6 +9,7 @@ public class GestionPortalGun : MonoBehaviour
     [SerializeField] GameObject portalOrange; //Sera éventuellement le portal plat qui sera placé
 
     Vector3 CentrePortailBleu;
+    Vector3 CentrePortailOrange;
 
     int x;
     int y;
@@ -35,12 +36,13 @@ public class GestionPortalGun : MonoBehaviour
         Ray ray = Caméra.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit);
 
-        portalOrange.transform.position = hit.point;
+        if (hit.collider != portalOrange.GetComponent<Collider>())
+        {
+            portalOrange.transform.position = hit.point;
+        }
 
         //Il faudra trouver un moyen d'appliquer le portal pour qu'il soit plat sur le mur / surface.
 
-
-        
 
         //Ray ray = Caméra.ScreenPointToRay(new Vector3(x, y));
         //Physics.Raycast(ray);
