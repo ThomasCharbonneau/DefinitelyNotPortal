@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GestionPortalGun : MonoBehaviour
 {
+    [SerializeField] AudioClip SonTirPortal;
+
     [SerializeField] Camera Caméra;
 
     [SerializeField] GameObject portalOrange; //Sera éventuellement le portal plat qui sera placé
@@ -11,14 +13,9 @@ public class GestionPortalGun : MonoBehaviour
     Vector3 CentrePortailBleu;
     Vector3 CentrePortailOrange;
 
-    int x;
-    int y;
-
 	// Use this for initialization
 	void Start ()
     {
-        x = Screen.width / 2;
-        y = Screen.height / 2;
     }
 	
 	// Update is called once per frame
@@ -26,27 +23,27 @@ public class GestionPortalGun : MonoBehaviour
     {
         if(Input.GetMouseButton(0))
         {
+            //Mettre un délai pour que le fusil "recharge"
+
             TirerPortail();
         }
     }
 
-    void TirerPortail() //Vérifier pour ne pas lancer si le ray est déjà sur un portal. Pour ne pas relancer
+    void TirerPortail() //Mettre une entrant qui dit quel portail tirer
     {
         RaycastHit hit;
         Ray ray = Caméra.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit);
 
-        if (hit.collider != portalOrange.GetComponent<Collider>())
+        ////Régler quand la collision est dans le vide...
+        if (hit.collider.CompareTag("Plancher")) //hit.collider != portalOrange.GetComponent<Collider>())
         {
+            AudioSource.PlayClipAtPoint(SonTirPortal, transform.position);
             portalOrange.transform.position = hit.point;
         }
 
-        //Il faudra trouver un moyen d'appliquer le portal pour qu'il soit plat sur le mur / surface.
+        //Il faudra trouver un moyen d'appliquer le portal pour qu'il soit plat sur le mur / surface. Avec normales?
 
-
-        //Ray ray = Caméra.ScreenPointToRay(new Vector3(x, y));
-        //Physics.Raycast(ray);
-        //ray.
         //Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
     }
 }
