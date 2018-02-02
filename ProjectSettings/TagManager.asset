@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Plancher
+  - Sol
+  - Mur
   layers:
   - Default
   - TransparentFX
