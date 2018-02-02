@@ -8,24 +8,36 @@ public class GestionPortalGun : MonoBehaviour
 
     [SerializeField] Camera Caméra;
 
-    [SerializeField] GameObject portalOrange; //Sera éventuellement le portal plat qui sera placé
+    [SerializeField] GameObject portalBleu;
+    [SerializeField] GameObject portalOrange;
 
     Vector3 CentrePortailBleu;
     Vector3 CentrePortailOrange;
 
+    const float DÉLAI_RECHARGE = 0.75f;
+    float TempsDepuisDernierTir;
+
 	// Use this for initialization
 	void Start ()
     {
+        TempsDepuisDernierTir = 0;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if(Input.GetMouseButton(0))
-        {
-            //Mettre un délai pour que le fusil "recharge"
+        TempsDepuisDernierTir += Time.deltaTime;
 
-            TirerPortail();
+        if(TempsDepuisDernierTir >= DÉLAI_RECHARGE)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                TirerPortail();
+            }
+            if (Input.GetMouseButton(1))
+            {
+                TirerPortail();
+            }
         }
     }
 
@@ -35,14 +47,19 @@ public class GestionPortalGun : MonoBehaviour
         Ray ray = Caméra.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit);
 
-        ////Régler quand la collision est dans le vide...
-        if (hit.collider.CompareTag("Plancher")) //hit.collider != portalOrange.GetComponent<Collider>())
+        if(hit.collider == null)
+        {
+            portalOrange.SetActive(false);
+        }
+        else if (hit.collider.CompareTag("Plancher")) //hit.collider != portalOrange.GetComponent<Collider>())
         {
             AudioSource.PlayClipAtPoint(SonTirPortal, transform.position);
-            portalOrange.transform.position = hit.point;
-        }
+            portalOrange.SetActive(true);
 
-        //Il faudra trouver un moyen d'appliquer le portal pour qu'il soit plat sur le mur / surface. Avec normales?
+            portalOrange.transform.position = hit.point;
+            portalOrange.transform.LookAt(hit.point + hit.normal);
+            TempsDepuisDernierTir = 0;
+        }
 
         //Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
     }
