@@ -93,7 +93,7 @@ public class GestionMouvement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Plancher"))
+        if(collision.gameObject.CompareTag("Sol"))
         {
             EstAuSol = true;
         }
