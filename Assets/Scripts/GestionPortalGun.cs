@@ -32,16 +32,16 @@ public class GestionPortalGun : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                TirerPortail();
+                TirerPortail(portalOrange);
             }
             if (Input.GetMouseButton(1))
             {
-                TirerPortail();
+                TirerPortail(portalBleu);
             }
         }
     }
 
-    void TirerPortail() //Mettre une entrant qui dit quel portail tirer // void TirerPortail(GameObject portail)
+    void TirerPortail(GameObject portail) //Mettre une entrant qui dit quel portail tirer // void TirerPortail(GameObject portail)
     {
         RaycastHit hit;
         Ray ray = Caméra.ScreenPointToRay(Input.mousePosition);
@@ -49,15 +49,15 @@ public class GestionPortalGun : MonoBehaviour
 
         if (hit.collider == null)
         {
-            portalOrange.SetActive(false);
+            portail.SetActive(false);
         }
         else if (hit.collider.CompareTag("Sol") || hit.collider.CompareTag("Mur")) //Il faudrait trouver un moyen de simplifier avant d'avoir trop de tags
         {
             AudioSource.PlayClipAtPoint(SonTirPortal, transform.position);
-            portalOrange.SetActive(true);
+            portail.SetActive(true);
 
-            portalOrange.transform.position = hit.point;
-            portalOrange.transform.LookAt(hit.point + hit.normal);
+            portail.transform.position = hit.point;
+            portail.transform.LookAt(hit.point + hit.normal);
             TempsDepuisDernierTir = 0;
         }
         //Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);

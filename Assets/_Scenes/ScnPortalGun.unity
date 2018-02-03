@@ -617,7 +617,7 @@ Prefab:
         type: 2}
       propertyPath: portalBleu
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 44558514}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0
