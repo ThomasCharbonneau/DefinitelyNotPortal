@@ -32,7 +32,7 @@ public class Portail : MonoBehaviour
                 //other.transform.position = (new Vector3(other.transform.position.x, other.transform.position.y + 20, other.transform.position.z));
 
                 other.GetComponent<Rigidbody>().AddForce(Vector3.back * 500); //Donner le bon vecteur
-                other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward);
+                other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10);
                 TempsDepuisDernierPassage = 0;
             }
         }
