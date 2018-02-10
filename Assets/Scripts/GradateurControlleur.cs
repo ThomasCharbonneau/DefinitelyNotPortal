@@ -12,15 +12,14 @@ public class GradateurControlleur : MonoBehaviour {
     Text txtValeur;
 
     public GameObject PnlText;
-    int vitesseBase = 60;
     
 	
 	void Start () {
         gradateur = GetComponentInChildren<Slider>();
-        gradateur.value = vitesseBase;
-        Valeur = (int)gradateur.value;
 
         txtValeur = PnlText.GetComponentInChildren<Text>();
+        gradateur.value = gradateur.maxValue / 2;
+        Valeur = (int)gradateur.value;
         txtValeur.text = Valeur.ToString();
         ValeurMiseÀJour = true;
 	}
