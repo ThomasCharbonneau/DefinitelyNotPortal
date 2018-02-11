@@ -7,6 +7,8 @@ public class Portail : MonoBehaviour
     public GameObject portailOpposé;
     public GameObject portail;
 
+    [SerializeField] AudioClip SonTeleportation;
+
     const float DÉLAI_PASSAGE = 0.25f;
     float TempsDepuisDernierPassage;
     
@@ -31,18 +33,32 @@ public class Portail : MonoBehaviour
             
             if (portailOpposé.activeSelf && TempsDepuisDernierPassage >= DÉLAI_PASSAGE) // S'assurer que les 2 portails sont placé avant de téléporté le joueur
             {
+                AudioSource.PlayClipAtPoint(SonTeleportation, portailOpposé.transform.position);
+
                 //personnage.position = (new Vector3(personnage.position.x, personnage.position.y + 20, personnage.position.z));
                 //other.transform.position = (new Vector3(other.transform.position.x, other.transform.position.y + 20, other.transform.position.z));
 
                 /*   other.GetComponent<Rigidbody>().AddForce(Vector3.back * 500);*/ //Donner le bon vecteur
                 Vector3 vitesse = other.GetComponent<Rigidbody>().velocity;
                 Debug.Log(vitesse.magnitude);
-                vitesse = Vector3.Reflect(vitesse, portailOpposé.transform.forward);
-                vitesse = portailOpposé.transform.InverseTransformDirection(vitesse);
-                vitesse = portail.transform.TransformDirection(vitesse);
-                other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10);
-                other.GetComponent<Rigidbody>().velocity = vitesse;
+
+                //vitesse = Vector3.Reflect(vitesse, portailOpposé.transform.forward);
+                //vitesse = portailOpposé.transform.InverseTransformDirection(vitesse);
+                //vitesse = portail.transform.TransformDirection(vitesse);
+
+                other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 5); //La chose teleportée est placée un peu devant le portail.
+
+                other.GetComponent<Rigidbody>().velocity = transform.forward.normalized * vitesse.magnitude;
+
+                //other.GetComponent<Rigidbody>().velocity = vitesse;
+
+                other.transform.rotation = transform.rotation;
+
+                //other.GetComponentInChildren<Camera>().transform.LookAt(portailOpposé.transform.position + portailOpposé.transform.forward * 2000);
+                //other.transform.LookAt(portailOpposé.transform.position + portailOpposé.transform.forward * 20);
+
                 //other.GetComponent<Rigidbody>().AddForce(vitesse.magnitude * Vector3.forward);
+
                 TempsDepuisDernierPassage = 0;
             }
         }

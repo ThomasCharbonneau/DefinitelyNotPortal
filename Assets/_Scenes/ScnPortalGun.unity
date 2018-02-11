@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "portailOppos\xE9": {fileID: 495878375}
   portail: {fileID: 44558514}
+  SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
 --- !u!65 &44558516
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -524,7 +525,7 @@ GameObject:
   - component: {fileID: 373531178}
   - component: {fileID: 373531177}
   m_Layer: 0
-  m_Name: Sol (1)
+  m_Name: Plafond
   m_TagString: Sol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -625,8 +626,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 916096402}
   - {fileID: 586400151}
+  - {fileID: 916096402}
   - {fileID: 1045044492}
   - {fileID: 2081361431}
   m_Father: {fileID: 0}
@@ -767,6 +768,26 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 224744958546023688, guid: 715935baf3b8ed348a8841f14d7a7b17,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224047827097161934, guid: 715935baf3b8ed348a8841f14d7a7b17,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224168528597191358, guid: 715935baf3b8ed348a8841f14d7a7b17,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224327376157783736, guid: 715935baf3b8ed348a8841f14d7a7b17,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 715935baf3b8ed348a8841f14d7a7b17, type: 2}
   m_IsPrefabParent: 0
@@ -868,6 +889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "portailOppos\xE9": {fileID: 44558514}
   portail: {fileID: 495878375}
+  SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
 --- !u!1 &531725058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1086,7 @@ RectTransform:
   m_Children:
   - {fileID: 284825643}
   m_Father: {fileID: 411366935}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1382,8 +1404,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1408211969}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 6, z: 50}
-  m_LocalScale: {x: 15, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 16, z: 50}
+  m_LocalScale: {x: 15, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 1476053924}
   m_RootOrder: 1
