@@ -7,11 +7,19 @@ public class GestionMouvement : MonoBehaviour
 
     const float Vitesse = 10;
     const float ForceSaut = 9f;
-    const float ForceDéplacement = 300f;
+    const float ForceDéplacement = 30f;
     const float CoefficientSprint = 2.5f;
     const float COEFFICIENT_CHUTE = 1.5F;
 
+    int VitesseDéplacementMax = 25;
+
+    const int VITESSE_MARCHE_MAX = 25;
+    const int VITESSE_SPRINT_MAX = 32;
+
     public bool EstAuSol;
+    public bool TientObjet; //Si le personnage a un objet ou non dans ses mains
+
+    Rigidbody ObjetTenu; //Le rigidbody de l'objet que l'on tient
 
     private Rigidbody personnage;
 
@@ -19,83 +27,15 @@ public class GestionMouvement : MonoBehaviour
 
     [SerializeField] Camera Caméra;
 
-    [SerializeField] GameObject Sol;
-
     // Use this for initialization
     void Start()
     {
         EstAuSol = true;
+        TientObjet = false;
         personnage = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
-    {
-        //Pour tester. Mauvaise écriture...
-        if (EstAuSol)
-        {
-            Sol.GetComponent<Renderer>().material.color = Color.white;
-        }
-        else
-        {
-            Sol.GetComponent<Renderer>().material.color = Color.green;
-        }
-        //
-
-        //Continue d'accélérer indéfiniment. Devrait mettre restriction.
-        if (EstAuSol)
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                //personnage.AddForce(Vector3.up * VitesseSaut);
-                //personnage.velocity = new Vector3(0f, VitesseSaut, 0f);
-
-                personnage.velocity += (Vector3.up * ForceSaut);
-
-                EstAuSol = false;
-            }
-
-            if (Input.GetKey("w")) //déplacement vers l'avant
-            {
-                déplacementAvant = personnage.transform.forward * Time.deltaTime * ForceDéplacement;
-
-                if (Input.GetKey(KeyCode.LeftShift)) //Peut sprinter quand personnage dans les airs?
-                {
-                    déplacementAvant *= CoefficientSprint;
-                }
-
-                personnage.velocity += déplacementAvant;
-            }
-
-            if (Input.GetKey("a")) //déplacement de coté vers la gauche
-            {
-                //transform.Translate(Vector3.left * Time.deltaTime * Vitesse);
-                personnage.velocity += -personnage.transform.right * ForceDéplacement * Time.deltaTime;
-
-            }
-
-            if (Input.GetKey("s")) //déplacement vers l'arrière
-            {
-                personnage.velocity += -personnage.transform.forward * ForceDéplacement * Time.deltaTime;
-            }
-
-            if (Input.GetKey("d")) //déplacement de coté vers la droite
-            {
-                personnage.velocity += personnage.transform.right * ForceDéplacement * Time.deltaTime;
-                //personnage.AddRelativeForce(Vector3.right * ForceDéplacement * Time.deltaTime);
-            }
-
-            if (Input.GetKey("e")) //prendre un objet devant soi
-            {
-                PrendreObjet();
-            }
-        }
-
-        //if (Input.GetKeyDown(KeyCode.J)) { this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 10f); }
-
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         if (personnage.velocity.y < 0)
         {
@@ -105,6 +45,87 @@ public class GestionMouvement : MonoBehaviour
         {
             personnage.velocity += (Vector3.up * Physics.gravity.y * Time.deltaTime);
         }
+
+        //Continue d'accélérer indéfiniment. Devrait mettre restriction.
+        if (EstAuSol)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                personnage.velocity += (Vector3.up * ForceSaut);
+
+                EstAuSol = false;
+            }
+
+
+            if(personnage.velocity.magnitude <= VITESSE_MARCHE_MAX)
+            {
+                VitesseDéplacementMax = VITESSE_MARCHE_MAX;
+            }
+
+
+            if (personnage.velocity.magnitude <= VitesseDéplacementMax)
+            {
+                if (Input.GetKey("w")) //déplacement vers l'avant
+                {
+                    déplacementAvant = personnage.transform.forward * Time.deltaTime * ForceDéplacement;
+
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        VitesseDéplacementMax = VITESSE_SPRINT_MAX;
+                        déplacementAvant *= CoefficientSprint;
+                    }
+                    else
+                    {
+                        VitesseDéplacementMax = VITESSE_MARCHE_MAX;
+                    }
+
+                    personnage.velocity += déplacementAvant;
+                }
+
+                if (Input.GetKey("a")) //déplacement de coté vers la gauche
+                {
+                    personnage.velocity += -personnage.transform.right * ForceDéplacement * Time.deltaTime;
+                }
+
+                if (Input.GetKey("s")) //déplacement vers l'arrière
+                {
+                    personnage.velocity += -personnage.transform.forward * ForceDéplacement * Time.deltaTime;
+                }
+
+                if (Input.GetKey("d")) //déplacement de coté vers la droite
+                {
+                    personnage.velocity += personnage.transform.right * ForceDéplacement * Time.deltaTime;
+                }
+            }
+        }
+
+        if (Input.GetKeyDown("e")) //prendre un objet devant soi
+        {
+            if(TientObjet)
+            {
+                TientObjet = false;
+                ObjetTenu.freezeRotation = false;
+            }
+            else
+            {
+                PrendreObjet();
+            }
+        }
+
+        if (TientObjet) //Changer pour ne pas qu'objet clip avec les murs / autres...
+        {
+            //Vérifier si l'objet a une collision et déplacer accordément par rapport aux normale(s)
+
+            ObjetTenu.transform.position = Caméra.transform.position + Caméra.transform.forward * 10;
+        }
+
+        Debug.Log(personnage.velocity.magnitude);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -121,10 +142,15 @@ public class GestionMouvement : MonoBehaviour
         Ray ray = Caméra.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit);
 
-        if (hit.rigidbody.isKinematic) //Cas ou il n'y a pas de rigidbody...
+        if (hit.rigidbody != null)
         {
-            hit.transform.position = Caméra.transform.position + transform.forward * 10;
+            ObjetTenu = hit.rigidbody;
         }
 
+        ObjetTenu.freezeRotation = true;
+
+        TientObjet = true;
+
+        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
     }
 }

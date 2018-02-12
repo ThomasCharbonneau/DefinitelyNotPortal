@@ -380,6 +380,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 284825642}
+--- !u!20 &300732862 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20082536506674630, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+    type: 2}
+  m_PrefabInternal: {fileID: 555110758}
 --- !u!1 &311368172
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +982,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4785762542657520, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6.599999
+      value: 41.2
       objectReference: {fileID: 0}
     - target: {fileID: 4785762542657520, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1053,6 +1058,11 @@ Prefab:
       propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114027868645080130, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: "Cam\xE9ra"
+      value: 
+      objectReference: {fileID: 300732862}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0
