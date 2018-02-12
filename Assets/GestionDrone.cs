@@ -13,9 +13,9 @@ public class GestionDrone : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if(transform.position.y <= 5)
-        {
-            GetComponent<RigidBody>().AddForce(Vector3.up * 5);
-        }
+	//	if(transform.position.y <= 5)
+    //  {
+    //     GetComponent<RigidBody>().AddForce(Vector3.up * 5);
+    //  }
 	}
 }
