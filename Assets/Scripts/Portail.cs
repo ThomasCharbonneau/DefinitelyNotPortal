@@ -40,17 +40,11 @@ public class Portail : MonoBehaviour
 
                 /*   other.GetComponent<Rigidbody>().AddForce(Vector3.back * 500);*/ //Donner le bon vecteur
                 Vector3 vitesse = other.GetComponent<Rigidbody>().velocity;
-                Vector3 normale = portailOpposé.transform.forward;
                 Debug.Log(vitesse.magnitude);
 
-                vitesse = Vector3.Reflect(vitesse, normale);
-                other.GetComponentInChildren<Camera>().transform.LookAt(normale);
-                //other.transform.LookAt(normale);
-                //vitesse = portailOpposé.transform.InverseTransformDirection(vitesse);
-                //vitesse = portail.transform.TransformDirection(vitesse);
-
-
-
+                vitesse = Vector3.Reflect(vitesse, portailOpposé.transform.forward);
+                vitesse = portailOpposé.transform.InverseTransformDirection(vitesse);
+                vitesse = portail.transform.TransformDirection(vitesse);
 
                 other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 5); //La chose teleportée est placée un peu devant le portail.
 
