@@ -85,10 +85,6 @@ public class GestionHUD : MonoBehaviour
 
                 VerifierMenu("OpenMenu");
             }
-            if(Input.GetKeyDown("space"))
-            {
-                VerifierMenu("Options");
-            }
         }
     }
 }
