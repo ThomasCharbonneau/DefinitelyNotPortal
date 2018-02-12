@@ -5,10 +5,11 @@ using UnityEngine;
 public class GestionMouvement : MonoBehaviour
 {
 
-    float Vitesse = 10;
-    float ForceSaut = 500f; //Plus une force qu'une vitesse? (En Newtons)
-    float ForceDéplacement = 3000f;
-    float CoefficientSprint = 2.5f;
+    const float Vitesse = 10;
+    const float ForceSaut = 9f;
+    const float ForceDéplacement = 300f;
+    const float CoefficientSprint = 2.5f;
+    const float COEFFICIENT_CHUTE = 1.5F;
 
     public bool EstAuSol;
 
@@ -16,10 +17,12 @@ public class GestionMouvement : MonoBehaviour
 
     private Vector3 déplacementAvant;
 
+    [SerializeField] Camera Caméra;
+
     [SerializeField] GameObject Sol;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         EstAuSol = true;
         personnage = GetComponent<Rigidbody>();
@@ -41,46 +44,52 @@ public class GestionMouvement : MonoBehaviour
         //Continue d'accélérer indéfiniment. Devrait mettre restriction.
         if (EstAuSol)
         {
-            if(Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 //personnage.AddForce(Vector3.up * VitesseSaut);
                 //personnage.velocity = new Vector3(0f, VitesseSaut, 0f);
 
-                personnage.AddRelativeForce(Vector3.up * ForceSaut);
+                personnage.velocity += (Vector3.up * ForceSaut);
 
                 EstAuSol = false;
             }
 
             if (Input.GetKey("w")) //déplacement vers l'avant
             {
-                déplacementAvant = Vector3.forward * Time.deltaTime * ForceDéplacement;
+                déplacementAvant = personnage.transform.forward * Time.deltaTime * ForceDéplacement;
 
                 if (Input.GetKey(KeyCode.LeftShift)) //Peut sprinter quand personnage dans les airs?
                 {
                     déplacementAvant *= CoefficientSprint;
                 }
 
-                personnage.AddRelativeForce(déplacementAvant);
+                personnage.velocity += déplacementAvant;
             }
 
             if (Input.GetKey("a")) //déplacement de coté vers la gauche
             {
                 //transform.Translate(Vector3.left * Time.deltaTime * Vitesse);
-                personnage.AddRelativeForce(Vector3.left * ForceDéplacement * Time.deltaTime);
+                personnage.velocity += -personnage.transform.right * ForceDéplacement * Time.deltaTime;
 
             }
 
             if (Input.GetKey("s")) //déplacement vers l'arrière
             {
-                personnage.AddRelativeForce(Vector3.back * ForceDéplacement * Time.deltaTime);
+                personnage.velocity += -personnage.transform.forward * ForceDéplacement * Time.deltaTime;
             }
 
             if (Input.GetKey("d")) //déplacement de coté vers la droite
             {
-                personnage.AddRelativeForce(Vector3.right * ForceDéplacement * Time.deltaTime);
+                personnage.velocity += personnage.transform.right * ForceDéplacement * Time.deltaTime;
+                //personnage.AddRelativeForce(Vector3.right * ForceDéplacement * Time.deltaTime);
+            }
+
+            if (Input.GetKey("e")) //prendre un objet devant soi
+            {
+                PrendreObjet();
             }
         }
-        
+
         //if (Input.GetKeyDown(KeyCode.J)) { this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 10f); }
 
     }
@@ -88,14 +97,34 @@ public class GestionMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (personnage.velocity.y < 0)
+        {
+            personnage.velocity += (Vector3.up * Physics.gravity.y * (COEFFICIENT_CHUTE) * Time.deltaTime);
+        }
+        else if (personnage.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        {
+            personnage.velocity += (Vector3.up * Physics.gravity.y * Time.deltaTime);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Sol"))
+        if (collision.gameObject.CompareTag("Sol"))
         {
             EstAuSol = true;
         }
+    }
+
+    private void PrendreObjet()
+    {
+        RaycastHit hit;
+        Ray ray = Caméra.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out hit);
+
+        if (hit.rigidbody.isKinematic) //Cas ou il n'y a pas de rigidbody...
+        {
+            hit.transform.position = Caméra.transform.position + transform.forward * 10;
+        }
+
     }
 }
