@@ -78,11 +78,12 @@ public class GestionHUD : MonoBehaviour
             Paused = !(Paused);
             if(!Paused)
             {
+                GestionCamera.PAUSE_CAMERA = true;
                 VerifierMenu("Resumer");
             }
             else
             {
-
+                GestionCamera.PAUSE_CAMERA = false;
                 VerifierMenu("OpenMenu");
             }
         }
