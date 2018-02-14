@@ -122,7 +122,7 @@ public class GestionMouvement : MonoBehaviour
             ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.1f);
         }
 
-        Debug.Log(personnage.velocity.magnitude);
+        //Debug.Log(personnage.velocity.magnitude);
     }
 
     void RendreSautRéaliste()
