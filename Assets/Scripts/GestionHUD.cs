@@ -8,6 +8,7 @@ public class GestionHUD : MonoBehaviour
     GameObject PnlMenu;
     GameObject PnlOptions;
     GameObject PnlBoutons;
+    GameObject PnlCrossair;
 
     Button BtnResumer;
     Button BtnOption;
@@ -21,11 +22,13 @@ public class GestionHUD : MonoBehaviour
         PnlMenu = GameObject.Find("PnlMenu");
         PnlOptions = GameObject.Find("PnlOptions");
         PnlBoutons = GameObject.Find("PnlBoutons");
+        PnlCrossair = GameObject.Find("PnlCrossair");
 
         BtnResumer = GameObject.Find("BtnResumer").GetComponent<Button>();
         BtnOption = GameObject.Find("BtnOption").GetComponent<Button>();
         BtnRetour = GameObject.Find("BtnRetour").GetComponent<Button>();
 
+        PnlCrossair.gameObject.SetActive(true);
         PnlMenu.gameObject.SetActive(false);
         BtnRetour.gameObject.SetActive(false);
         PnlOptions.gameObject.SetActive(false);
@@ -43,9 +46,12 @@ public class GestionHUD : MonoBehaviour
         }
         if ("Resumer" == Choix)
         {
+            Paused = false;
             Time.timeScale = 1.0f;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            GestionCamera.PAUSE_CAMERA = true;
+            PnlCrossair.gameObject.SetActive(true);
             PnlMenu.gameObject.SetActive(false);
             BtnRetour.gameObject.SetActive(false);
             PnlOptions.gameObject.SetActive(false);
@@ -60,9 +66,11 @@ public class GestionHUD : MonoBehaviour
         }
         if ("OpenMenu" == Choix)
         {
+            GestionCamera.PAUSE_CAMERA = false;
             Time.timeScale = 0.0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            PnlCrossair.gameObject.SetActive(false);
             PnlMenu.gameObject.SetActive(true);
             BtnRetour.gameObject.SetActive(false);
             PnlOptions.gameObject.SetActive(false);
@@ -75,17 +83,12 @@ public class GestionHUD : MonoBehaviour
     {
         if (Input.GetKeyDown("escape"))
         {
-            Paused = !(Paused);
-            if(!Paused)
+            if (!Paused)
             {
-                GestionCamera.PAUSE_CAMERA = true;
-                VerifierMenu("Resumer");
-            }
-            else
-            {
-                GestionCamera.PAUSE_CAMERA = false;
+                Paused = true;
                 VerifierMenu("OpenMenu");
             }
+
         }
     }
 }
