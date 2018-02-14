@@ -96,6 +96,10 @@ public class GestionMouvement : MonoBehaviour
             if(TientObjet)
             {
                 TientObjet = false;
+
+                ObjetTenu.transform.parent = null;
+                ObjetTenu.useGravity = true;
+
                 ObjetTenu.freezeRotation = false;
             }
             else
@@ -106,11 +110,16 @@ public class GestionMouvement : MonoBehaviour
 
         if (TientObjet) //Changer pour ne pas qu'objet clip avec les murs / autres...
         {
-            //Vérifier si l'objet a une collision et déplacer accordément par rapport aux normale(s)
+            //Vérifier si l'objet a une collision et déplacer accordément par rapport aux normale(s) ?
 
-            //ObjetTenu.transform.position = Caméra.transform.position + Caméra.transform.forward * 10;
+            ObjetTenu.transform.parent = Caméra.transform;
+            ObjetTenu.useGravity = false;
 
-            ObjetTenu.MovePosition(Caméra.transform.position + Caméra.transform.forward * 10);
+            ObjetTenu.transform.position = Caméra.transform.position + Caméra.transform.forward * 10;
+
+            ObjetTenu.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+            ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.1f);
         }
 
         Debug.Log(personnage.velocity.magnitude);
