@@ -11,6 +11,8 @@ public class GestionMouvement : MonoBehaviour
     const float CoefficientSprint = 2.5f;
     const float COEFFICIENT_CHUTE = 1.5F;
 
+    const int DISTANCE_MAX_PRISE_OBJET = 15; //La distance maximale entre le joueur et l'objet qu'il peut prendre
+
     const int VITESSE_MARCHE_MAX = 25;
     const int VITESSE_SPRINT_MAX = 35;
     int VitesseHorizontaleMax;
@@ -21,7 +23,7 @@ public class GestionMouvement : MonoBehaviour
 
     Rigidbody ObjetTenu; //Le rigidbody de l'objet que l'on tient
 
-    private Rigidbody personnage;
+    Rigidbody personnage;
 
     private Vector3 déplacementAvant;
 
@@ -108,18 +110,12 @@ public class GestionMouvement : MonoBehaviour
             }
         }
 
-        if (TientObjet) //Changer pour ne pas qu'objet clip avec les murs / autres...
+        if (TientObjet)
         {
-            //Vérifier si l'objet a une collision et déplacer accordément par rapport aux normale(s) ?
-
             ObjetTenu.transform.parent = Caméra.transform;
             ObjetTenu.useGravity = false;
-
-            ObjetTenu.transform.position = Caméra.transform.position + Caméra.transform.forward * 10;
-
-            ObjetTenu.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-
-            ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.1f);
+            
+            ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.25f);
         }
 
         Debug.Log(personnage.velocity.magnitude);
@@ -157,15 +153,15 @@ public class GestionMouvement : MonoBehaviour
         Ray ray = Caméra.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit);
 
-        if (hit.rigidbody != null)
+        if (hit.rigidbody != null && hit.distance <= DISTANCE_MAX_PRISE_OBJET)
         {
             ObjetTenu = hit.rigidbody;
         }
 
         ObjetTenu.freezeRotation = true;
 
-        TientObjet = true;
+        //ObjetTenu.gameObject.AddComponent<>
 
-        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+        TientObjet = true;
     }
 }

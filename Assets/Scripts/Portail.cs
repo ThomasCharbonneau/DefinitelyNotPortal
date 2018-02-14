@@ -16,7 +16,6 @@ public class Portail : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
         TempsDepuisDernierPassage = 0;
     }
 
@@ -33,6 +32,12 @@ public class Portail : MonoBehaviour
             
             if (portailOpposé.activeSelf && TempsDepuisDernierPassage >= DÉLAI_PASSAGE) // S'assurer que les 2 portails sont placé avant de téléporté le joueur
             {
+                if(other.tag == "Cube") //Communiquer avec la classe pour dire que ObjetTenu = false
+                {
+                    other.transform.parent = null;
+                    other.GetComponent<Rigidbody>().useGravity = true;
+                    other.GetComponent<Rigidbody>().freezeRotation = false;
+                }
                 AudioSource.PlayClipAtPoint(SonTeleportation, portailOpposé.transform.position);
 
                 //personnage.position = (new Vector3(personnage.position.x, personnage.position.y + 20, personnage.position.z));
