@@ -104,6 +104,16 @@ public class GestionMouvement : MonoBehaviour
             }
         }
 
+        if (Input.GetMouseButton(2))
+        {
+            if (TientObjet)
+            {
+                RelacherObjet();
+                //N'était pas correct quand l'objet était relaché parcequ'il traversait un portail.
+                ObjetTenu.AddForce(Caméra.transform.forward * FORCE_RELACHEMENT);
+            }
+        }
+
         if (TientObjet)
         {         
             ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.4f);
@@ -164,7 +174,5 @@ public class GestionMouvement : MonoBehaviour
         ObjetTenu.useGravity = true;
 
         ObjetTenu.freezeRotation = false;
-
-        ObjetTenu.AddForce(Caméra.transform.forward * FORCE_RELACHEMENT);
     }
 }
