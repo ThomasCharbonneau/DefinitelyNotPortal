@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class GestionMouvement : MonoBehaviour
 {
-
-    const float Vitesse = 10;
-    const float ForceSaut = 9f;
-    const float ForceDéplacement = 30f;
-    const float CoefficientSprint = 2.5f;
+    const float FORCE_RELACHEMENT = 1000f; //La froce avec laquelle l'objet tenu est relaché vers l'avant.
+    const float FORCE_SAUT = 9f;
+    const float FORCE_DÉPLACEMENT = 30f;
+    const float COEFFICIENTSPRINT = 2.5f;
     const float COEFFICIENT_CHUTE = 1.5F;
 
     const int DISTANCE_MAX_PRISE_OBJET = 15; //La distance maximale entre le joueur et l'objet qu'il peut prendre
@@ -45,19 +44,19 @@ public class GestionMouvement : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                personnage.velocity += (Vector3.up * ForceSaut);
+                personnage.velocity += (Vector3.up * FORCE_SAUT);
 
                 EstAuSol = false;
             }
 
             if (Input.GetKey("w")) //déplacement vers l'avant
             {
-                déplacementAvant = personnage.transform.forward * ForceDéplacement * Time.deltaTime;
+                déplacementAvant = personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
 
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
                     VitesseHorizontaleMax = VITESSE_SPRINT_MAX;
-                    déplacementAvant *= CoefficientSprint;
+                    déplacementAvant *= COEFFICIENTSPRINT;
                 }
                 else
                 {
@@ -69,17 +68,17 @@ public class GestionMouvement : MonoBehaviour
 
             if (Input.GetKey("a")) //déplacement de coté vers la gauche
             {
-                personnage.velocity += -personnage.transform.right * ForceDéplacement * Time.deltaTime;
+                personnage.velocity += -personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
             }
 
             if (Input.GetKey("s")) //déplacement vers l'arrière
             {
-                personnage.velocity += -personnage.transform.forward * ForceDéplacement * Time.deltaTime;
+                personnage.velocity += -personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
             }
 
             if (Input.GetKey("d")) //déplacement de coté vers la droite
             {
-                personnage.velocity += personnage.transform.right * ForceDéplacement * Time.deltaTime;
+                personnage.velocity += personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
             }
 
             //
@@ -97,12 +96,7 @@ public class GestionMouvement : MonoBehaviour
         {
             if(TientObjet)
             {
-                TientObjet = false;
-
-                ObjetTenu.transform.parent = null;
-                ObjetTenu.useGravity = true;
-
-                ObjetTenu.freezeRotation = false;
+                RelacherObjet();
             }
             else
             {
@@ -111,11 +105,8 @@ public class GestionMouvement : MonoBehaviour
         }
 
         if (TientObjet)
-        {
-            ObjetTenu.transform.parent = Caméra.transform;
-            ObjetTenu.useGravity = false;
-            
-            ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.25f);
+        {         
+            ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.4f);
         }
 
         //Debug.Log(personnage.velocity.magnitude);
@@ -156,12 +147,24 @@ public class GestionMouvement : MonoBehaviour
         if (hit.rigidbody != null && hit.distance <= DISTANCE_MAX_PRISE_OBJET)
         {
             ObjetTenu = hit.rigidbody;
+
+            ObjetTenu.transform.parent = Caméra.transform;
+            ObjetTenu.useGravity = false;
+            ObjetTenu.freezeRotation = true;
+
+            TientObjet = true;
         }
+    }
 
-        ObjetTenu.freezeRotation = true;
+    public void RelacherObjet()
+    {
+        TientObjet = false;
 
-        //ObjetTenu.gameObject.AddComponent<>
+        ObjetTenu.transform.parent = null;
+        ObjetTenu.useGravity = true;
 
-        TientObjet = true;
+        ObjetTenu.freezeRotation = false;
+
+        ObjetTenu.AddForce(Caméra.transform.forward * FORCE_RELACHEMENT);
     }
 }

@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Portail : MonoBehaviour
 {
-    public GameObject portailOpposé;
-    public GameObject portail;
+    [SerializeField] GameObject portailOpposé;
+    [SerializeField] GameObject portail;
+
+    [SerializeField] GameObject personnage;
 
     [SerializeField] AudioClip SonTeleportation;
 
-    const float DÉLAI_PASSAGE = 0.25f;
+    const float DÉLAI_PASSAGE = 0.75f;
     float TempsDepuisDernierPassage;
     
 
@@ -27,54 +30,48 @@ public class Portail : MonoBehaviour
 
  
 
-    private void OnTriggerEnter(Collider personnage)
+    private void OnTriggerEnter(Collider other)
     {
-        if (true) //other.tag == "personnage"
+        if (portailOpposé.activeSelf && TempsDepuisDernierPassage >= DÉLAI_PASSAGE) // S'assurer que les 2 portails sont placé avant de téléporté le joueur
         {
-
-            if (portailOpposé.activeSelf && TempsDepuisDernierPassage >= DÉLAI_PASSAGE) // S'assurer que les 2 portails sont placé avant de téléporté le joueur
+            if (other.transform.IsChildOf(personnage.transform))
             {
-                //if(other.tag == "Cube") //Communiquer avec la classe pour dire que ObjetTenu = false
-                //{
-                //    other.transform.parent = null;
-                //    other.GetComponent<Rigidbody>().useGravity = true;
-                //    other.GetComponent<Rigidbody>().freezeRotation = false;
-                //}
-                AudioSource.PlayClipAtPoint(SonTeleportation, portailOpposé.transform.position);
-
-                //personnage.position = (new Vector3(personnage.position.x, personnage.position.y + 20, personnage.position.z));
-                //other.transform.position = (new Vector3(other.transform.position.x, other.transform.position.y + 20, other.transform.position.z));
-
-                /*   other.GetComponent<Rigidbody>().AddForce(Vector3.back * 500);*/ //Donner le bon vecteur
-                float vitesse = personnage.GetComponent<Rigidbody>().velocity.magnitude;
-                personnage.GetComponent<Rigidbody>().velocity = portailOpposé.transform.forward;
-                Debug.Log(vitesse);
-
-                Vector3 normale = portailOpposé.transform.forward;
-
-                //vitesse = Vector3.Reflect(vitesse, normale);
-                //vitesse = portailOpposé.transform.InverseTransformDirection(vitesse);
-                //vitesse = portail.transform.TransformDirection(vitesse);
-                //other.GetComponent<Rigidbody>().velocity = vitesse;
-
-                //other.GetComponent<Rigidbody>().AddForce(vitesse, ForceMode.Acceleration);
-
-                personnage.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10); //La chose teleportée est placée un peu devant le portail.
-                //personnage.GetComponent<Rigidbody>().AddForce(normale * vitesse);
-                //other.GetComponent<Rigidbody>().velocity = vitesse;
-
-
-                //Arranger la direction en sortant... Ne fonctionne pas avec :
-                //other.GetComponentInChildren<Camera>().transform.LookAt(portailOpposé.transform.position + portailOpposé.transform.forward * 2000);
-                //other.transform.LookAt(other.transform.position + vitesse * 100);
-
-                //other.GetComponent<Rigidbody>().AddForce(vitesse.magnitude * Vector3.forward);
-
-                TempsDepuisDernierPassage = 0;
-
-                //Debug.Break();
+                personnage.GetComponent<GestionMouvement>().RelacherObjet();
             }
-        }
 
+            AudioSource.PlayClipAtPoint(SonTeleportation, portailOpposé.transform.position);
+
+            //other.position = (new Vector3(other.position.x, other.position.y + 20, other.position.z));
+            //other.transform.position = (new Vector3(other.transform.position.x, other.transform.position.y + 20, other.transform.position.z));
+
+            /*   other.GetComponent<Rigidbody>().AddForce(Vector3.back * 500);*/ //Donner le bon vecteur
+            float vitesse = other.GetComponent<Rigidbody>().velocity.magnitude;
+            other.GetComponent<Rigidbody>().velocity = portailOpposé.transform.forward;
+            Debug.Log(vitesse);
+
+            Vector3 normale = portailOpposé.transform.forward;
+
+            //vitesse = Vector3.Reflect(vitesse, normale);
+            //vitesse = portailOpposé.transform.InverseTransformDirection(vitesse);
+            //vitesse = portail.transform.TransformDirection(vitesse);
+            //other.GetComponent<Rigidbody>().velocity = vitesse;
+
+            //other.GetComponent<Rigidbody>().AddForce(vitesse, ForceMode.Acceleration);
+
+            other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 5); //La chose teleportée est placée un peu devant le portail.
+                                                                                                                  //other.GetComponent<Rigidbody>().AddForce(normale * vitesse);
+                                                                                                                  //other.GetComponent<Rigidbody>().velocity = vitesse;
+
+
+            //Arranger la direction en sortant... Ne fonctionne pas avec :
+            //other.GetComponentInChildren<Camera>().transform.LookAt(portailOpposé.transform.position + portailOpposé.transform.forward * 2000);
+            //other.transform.LookAt(other.transform.position + vitesse * 100);
+
+            //other.GetComponent<Rigidbody>().AddForce(vitesse.magnitude * Vector3.forward);
+
+            TempsDepuisDernierPassage = 0;
+
+            //Debug.Break();
+        }
     }
 }
