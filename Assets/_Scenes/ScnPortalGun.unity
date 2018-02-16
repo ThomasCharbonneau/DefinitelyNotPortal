@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "portailOppos\xE9": {fileID: 495878375}
   portail: {fileID: 44558514}
+  personnage: {fileID: 0}
   SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
 --- !u!65 &44558516
 BoxCollider:
@@ -292,6 +293,7 @@ GameObject:
   - component: {fileID: 163632440}
   - component: {fileID: 163632439}
   - component: {fileID: 163632443}
+  - component: {fileID: 163632444}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -386,6 +388,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19ee8ed5378cbf546b52027df26c086d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &163632444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 163632438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93f713ded5f66d43bd9409d1ec43a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &221268402
@@ -1096,6 +1109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "portailOppos\xE9": {fileID: 44558514}
   portail: {fileID: 495878375}
+  personnage: {fileID: 0}
   SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
 --- !u!1 &531725058
 GameObject:
