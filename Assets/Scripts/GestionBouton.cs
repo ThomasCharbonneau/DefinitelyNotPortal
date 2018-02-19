@@ -17,4 +17,19 @@ public class GestionBouton : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Cube")
+        {
+            InverserGravité();
+            
+            //other.transform.localEulerAngles = new Vector3(0, other.transform.localEulerAngles.y, other.transform.localEulerAngles.z + 180);
+            Debug.Log(" J'ai inversé la gravité");
+            
+            
+        
+        }
+        
+    }
 }

@@ -44,7 +44,8 @@ public class GestionMouvement : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                personnage.velocity += (Vector3.up * FORCE_SAUT);
+               
+                personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
 
                 EstAuSol = false;
             }
@@ -174,5 +175,21 @@ public class GestionMouvement : MonoBehaviour
         ObjetTenu.useGravity = true;
 
         ObjetTenu.freezeRotation = false;
+    }
+
+    protected void LateUpdate()
+    {
+        Debug.Log(transform.localEulerAngles.z);
+        if (Physics.gravity.y > 0)
+        {
+            transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 180);
+            
+        }
+        else
+        {
+            transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+            
+        }
+
     }
 }
