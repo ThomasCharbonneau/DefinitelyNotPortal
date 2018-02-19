@@ -23,8 +23,9 @@ public class GestionBouton : MonoBehaviour {
         if (other.tag == "Cube")
         {
             InverserGravité();
-            
+
             //other.transform.localEulerAngles = new Vector3(0, other.transform.localEulerAngles.y, other.transform.localEulerAngles.z + 180);
+            other.GetComponentInChildren<Camera>().transform.Rotate(new Vector3(0, 0, 180));
             Debug.Log(" J'ai inversé la gravité");
             
             

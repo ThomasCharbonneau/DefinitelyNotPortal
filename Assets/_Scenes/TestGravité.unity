@@ -391,6 +391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ee8ed5378cbf546b52027df26c086d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  "SliderSensitivit\xE9": {fileID: 0}
+  SliderSon: {fileID: 0}
 --- !u!114 &163632444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,6 +1403,34 @@ Prefab:
     - target: {fileID: 54964547510989570, guid: 555564ceb8c4e0242b030c9fa2637ef9,
         type: 2}
       propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529829475911328, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529829475911328, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529829475911328, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529829475911328, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529829475911328, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529829475911328, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529829475911328, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

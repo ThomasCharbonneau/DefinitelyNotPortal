@@ -179,10 +179,12 @@ public class GestionMouvement : MonoBehaviour
 
     protected void LateUpdate()
     {
-        Debug.Log(transform.localEulerAngles.z);
+        
         if (Physics.gravity.y > 0)
         {
             transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 180);
+      
+           
             
         }
         else
