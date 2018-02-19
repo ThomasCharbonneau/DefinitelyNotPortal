@@ -2,17 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Mode { PATROUILLE, ATTAQUE }
+
 public class GestionDrone : MonoBehaviour
 {
     [SerializeField] GameObject joueur;
 
     Rigidbody drone;
+    Collider colliderDrone;
+
+    Mode mode;
+
+    const int HAUTEUR_NORMALE = 10; //La hauteur par défaut à laquelle le drone flotte
+    const float MAX_DISTANCE_DELTA = 0.5f;
+
+    const int DISTANCE_LASER_MAX = 15; //La distance maximale à laquelle un dorne peut tirer un laser
 
     // Use this for initialization
     void Start ()
     {
         drone = GetComponent<Rigidbody>();
-	}
+        colliderDrone = GetComponent<Collider>();
+
+        mode = 0;
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -22,13 +35,32 @@ public class GestionDrone : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //transform.LookAt(joueur.transform.position);
         transform.forward = Vector3.RotateTowards(transform.forward, joueur.transform.position - transform.position, 0.25f, 0.25f);
+
+        GérerHauteur();
+
+        switch (mode)
+        {
+            case Mode.PATROUILLE:
+                Patrouiller();
+
+                break;
+
+            case Mode.ATTAQUE:
+                GérerAttaque();
+
+                break;
+        }
+
+    }
+
+    void GérerHauteur()
+    {
 
         RaycastHit hitSol;
         RaycastHit hitPlafond;
-        Ray raySol = new Ray(transform.position, Vector3.down);
-        Ray rayPlafond = new Ray(transform.position, Vector3.up);
+        Ray raySol = new Ray(colliderDrone.ClosestPointOnBounds(transform.position + Vector3.down * 100), Vector3.down); //Pourrait améliorer écriture
+        Ray rayPlafond = new Ray(colliderDrone.ClosestPointOnBounds(transform.position + Vector3.up * 100), Vector3.up);
         Physics.Raycast(raySol, out hitSol);
         Physics.Raycast(rayPlafond, out hitPlafond);
 
@@ -36,18 +68,36 @@ public class GestionDrone : MonoBehaviour
 
         if (hitSol.collider != null)
         {
-            if (Vector3.Distance(transform.position, hitSol.point) < 15)
+            if (Vector3.Distance(hitSol.point, hitPlafond.point) <= 2 * HAUTEUR_NORMALE)
             {
-                drone.AddForce(Vector3.up * 10);
+                drone.transform.position = Vector3.MoveTowards(drone.transform.position, hitSol.point + (Vector3.up * Vector3.Distance(hitPlafond.point, hitSol.point) / 2), MAX_DISTANCE_DELTA);
+            }
+            else //(Vector3.Distance(transform.position, hitSol.point) < HAUTEUR_NORMALE)
+            {
+                drone.transform.position = Vector3.MoveTowards(drone.transform.position, hitSol.point + Vector3.up * HAUTEUR_NORMALE, MAX_DISTANCE_DELTA);
             }
         }
+    }
 
-        if (hitPlafond.collider != null)
+    /// <summary>
+    /// Fonction qui détermine la position latérale du drone selon un chemin de patrouille prédéterminé
+    /// </summary>
+    void Patrouiller()
+    {
+
+    }
+
+    void GérerAttaque()
+    {
+        //...
+        if(Vector3.Distance(transform.position, joueur.transform.position) <= DISTANCE_LASER_MAX)
         {
-            if (Vector3.Distance(transform.position, hitPlafond.point) < 15)
-            {
-                drone.AddForce(Vector3.down * 10);
-            }
+            TirerLaser();
         }
+    }
+
+    void TirerLaser()
+    {
+        
     }
 }
