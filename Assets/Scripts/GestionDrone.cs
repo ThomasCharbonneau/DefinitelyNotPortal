@@ -10,6 +10,7 @@ public class GestionDrone : MonoBehaviour
 
     Rigidbody drone;
     Collider colliderDrone;
+    LineRenderer lineRenderer;
 
     Mode mode;
 
@@ -23,6 +24,7 @@ public class GestionDrone : MonoBehaviour
     {
         drone = GetComponent<Rigidbody>();
         colliderDrone = GetComponent<Collider>();
+        lineRenderer = GetComponent<LineRenderer>();
 
         mode = 0;
     }
@@ -59,7 +61,7 @@ public class GestionDrone : MonoBehaviour
 
         RaycastHit hitSol;
         RaycastHit hitPlafond;
-        Ray raySol = new Ray(colliderDrone.ClosestPointOnBounds(transform.position + Vector3.down * 100), Vector3.down); //Pourrait améliorer écriture
+        Ray raySol = new Ray(colliderDrone.ClosestPointOnBounds(transform.position + Vector3.down * 100), Vector3.down); //Pourrait améliorer écriture...
         Ray rayPlafond = new Ray(colliderDrone.ClosestPointOnBounds(transform.position + Vector3.up * 100), Vector3.up);
         Physics.Raycast(raySol, out hitSol);
         Physics.Raycast(rayPlafond, out hitPlafond);
@@ -98,6 +100,12 @@ public class GestionDrone : MonoBehaviour
 
     void TirerLaser()
     {
-        
+        Vector3[] TableauPoints = new Vector3[] { transform.position, joueur.transform.position };
+
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, (joueur.transform.position - transform.position); //Pourrait améliorer écriture...
+        Physics.Raycast(ray, out hit);
+
+        //lineRenderer.
     }
 }

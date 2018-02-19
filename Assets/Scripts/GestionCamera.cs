@@ -15,7 +15,7 @@ public class GestionCamera : MonoBehaviour
 	void Start ()
     {
         PAUSE_CAMERA = true;
-        personnage = this.transform.parent.gameObject;
+        personnage = transform.parent.gameObject;
 
         Cursor.lockState = CursorLockMode.Locked;
     }

@@ -44,7 +44,7 @@ public class GestionPortalGun : MonoBehaviour
     void TirerPortail(GameObject portail) //Mettre une entrant qui dit quel portail tirer // void TirerPortail(GameObject portail)
     {
         RaycastHit hit;
-        Ray ray = Caméra.ScreenPointToRay(Input.mousePosition);
+        Ray ray = new Ray(Caméra.transform.position, Caméra.transform.forward);
         Physics.Raycast(ray, out hit);
 
         if (hit.collider == null)
