@@ -14,10 +14,18 @@ public class GestionDrone : MonoBehaviour
 
     Mode mode;
 
+    bool laserTiré; //Si un laser est présentement dans l'environnement ou non
+    float tempsDepuisTirLaser;
+
+    const float DÉLAI_RECHARGE_TIR_LASER = 2.5f;
+    const float TEMPS_TIR_LASER = 0.5f; //Le temps pour lequel un laser reste actif
+    const int DISTANCE_LASER_MAX = 25; //La distance maximale à laquelle un drone peut être pour tirer un laser
+
     const int HAUTEUR_NORMALE = 10; //La hauteur par défaut à laquelle le drone flotte
     const float MAX_DISTANCE_DELTA = 0.5f;
 
-    const int DISTANCE_LASER_MAX = 15; //La distance maximale à laquelle un dorne peut tirer un laser
+    const int NB_DEGRÉS_FOV = 75;
+    const int DISTANCE_VISION_MAX = 35; //La distance maximale à laquelle le drone peut appercevoir le joueur
 
     // Use this for initialization
     void Start ()
@@ -26,7 +34,10 @@ public class GestionDrone : MonoBehaviour
         colliderDrone = GetComponent<Collider>();
         lineRenderer = GetComponent<LineRenderer>();
 
-        mode = 0;
+        mode = Mode.PATROUILLE;
+
+        laserTiré = false;
+        tempsDepuisTirLaser = 0;
     }
 	
 	// Update is called once per frame
@@ -39,16 +50,18 @@ public class GestionDrone : MonoBehaviour
     {
         transform.forward = Vector3.RotateTowards(transform.forward, joueur.transform.position - transform.position, 0.25f, 0.25f);
 
-        GérerHauteur();
+        GérerHauteurAutomatique();
 
         switch (mode)
         {
             case Mode.PATROUILLE:
                 Patrouiller();
 
+
                 break;
 
             case Mode.ATTAQUE:
+
                 GérerAttaque();
 
                 break;
@@ -56,7 +69,7 @@ public class GestionDrone : MonoBehaviour
 
     }
 
-    void GérerHauteur()
+    void GérerHauteurAutomatique()
     {
 
         RaycastHit hitSol;
@@ -86,26 +99,95 @@ public class GestionDrone : MonoBehaviour
     /// </summary>
     void Patrouiller()
     {
+        if(VoitJoueur())
+        {
+            mode = Mode.ATTAQUE;
+            Debug.Log("Le joueur est visible");
+        }
+        else
+        {
+            //Utiliser DéplacerVersPoint déjà codé
+        }
+    }
+
+    bool VoitJoueur()
+    {
+        bool voitJoueur = false;
+
+        if(Vector3.Angle(transform.forward, joueur.transform.position - transform.position) <= (float)NB_DEGRÉS_FOV / 2 && Vector3.Distance(transform.position, joueur.transform.position) <= DISTANCE_VISION_MAX)
+        {
+
+            //Vérification que le joueur n'est pas caché derrière un objet
+
+            RaycastHit hit;
+            Ray ray = new Ray(transform.position, joueur.transform.position - transform.position);
+            Physics.Raycast(ray, out hit);
+
+            if (hit.rigidbody.gameObject == joueur)
+            {
+                voitJoueur = true;
+            }
+        }
+
+        return voitJoueur;
 
     }
 
     void GérerAttaque()
     {
         //...
-        if(Vector3.Distance(transform.position, joueur.transform.position) <= DISTANCE_LASER_MAX)
+        if(Vector3.Distance(transform.position, joueur.transform.position) <= DISTANCE_LASER_MAX && tempsDepuisTirLaser >= DÉLAI_RECHARGE_TIR_LASER)
         {
             TirerLaser();
+            tempsDepuisTirLaser = 0;
         }
+
+        if(laserTiré && tempsDepuisTirLaser >= TEMPS_TIR_LASER)
+        {
+            ArrêterLaser();
+            laserTiré = false;
+        }
+
+        tempsDepuisTirLaser += Time.deltaTime;
     }
 
     void TirerLaser()
     {
-        Vector3[] TableauPoints = new Vector3[] { transform.position, joueur.transform.position };
+        //Vector3[] TableauPoints = new Vector3[] { transform.position, joueur.transform.position };
 
-        RaycastHit hit;
-        Ray ray = new Ray(transform.position, (joueur.transform.position - transform.position); //Pourrait améliorer écriture...
-        Physics.Raycast(ray, out hit);
+        //RaycastHit hit;
+        //Ray ray = new Ray(transform.position, (joueur.transform.position - transform.position)); //Pourrait améliorer écriture...
+        //Physics.Raycast(ray, out hit);
+
+        //lineRenderer.startWidth = 1;
+        //lineRenderer.endWidth = 1;
+
+        //lineRenderer.SetPosition(10, joueur.transform.position);
+
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(0, transform.position + (3f)*transform.forward -(1.20f)*transform.up);
+        lineRenderer.startWidth = 0.5f;
+        lineRenderer.endWidth = 0.5f;
+        lineRenderer.SetPosition(1, joueur.transform.position);
+
+        Debug.Log(lineRenderer.isVisible);
+
+        laserTiré = true;
+
+        Debug.Break();
 
         //lineRenderer.
+    }
+
+    void ArrêterLaser()
+    {
+        lineRenderer.positionCount = 0;
+    }
+
+    void DéplacerVersPoint(Vector2 pointÀAtteindre)
+    {
+        transform.LookAt(new Vector3(pointÀAtteindre.x, transform.position.y, pointÀAtteindre.y));
+
+        transform.position = Vector3.MoveTowards(transform.position, pointÀAtteindre, MAX_DISTANCE_DELTA);
     }
 }
