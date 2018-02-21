@@ -44,20 +44,21 @@ public class GestionPortalGun : MonoBehaviour
     void TirerPortail(GameObject portail) //Mettre une entrant qui dit quel portail tirer // void TirerPortail(GameObject portail)
     {
         RaycastHit hit;
-        Ray ray;
-        ray = new Ray(Caméra.transform.position, Caméra.transform.forward);
-        if (Physics.gravity.y < 0)
-        {
-            ray = new Ray(Caméra.transform.position, Caméra.transform.forward);
-            
-        }
-        else
-        {
-            Debug.Log("TIR" + Caméra.transform.position);
-            ray = new Ray(Caméra.transform.position, new Vector3(Caméra.transform.forward.x, Caméra.transform.forward.y * -1, Caméra.transform.forward.z));
-        }
 
+        Ray ray = new Ray(GetComponentInParent<Camera>().transform.position, Caméra.transform.forward);
 
+        //Ray ray = new Ray(Caméra.transform.position, Caméra.transform.forward);
+
+        //if (Physics.gravity.y < 0)
+        //{
+        //    ray = new Ray(Caméra.transform.position, Caméra.transform.forward);
+
+        //}
+        //else
+        //{
+        //    Debug.Log("Origine tir : " + Caméra.transform.position);
+        //    ray = new Ray(Caméra.transform.position, new Vector3(Caméra.transform.forward.x, Caméra.transform.forward.y * -1, Caméra.transform.forward.z));
+        //}
    
         Physics.Raycast(ray, out hit);
 
@@ -72,11 +73,11 @@ public class GestionPortalGun : MonoBehaviour
 
             portail.transform.position = hit.point;
             portail.transform.LookAt(hit.point + hit.normal);
-           
+            
             
             TempsDepuisDernierTir = 0;
         }
         Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
-        Debug.Break();
+        //Debug.Break();
     }
 }

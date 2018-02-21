@@ -391,8 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ee8ed5378cbf546b52027df26c086d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "SliderSensitivit\xE9": {fileID: 0}
-  SliderSon: {fileID: 0}
+  CanvasControlleur: {fileID: 0}
 --- !u!114 &163632444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +403,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93f713ded5f66d43bd9409d1ec43a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  "SliderSensitivit\xE9": {fileID: 0}
+  SliderSon: {fileID: 0}
+  personnage: {fileID: 0}
 --- !u!1 &221268402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,6 +1434,11 @@ Prefab:
     - target: {fileID: 4529829475911328, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114537473515706732, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: "Sensitivit\xE9"
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}

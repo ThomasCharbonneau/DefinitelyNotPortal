@@ -38,7 +38,7 @@ public class GestionMouvement : MonoBehaviour
 
     void FixedUpdate()
     {
-        RendreSautRéaliste();
+        //RendreSautRéaliste();
         
         if (EstAuSol)
         {
@@ -182,14 +182,17 @@ public class GestionMouvement : MonoBehaviour
         
         if (Physics.gravity.y > 0)
         {
-            transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 180);
-      
-           
-            
+            transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 180));
+
+            //transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 180);
+
+
+
         }
         else
         {
-            transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+            transform.rotation = Quaternion.Euler(new Vector3(0, transform.localEulerAngles.y, 0));
+            //transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
             
         }
         Debug.Log(Caméra.transform.position);

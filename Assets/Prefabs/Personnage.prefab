@@ -2098,7 +2098,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EstAuSol: 0
-  Sol: {fileID: 0}
+  TientObjet: 0
+  "Cam\xE9ra": {fileID: 0}
 --- !u!114 &114351959307232994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2110,7 +2111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6448307db90e64db2f5e105d4aca2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SonTirPortal: {fileID: 0}
   "Cam\xE9ra": {fileID: 20082536506674630}
+  portalBleu: {fileID: 0}
   portalOrange: {fileID: 0}
 --- !u!114 &114537473515706732
 MonoBehaviour:
@@ -2123,6 +2126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833e3a686b7fa3d409030991882ade5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  "Sensitivit\xE9": 1
 --- !u!124 &124023253448508780
 Behaviour:
   m_ObjectHideFlags: 1

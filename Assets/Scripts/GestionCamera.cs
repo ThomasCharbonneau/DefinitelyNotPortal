@@ -32,9 +32,12 @@ public class GestionCamera : MonoBehaviour
             AdoucirCamera.x = Mathf.Lerp(AdoucirCamera.x, VariationSouris.x, 1f / FacteurAdoucir);
             AdoucirCamera.y = Mathf.Lerp(AdoucirCamera.y, VariationSouris.y, 1f / FacteurAdoucir);
             Vision += AdoucirCamera;
-
-            transform.localRotation = Quaternion.AngleAxis(-Vision.y, Vector3.right);
-            personnage.transform.localRotation = Quaternion.AngleAxis(Vision.x, personnage.transform.up);
+            
+            //if(Input.GetKey("q"))
+            {
+                transform.localRotation = Quaternion.AngleAxis(-Vision.y, Vector3.right);
+                personnage.transform.localRotation = Quaternion.AngleAxis(Vision.x, personnage.transform.up);
+            }
         }
 
 
