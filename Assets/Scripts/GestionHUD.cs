@@ -10,11 +10,11 @@ public class GestionHUD : MonoBehaviour
     GameObject PnlBoutons;
     GameObject PnlCrossair;
 
+    public Canvas CanvasControlleur;
+    GestionSauvegarde SauvegardeControlleur;
     Button BtnResumer;
     Button BtnOption;
     Button BtnRetour;
-    public Slider SliderSensitivité;
-    public Slider SliderSon;
     bool ValeurMiseAjour;
     bool Paused;
 
@@ -29,9 +29,13 @@ public class GestionHUD : MonoBehaviour
         BtnResumer = GameObject.Find("BtnResumer").GetComponent<Button>();
         BtnOption = GameObject.Find("BtnOption").GetComponent<Button>();
         BtnRetour = GameObject.Find("BtnRetour").GetComponent<Button>();
+        CanvasControlleur = GetComponent<Canvas>();
+        SauvegardeControlleur = CanvasControlleur.GetComponent<GestionSauvegarde>();
 
-        SliderSensitivité = GetComponent<Slider>();
-        SliderSon = GetComponent<Slider>();
+       // SauvegardeControlleur.LoadSettings();
+
+
+
 
         PnlCrossair.gameObject.SetActive(true);
         PnlMenu.gameObject.SetActive(false);
@@ -83,6 +87,7 @@ public class GestionHUD : MonoBehaviour
         }
         if ("Sauvegarder" == Choix)
         {
+            SauvegardeControlleur.SaveSettings();
             //ListeSettings[1] = SliderSensitivité.value.ToString();
             //ListeSettings[2] = SliderSon.value.ToString();
         }
