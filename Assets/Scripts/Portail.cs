@@ -61,9 +61,9 @@ public class Portail : MonoBehaviour
 
             //other.GetComponent<Rigidbody>().AddForce(vitesse, ForceMode.Acceleration);
 
-            other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10); //La chose teleportée est placée un peu devant le portail.
-                                                                                                                 //other.GetComponent<Rigidbody>().AddForce(normale * vitesse);
-                                                                                                                 //other.GetComponent<Rigidbody>().velocity = vitesse;
+            other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10);//La chose teleportée est placée un peu devant le portail.
+            other.GetComponent<Rigidbody>().AddForce(normale * vitesse, ForceMode.Acceleration);
+            //other.GetComponent<Rigidbody>().velocity = vitesse;
 
 
             //Arranger la direction en sortant... Ne fonctionne pas avec :
