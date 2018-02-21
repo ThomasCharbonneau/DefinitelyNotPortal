@@ -6,7 +6,7 @@ public class GestionCamera : MonoBehaviour
 {
     Vector2 Vision;
     Vector2 AdoucirCamera;
-    float Sensitivité = 4f;
+    public float Sensitivité;
     float FacteurAdoucir = 2.5f;
     GameObject personnage;
     public static bool PAUSE_CAMERA;

@@ -103,7 +103,7 @@ public class GestionDrone : MonoBehaviour
         Vector3[] TableauPoints = new Vector3[] { transform.position, joueur.transform.position };
 
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, (joueur.transform.position - transform.position); //Pourrait améliorer écriture...
+        Ray ray = new Ray(transform.position, (joueur.transform.position - transform.position)); //Pourrait améliorer écriture...
         Physics.Raycast(ray, out hit);
 
         //lineRenderer.
