@@ -5,6 +5,7 @@ using UnityEngine;
 public class GestionPortalGun : MonoBehaviour
 {
     [SerializeField] AudioClip SonTirPortal;
+    [SerializeField] AudioClip SonSurfaceInvalide;
 
     [SerializeField] Camera Caméra;
 
@@ -66,17 +67,20 @@ public class GestionPortalGun : MonoBehaviour
         {
             portail.SetActive(false);
         }
-        else if (hit.collider.CompareTag("Sol") || hit.collider.CompareTag("Mur")) //Il faudrait trouver un moyen de simplifier avant d'avoir trop de tags
+        else
         {
-            AudioSource.PlayClipAtPoint(SonTirPortal, transform.position);
-            portail.SetActive(true);
+            if (hit.collider.CompareTag("Sol") || hit.collider.CompareTag("Mur")) //Il faudrait trouver un moyen de simplifier avant d'avoir trop de tags
+            {
+                AudioSource.PlayClipAtPoint(SonTirPortal, transform.position);
+                portail.SetActive(true);
 
-            portail.transform.position = hit.point;
-            portail.transform.LookAt(hit.point + hit.normal);
-            
-            
-            TempsDepuisDernierTir = 0;
+                portail.transform.position = hit.point;
+                portail.transform.LookAt(hit.point + hit.normal);
+
+                TempsDepuisDernierTir = 0;
+            }
         }
+
         Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
         //Debug.Break();
     }
