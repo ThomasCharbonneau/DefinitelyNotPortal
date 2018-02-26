@@ -33,7 +33,7 @@ public class GestionDrone : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        pistePatrouille = new DataPistePatrouille();
+        //pistePatrouille = new DataPistePatrouille();
 
         drone = GetComponent<Rigidbody>();
         colliderDrone = GetComponent<Collider>();
@@ -48,6 +48,7 @@ public class GestionDrone : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+
     }
 
     private void FixedUpdate()

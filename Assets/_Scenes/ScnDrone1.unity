@@ -391,8 +391,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ee8ed5378cbf546b52027df26c086d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "SliderSensitivit\xE9": {fileID: 0}
-  SliderSon: {fileID: 0}
+  CanvasControlleur: {fileID: 163632441}
+  "SldSensitivit\xE9": {fileID: 1964565648}
+  SldSon: {fileID: 1058881941}
+  "Cam\xE9ra": {fileID: 300732862}
 --- !u!114 &163632444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1677,6 +1679,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1045044491}
+--- !u!114 &1058881941 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114237706810393410, guid: 715935baf3b8ed348a8841f14d7a7b17,
+    type: 2}
+  m_PrefabInternal: {fileID: 447891424}
+  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1408211969
 GameObject:
   m_ObjectHideFlags: 0
@@ -2220,6 +2228,7 @@ GameObject:
   - component: {fileID: 1889728770}
   - component: {fileID: 1889728769}
   - component: {fileID: 1889728768}
+  - component: {fileID: 1889728772}
   m_Layer: 0
   m_Name: Sol
   m_TagString: Sol
@@ -2295,6 +2304,23 @@ Transform:
   m_Father: {fileID: 1476053924}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1889728772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1889728767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7f5ffea40b5da4f809a4ae44085641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1964565648 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114198498142737602, guid: 715935baf3b8ed348a8841f14d7a7b17,
+    type: 2}
+  m_PrefabInternal: {fileID: 447891424}
+  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &2053709124
 GameObject:
   m_ObjectHideFlags: 0
