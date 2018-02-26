@@ -211,10 +211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a39fcdc1e969cb43bcc0a9d1d0e5746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "portailOppos\xE9": {fileID: 0}
-  portail: {fileID: 0}
-  personnage: {fileID: 0}
-  SonTeleportation: {fileID: 0}
+  "portailOppos\xE9": {fileID: 495878375}
+  portail: {fileID: 44558514}
+  personnage: {fileID: 836297821}
+  SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
   "pass\xE9DansFrame": 0
 --- !u!65 &44558516
 BoxCollider:
@@ -392,6 +392,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasControlleur: {fileID: 163632441}
+  "SldSensitivit\xE9": {fileID: 723591549}
+  SldSon: {fileID: 1606804082}
+  "Cam\xE9ra": {fileID: 300732862}
 --- !u!114 &163632444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,9 +406,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93f713ded5f66d43bd9409d1ec43a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "SliderSensitivit\xE9": {fileID: 723591549}
-  SliderSon: {fileID: 1606804082}
-  camera: {fileID: 300732862}
 --- !u!1 &221268402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,10 +1204,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a39fcdc1e969cb43bcc0a9d1d0e5746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "portailOppos\xE9": {fileID: 0}
-  portail: {fileID: 0}
-  personnage: {fileID: 0}
-  SonTeleportation: {fileID: 0}
+  "portailOppos\xE9": {fileID: 44558514}
+  portail: {fileID: 495878375}
+  personnage: {fileID: 836297821}
+  SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
   "pass\xE9DansFrame": 0
 --- !u!1 &531725058
 GameObject:
@@ -1518,6 +1518,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 447891424}
   m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!1 &836297821 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1264821272808600, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+    type: 2}
+  m_PrefabInternal: {fileID: 555110758}
 --- !u!1 &845487722
 GameObject:
   m_ObjectHideFlags: 0

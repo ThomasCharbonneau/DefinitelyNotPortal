@@ -17,10 +17,15 @@ public class GestionHUD : MonoBehaviour
     Button BtnRetour;
     bool ValeurMiseAjour;
     bool Paused;
+    [SerializeField] Slider SldSensitivité;
+    [SerializeField] Slider SldSon;
+    [SerializeField] Camera Caméra;
+    GestionCamera cameraControlleur;
 
     // Use this for initialization
     void Start()
     {
+        cameraControlleur = Caméra.GetComponent<GestionCamera>();
         PnlMenu = GameObject.Find("PnlMenu");
         PnlOptions = GameObject.Find("PnlOptions");
         PnlBoutons = GameObject.Find("PnlBoutons");
@@ -32,9 +37,9 @@ public class GestionHUD : MonoBehaviour
 
         CanvasControlleur = GetComponent<Canvas>();
         SauvegardeControlleur = CanvasControlleur.GetComponent<GestionSauvegarde>();
-       // SauvegardeControlleur.InitialisationJeu();
 
 
+        InitialisationDesParametres();
 
 
         PnlCrossair.gameObject.SetActive(true);
@@ -44,6 +49,19 @@ public class GestionHUD : MonoBehaviour
         PnlBoutons.gameObject.SetActive(false);
         Paused = false;
     }
+    public void InitialisationDesParametres()
+    {
+        SldSensitivité.value = float.Parse(SauvegardeControlleur.ListeSettings[1]);
+        SldSon.value = float.Parse(SauvegardeControlleur.ListeSettings[2]);
+        cameraControlleur.Sensitivité = float.Parse(SauvegardeControlleur.ListeSettings[1]);
+    }
+    public void SauvegardeDesSettings()
+    {
+        SauvegardeControlleur.ListeSettings[1] = SldSensitivité.value.ToString();
+        SauvegardeControlleur.ListeSettings[2] = SldSon.value.ToString();
+        SauvegardeControlleur.SaveSettings();
+        InitialisationDesParametres();
+    }
     public void VerifierMenu(string Choix)
     {
         if ("Options" == Choix)
@@ -52,7 +70,7 @@ public class GestionHUD : MonoBehaviour
             BtnRetour.gameObject.SetActive(true);
             PnlOptions.gameObject.SetActive(true);
             PnlBoutons.gameObject.SetActive(false);
-           // SauvegardeControlleur.LoadSettings();
+            InitialisationDesParametres();
         }
         if ("Resumer" == Choix)
         {
@@ -60,7 +78,7 @@ public class GestionHUD : MonoBehaviour
             Time.timeScale = 1.0f;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            GestionCamera.PAUSE_CAMERA = true;
+            GestionCamera.PAUSE_CAMERA = false;
             PnlCrossair.gameObject.SetActive(true);
             PnlMenu.gameObject.SetActive(false);
             BtnRetour.gameObject.SetActive(false);
@@ -76,7 +94,7 @@ public class GestionHUD : MonoBehaviour
         }
         if ("OpenMenu" == Choix)
         {
-            GestionCamera.PAUSE_CAMERA = false;
+            GestionCamera.PAUSE_CAMERA = true;
             Time.timeScale = 0.0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -88,7 +106,11 @@ public class GestionHUD : MonoBehaviour
         }
         if ("Sauvegarder" == Choix)
         {
-           // SauvegardeControlleur.SaveSettings();
+            SauvegardeDesSettings();
+        }
+        if ("SaveGame" == Choix)
+        {
+           //A FAIRE
         }
     }
 
