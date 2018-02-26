@@ -19,12 +19,13 @@ public class GestionHUD : MonoBehaviour
     bool Paused;
     [SerializeField] Slider SldSensitivité;
     [SerializeField] Slider SldSon;
-    [SerializeField] Camera Caméra;
+    Camera Caméra;
     GestionCamera cameraControlleur;
 
     // Use this for initialization
     void Start()
     {
+        Caméra = GameObject.Find("Caméra").GetComponent<Camera>();
         cameraControlleur = Caméra.GetComponent<GestionCamera>();
         PnlMenu = GameObject.Find("PnlMenu");
         PnlOptions = GameObject.Find("PnlOptions");
