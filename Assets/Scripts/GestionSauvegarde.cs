@@ -6,45 +6,43 @@ using UnityEngine.UI;
 
 public class GestionSauvegarde : MonoBehaviour
 {
-
-    const string CHEMIN = "../";
+    //Faire un test pour voir si lecriture du fichier se fait correctement
+    //Creer Une fonction dans Camera ?
     const string nomDuFichier = "SavedSettings.txt";
 
     public Slider SliderSensitivité;
     public Slider SliderSon;
 
-    public GameObject personnage;
+    [SerializeField] Camera camera;
     GestionCamera cameraControlleur;
     public List<string> ListeSettings { get; set; }
 // Use this for initialization
 void Start()
     {
-        SliderSensitivité = GetComponent<Slider>();
-        SliderSon = GetComponent<Slider>();
-
-        personnage = GetComponent<GameObject>();
-        cameraControlleur = personnage.GetComponent<GestionCamera>();
 
         ListeSettings = new List<string>();
-        if (!File.Exists(CHEMIN + nomDuFichier))
+        SliderSensitivité = GetComponent<Slider>();
+        SliderSon = GetComponent<Slider>();
+        cameraControlleur = camera.GetComponent<GestionCamera>();
+        if (!File.Exists(nomDuFichier))
         {
             GenerationSettingsDeBase();
         }
+
     }
 
 
     public void SaveSettings()
     {
-        StreamWriter Sauvegarde = new StreamWriter(CHEMIN + nomDuFichier);
+        StreamWriter Sauvegarde = new StreamWriter(nomDuFichier);
         Sauvegarde.WriteLine("Niveau Sauvegarder ={0}", ListeSettings[0]);
         Sauvegarde.WriteLine("Sensibilité ={0}", ListeSettings[1]);
         Sauvegarde.WriteLine("Son ={0}", ListeSettings[2]);
         Sauvegarde.Close();
-        LoadSettings();
     }
     public void GenerationSettingsDeBase()
     {
-        StreamWriter FichierDeBase = new StreamWriter(CHEMIN + nomDuFichier);
+        StreamWriter FichierDeBase = new StreamWriter(nomDuFichier);
         FichierDeBase.WriteLine("Niveau Sauvegarder =0");
         FichierDeBase.WriteLine("Sensibilité =4");
         FichierDeBase.WriteLine("Son =5");
@@ -56,7 +54,7 @@ void Start()
         string lignelue;
         char[] separateur = new char[] { '=' };
         string[] chaineDelaLigneLue;
-        StreamReader fichierLue = new StreamReader(CHEMIN + nomDuFichier, System.Text.Encoding.UTF7);
+        StreamReader fichierLue = new StreamReader(nomDuFichier, System.Text.Encoding.UTF7);
         while (!fichierLue.EndOfStream)
         {
             lignelue = fichierLue.ReadLine();
@@ -65,8 +63,7 @@ void Start()
         }
         SliderSensitivité.value = float.Parse(ListeSettings[1]);
         SliderSon.value = float.Parse(ListeSettings[2]);
-        cameraControlleur.Sensitivité = float.Parse(ListeSettings[1]);
-
+        //cameraControlleur.Sensitivité = float.Parse(ListeSettings[1]);
         fichierLue.Close();
     }
 

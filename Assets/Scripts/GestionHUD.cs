@@ -29,10 +29,10 @@ public class GestionHUD : MonoBehaviour
         BtnResumer = GameObject.Find("BtnResumer").GetComponent<Button>();
         BtnOption = GameObject.Find("BtnOption").GetComponent<Button>();
         BtnRetour = GameObject.Find("BtnRetour").GetComponent<Button>();
+
         CanvasControlleur = GetComponent<Canvas>();
         SauvegardeControlleur = CanvasControlleur.GetComponent<GestionSauvegarde>();
-
-       // SauvegardeControlleur.LoadSettings();
+       // SauvegardeControlleur.InitialisationJeu();
 
 
 
@@ -52,6 +52,7 @@ public class GestionHUD : MonoBehaviour
             BtnRetour.gameObject.SetActive(true);
             PnlOptions.gameObject.SetActive(true);
             PnlBoutons.gameObject.SetActive(false);
+           // SauvegardeControlleur.LoadSettings();
         }
         if ("Resumer" == Choix)
         {
@@ -87,9 +88,7 @@ public class GestionHUD : MonoBehaviour
         }
         if ("Sauvegarder" == Choix)
         {
-            SauvegardeControlleur.SaveSettings();
-            //ListeSettings[1] = SliderSensitivité.value.ToString();
-            //ListeSettings[2] = SliderSon.value.ToString();
+           // SauvegardeControlleur.SaveSettings();
         }
     }
 

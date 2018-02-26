@@ -195,7 +195,7 @@ public class GestionMouvement : MonoBehaviour
             //transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
             
         }
-        Debug.Log(Caméra.transform.position);
+       // Debug.Log(Caméra.transform.position);
 
     }
 }

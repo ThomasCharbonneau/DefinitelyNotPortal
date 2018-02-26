@@ -1,23 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GestionCamera : MonoBehaviour
 {
     Vector2 Vision;
     Vector2 AdoucirCamera;
-    public float Sensitivité;
+    public float Sensitivité =2f;
     float FacteurAdoucir = 2.5f;
     GameObject personnage;
     public static bool PAUSE_CAMERA;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         PAUSE_CAMERA = true;
         personnage = transform.parent.gameObject;
 
         Cursor.lockState = CursorLockMode.Locked;
+
     }
 	
 	// Update is called once per frame
