@@ -14,9 +14,12 @@ public class GestionDrone : MonoBehaviour
 
     Mode mode;
 
+    DataPistePatrouille pistePatrouille;
+
     bool laserTiré; //Si un laser est présentement dans l'environnement ou non
     float tempsDepuisTirLaser;
 
+    const float DÉLAI_TIR_LASER = 0.5f; //Le temps que le rayon laser prend pour est projeté après avoir trouvé la position de la cible
     const float DÉLAI_RECHARGE_TIR_LASER = 2.5f;
     const float TEMPS_TIR_LASER = 0.5f; //Le temps pour lequel un laser reste actif
     const int DISTANCE_LASER_MAX = 25; //La distance maximale à laquelle un drone peut être pour tirer un laser
@@ -30,6 +33,8 @@ public class GestionDrone : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        pistePatrouille = new DataPistePatrouille();
+
         drone = GetComponent<Rigidbody>();
         colliderDrone = GetComponent<Collider>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -43,7 +48,6 @@ public class GestionDrone : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-
     }
 
     private void FixedUpdate()
@@ -99,7 +103,7 @@ public class GestionDrone : MonoBehaviour
     /// </summary>
     void Patrouiller()
     {
-        if(VoitJoueur())
+        if(VérifierJoueurVisible())
         {
             mode = Mode.ATTAQUE;
             Debug.Log("Le joueur est visible");
@@ -110,13 +114,12 @@ public class GestionDrone : MonoBehaviour
         }
     }
 
-    bool VoitJoueur()
+    bool VérifierJoueurVisible()
     {
         bool voitJoueur = false;
 
         if(Vector3.Angle(transform.forward, joueur.transform.position - transform.position) <= (float)NB_DEGRÉS_FOV / 2 && Vector3.Distance(transform.position, joueur.transform.position) <= DISTANCE_VISION_MAX)
         {
-
             //Vérification que le joueur n'est pas caché derrière un objet
 
             RaycastHit hit;
@@ -130,11 +133,11 @@ public class GestionDrone : MonoBehaviour
         }
 
         return voitJoueur;
-
     }
 
     void GérerAttaque()
     {
+
         //...
         if(Vector3.Distance(transform.position, joueur.transform.position) <= DISTANCE_LASER_MAX && tempsDepuisTirLaser >= DÉLAI_RECHARGE_TIR_LASER)
         {
@@ -159,11 +162,6 @@ public class GestionDrone : MonoBehaviour
         //Ray ray = new Ray(transform.position, (joueur.transform.position - transform.position)); //Pourrait améliorer écriture...
         //Physics.Raycast(ray, out hit);
 
-        //lineRenderer.startWidth = 1;
-        //lineRenderer.endWidth = 1;
-
-        //lineRenderer.SetPosition(10, joueur.transform.position);
-
         lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(0, transform.position + (3f)*transform.forward -(1.20f)*transform.up);
         lineRenderer.startWidth = 0.5f;
@@ -174,9 +172,7 @@ public class GestionDrone : MonoBehaviour
 
         laserTiré = true;
 
-        Debug.Break();
-
-        //lineRenderer.
+        //Debug.Break();
     }
 
     void ArrêterLaser()

@@ -39,88 +39,90 @@ public class GestionMouvement : MonoBehaviour
     void FixedUpdate()
     {
         //RendreSautRéaliste();
-        
-        if (EstAuSol)
+        if(!GestionCamera.PAUSE_CAMERA)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (EstAuSol)
             {
-               
-                personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
+                if (Input.GetKey(KeyCode.Space))
+                {
 
-                EstAuSol = false;
+                    personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
+
+                    EstAuSol = false;
+                }
+
+                if (Input.GetKey("w")) //déplacement vers l'avant
+                {
+                    déplacementAvant = personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
+
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        VitesseHorizontaleMax = VITESSE_SPRINT_MAX;
+                        déplacementAvant *= COEFFICIENTSPRINT;
+                    }
+                    else
+                    {
+                        VitesseHorizontaleMax = VITESSE_MARCHE_MAX;
+                    }
+
+                    personnage.velocity += déplacementAvant;
+                }
+
+                if (Input.GetKey("a")) //déplacement de coté vers la gauche
+                {
+                    personnage.velocity += -personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+                }
+
+                if (Input.GetKey("s")) //déplacement vers l'arrière
+                {
+                    personnage.velocity += -personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
+                }
+
+                if (Input.GetKey("d")) //déplacement de coté vers la droite
+                {
+                    personnage.velocity += personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+                }
+
+                //
+
+                vitesseHorizontale = (new Vector3(personnage.velocity.x, 0, personnage.velocity.z));
+                if (vitesseHorizontale.magnitude > VitesseHorizontaleMax)
+                {
+                    personnage.velocity = new Vector3(0, personnage.velocity.y, 0) + vitesseHorizontale.normalized * VitesseHorizontaleMax;
+                }
+
+                //
             }
 
-            if (Input.GetKey("w")) //déplacement vers l'avant
+            if (Input.GetKeyDown("e")) //prendre un objet devant soi
             {
-                déplacementAvant = personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
-
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (TientObjet)
                 {
-                    VitesseHorizontaleMax = VITESSE_SPRINT_MAX;
-                    déplacementAvant *= COEFFICIENTSPRINT;
+                    RelacherObjet();
                 }
                 else
                 {
-                    VitesseHorizontaleMax = VITESSE_MARCHE_MAX;
+                    PrendreObjet();
                 }
-
-                personnage.velocity += déplacementAvant;
             }
 
-            if (Input.GetKey("a")) //déplacement de coté vers la gauche
+            if (Input.GetMouseButton(2))
             {
-                personnage.velocity += -personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+                if (TientObjet)
+                {
+                    RelacherObjet();
+                    //N'était pas correct quand l'objet était relaché parcequ'il traversait un portail.
+                    ObjetTenu.AddForce(Caméra.transform.forward * FORCE_RELACHEMENT);
+                }
             }
 
-            if (Input.GetKey("s")) //déplacement vers l'arrière
-            {
-                personnage.velocity += -personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
-            }
-
-            if (Input.GetKey("d")) //déplacement de coté vers la droite
-            {
-                personnage.velocity += personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
-            }
-
-            //
-
-            vitesseHorizontale = (new Vector3(personnage.velocity.x, 0, personnage.velocity.z));
-            if (vitesseHorizontale.magnitude > VitesseHorizontaleMax)
-            {
-                personnage.velocity = new Vector3(0, personnage.velocity.y, 0) + vitesseHorizontale.normalized * VitesseHorizontaleMax;
-            }
-
-            //
-        }
-
-        if (Input.GetKeyDown("e")) //prendre un objet devant soi
-        {
-            if(TientObjet)
-            {
-                RelacherObjet();
-            }
-            else
-            {
-                PrendreObjet();
-            }
-        }
-
-        if (Input.GetMouseButton(2))
-        {
             if (TientObjet)
             {
-                RelacherObjet();
-                //N'était pas correct quand l'objet était relaché parcequ'il traversait un portail.
-                ObjetTenu.AddForce(Caméra.transform.forward * FORCE_RELACHEMENT);
+                ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.4f);
             }
-        }
 
-        if (TientObjet)
-        {         
-            ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.4f);
+            //Debug.Log(personnage.velocity.magnitude);
         }
-
-        //Debug.Log(personnage.velocity.magnitude);
     }
 
     void RendreSautRéaliste()
