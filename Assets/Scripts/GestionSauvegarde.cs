@@ -10,25 +10,17 @@ public class GestionSauvegarde : MonoBehaviour
     //Creer Une fonction dans Camera ?
     const string nomDuFichier = "SavedSettings.txt";
 
-    public Slider SliderSensitivité;
-    public Slider SliderSon;
-
-    [SerializeField] Camera camera;
     GestionCamera cameraControlleur;
     public List<string> ListeSettings { get; set; }
 // Use this for initialization
 void Start()
     {
-
         ListeSettings = new List<string>();
-        SliderSensitivité = GetComponent<Slider>();
-        SliderSon = GetComponent<Slider>();
-        cameraControlleur = camera.GetComponent<GestionCamera>();
         if (!File.Exists(nomDuFichier))
         {
             GenerationSettingsDeBase();
         }
-
+        LoadSettings();
     }
 
 
@@ -61,9 +53,6 @@ void Start()
             chaineDelaLigneLue = lignelue.Split(separateur);
             ListeSettings.Add(chaineDelaLigneLue[1]);
         }
-        SliderSensitivité.value = float.Parse(ListeSettings[1]);
-        SliderSon.value = float.Parse(ListeSettings[2]);
-        //cameraControlleur.Sensitivité = float.Parse(ListeSettings[1]);
         fichierLue.Close();
     }
 

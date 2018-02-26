@@ -7,7 +7,7 @@ public class GestionCamera : MonoBehaviour
 {
     Vector2 Vision;
     Vector2 AdoucirCamera;
-    public float Sensitivité =2f;
+    public float Sensitivité;
     float FacteurAdoucir = 2.5f;
     GameObject personnage;
     public static bool PAUSE_CAMERA;
@@ -15,7 +15,7 @@ public class GestionCamera : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        PAUSE_CAMERA = true;
+        PAUSE_CAMERA = false;
         personnage = transform.parent.gameObject;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -25,7 +25,7 @@ public class GestionCamera : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (PAUSE_CAMERA)
+        if (!PAUSE_CAMERA)
         {
             var VariationSouris = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
             Vision.y = Mathf.Clamp(Vision.y, -90f, 90f);
