@@ -55,6 +55,7 @@ public class GestionHUD : MonoBehaviour
         SldSensitivité.value = float.Parse(SauvegardeControlleur.ListeSettings[1]);
         SldSon.value = float.Parse(SauvegardeControlleur.ListeSettings[2]);
         cameraControlleur.Sensitivité = float.Parse(SauvegardeControlleur.ListeSettings[1]);
+        AudioListener.volume = (float.Parse(SauvegardeControlleur.ListeSettings[2]))/10f;
     }
     public void SauvegardeDesSettings()
     {

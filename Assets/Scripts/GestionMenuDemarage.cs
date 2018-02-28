@@ -14,6 +14,11 @@ public class GestionMenuDemarage : MonoBehaviour
     Button BtnCredit;
     Button BtnRetour;
 
+    public Canvas CanvasControlleur;
+    GestionSauvegarde SauvegardeControlleur;
+    [SerializeField] Slider SldSensitivité;
+    [SerializeField] Slider SldSon;
+
     Button BtnNewGame;
     Button BtnLoadJeu;
     bool ValeurMiseAjour;
@@ -33,6 +38,10 @@ public class GestionMenuDemarage : MonoBehaviour
         BtnNewGame = GameObject.Find("BtnNewGame").GetComponent<Button>();
         BtnLoadJeu = GameObject.Find("BtnLoadJeu").GetComponent<Button>();
 
+        CanvasControlleur = GetComponent<Canvas>();
+        SauvegardeControlleur = CanvasControlleur.GetComponent<GestionSauvegarde>();
+        InitialisationDesParametres();
+
         BtnRetour.gameObject.SetActive(true);
         PnlOptions.gameObject.SetActive(false);
         PnlJouer.gameObject.SetActive(false);
@@ -40,6 +49,19 @@ public class GestionMenuDemarage : MonoBehaviour
 
         ValeurMiseAjour = true;
 
+    }
+    public void InitialisationDesParametres()
+    {
+        SldSensitivité.value = float.Parse(SauvegardeControlleur.ListeSettings[1]);
+        SldSon.value = float.Parse(SauvegardeControlleur.ListeSettings[2]);
+
+    }
+    public void SauvegardeDesSettings()
+    {
+        SauvegardeControlleur.ListeSettings[1] = SldSensitivité.value.ToString();
+        SauvegardeControlleur.ListeSettings[2] = SldSon.value.ToString();
+        SauvegardeControlleur.SaveSettings();
+        InitialisationDesParametres();
     }
     public void VerifierMenu(string Choix)
     {
@@ -57,6 +79,7 @@ public class GestionMenuDemarage : MonoBehaviour
             PnlJouer.gameObject.SetActive(false);
             PnlPrincipale.gameObject.SetActive(false);
             PnlCredit.gameObject.SetActive(false);
+            InitialisationDesParametres();
             ValeurMiseAjour = true;
         }
         if ("Credit" == Choix)
@@ -74,6 +97,10 @@ public class GestionMenuDemarage : MonoBehaviour
             PnlOptions.gameObject.SetActive(false);
             PnlJouer.gameObject.SetActive(false);
             ValeurMiseAjour = true;
+        }
+        if ("Sauvegarder" == Choix)
+        {
+            SauvegardeDesSettings();
         }
     }
 
