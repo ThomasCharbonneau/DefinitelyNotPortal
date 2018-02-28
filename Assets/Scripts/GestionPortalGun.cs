@@ -31,13 +31,16 @@ public class GestionPortalGun : MonoBehaviour
 
         if(TempsDepuisDernierTir >= DÉLAI_RECHARGE)
         {
-            if (Input.GetMouseButton(0))
+            if (!GestionCamera.PAUSE_CAMERA)
             {
-                TirerPortail(portalOrange);
-            }
-            if (Input.GetMouseButton(1))
-            {
-                TirerPortail(portalBleu);
+                if (Input.GetMouseButton(0))
+                {
+                    TirerPortail(portalOrange);
+                }
+                if (Input.GetMouseButton(1))
+                {
+                    TirerPortail(portalBleu);
+                }
             }
         }
     }

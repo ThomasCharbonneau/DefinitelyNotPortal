@@ -1,3 +1,3 @@
 Niveau Sauvegarder =0
-Sensibilité =10
+Sensibilité =1
 Son =5

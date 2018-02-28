@@ -93,7 +93,6 @@ public class GestionMouvement : MonoBehaviour
 
                 //
             }
-
             if (Input.GetKeyDown("e")) //prendre un objet devant soi
             {
                 if (TientObjet)
