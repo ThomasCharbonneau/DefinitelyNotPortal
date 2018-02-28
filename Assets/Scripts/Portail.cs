@@ -62,7 +62,11 @@ public class Portail : MonoBehaviour
             //other.GetComponent<Rigidbody>().AddForce(vitesse, ForceMode.Acceleration);
 
             other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10);//La chose teleportée est placée un peu devant le portail.
-            other.GetComponent<Rigidbody>().AddForce(normale * vitesse, ForceMode.Acceleration);
+            other.GetComponent<Rigidbody>().AddForce(normale * vitesse * 25, ForceMode.Acceleration);
+            
+            Vector3 directionAFaireFace = Vector3.RotateTowards(other.transform.forward, normale, 360, 360);
+
+            other.transform.rotation = Quaternion.LookRotation(directionAFaireFace);
             //other.GetComponent<Rigidbody>().velocity = vitesse;
 
 
