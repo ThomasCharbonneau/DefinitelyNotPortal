@@ -7,9 +7,12 @@ public enum Mode { PATROUILLE, ATTAQUE }
 public class GestionDrone : MonoBehaviour
 {
     [SerializeField] GameObject joueur;
+    [SerializeField] GameObject rayonLaser;
+    GameObject gameObjectDrone;
 
     Rigidbody drone;
     Collider colliderDrone;
+    BoxCollider colliderLaser;
     LineRenderer lineRenderer;
 
     Mode mode;
@@ -18,6 +21,8 @@ public class GestionDrone : MonoBehaviour
 
     bool laserTiré; //Si un laser est présentement dans l'environnement ou non
     float tempsDepuisTirLaser;
+    float diamètreLaser = 0.5f;
+    Vector3 origineLaser;
 
     const float DÉLAI_TIR_LASER = 0.5f; //Le temps que le rayon laser prend pour est projeté après avoir trouvé la position de la cible
     const float DÉLAI_RECHARGE_TIR_LASER = 2.5f;
@@ -36,6 +41,7 @@ public class GestionDrone : MonoBehaviour
         //pistePatrouille = new DataPistePatrouille();
 
         drone = GetComponent<Rigidbody>();
+        gameObjectDrone = drone.gameObject;
         colliderDrone = GetComponent<Collider>();
         lineRenderer = GetComponent<LineRenderer>();
 
@@ -119,10 +125,10 @@ public class GestionDrone : MonoBehaviour
     {
         bool voitJoueur = false;
 
+        //Vérification que le joueur est dans le champs de vue
         if(Vector3.Angle(transform.forward, joueur.transform.position - transform.position) <= (float)NB_DEGRÉS_FOV / 2 && Vector3.Distance(transform.position, joueur.transform.position) <= DISTANCE_VISION_MAX)
         {
             //Vérification que le joueur n'est pas caché derrière un objet
-
             RaycastHit hit;
             Ray ray = new Ray(transform.position, joueur.transform.position - transform.position);
             Physics.Raycast(ray, out hit);
@@ -157,28 +163,34 @@ public class GestionDrone : MonoBehaviour
 
     void TirerLaser()
     {
-        //Vector3[] TableauPoints = new Vector3[] { transform.position, joueur.transform.position };
-
-        //RaycastHit hit;
-        //Ray ray = new Ray(transform.position, (joueur.transform.position - transform.position)); //Pourrait améliorer écriture...
-        //Physics.Raycast(ray, out hit);
+        origineLaser = transform.position + (3f) * transform.forward - (1.20f) * transform.up; //Valeurs pour bien enligner le rayon avec le fusil
 
         lineRenderer.positionCount = 2;
-        lineRenderer.SetPosition(0, transform.position + (3f)*transform.forward -(1.20f)*transform.up);
-        lineRenderer.startWidth = 0.5f;
-        lineRenderer.endWidth = 0.5f;
+        lineRenderer.SetPosition(0, origineLaser);
+        lineRenderer.startWidth = diamètreLaser;
+        lineRenderer.endWidth = diamètreLaser;
         lineRenderer.SetPosition(1, joueur.transform.position);
 
-        Debug.Log(lineRenderer.isVisible);
+        Instantiate(rayonLaser);
+
+        Vector3.Distance(joueur.transform.position, transform.position + (3f) * transform.forward - (1.20f) * transform.up); //Pourrait améliorer écriture
+
+        //colliderLaser = GetComponent<BoxCollider>();
+
+        colliderLaser.enabled = false;
+        colliderLaser.size = new Vector3(diamètreLaser, diamètreLaser, Vector3.Distance(joueur.transform.position, origineLaser));
+        colliderLaser.transform.position = origineLaser + (0.5f)*(joueur.transform.position - origineLaser);
+        colliderLaser.transform.LookAt(joueur.transform.position);
 
         laserTiré = true;
 
-        //Debug.Break();
+        Debug.Break();
     }
 
     void ArrêterLaser()
     {
         lineRenderer.positionCount = 0;
+        Destroy(colliderLaser.gameObject); //Pas certain que c'est OK
     }
 
     void DéplacerVersPoint(Vector2 pointÀAtteindre)

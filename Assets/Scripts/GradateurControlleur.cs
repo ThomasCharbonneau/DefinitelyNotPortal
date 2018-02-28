@@ -28,7 +28,7 @@ public class GradateurControlleur : MonoBehaviour {
 
     public void ModificationGradateur()
     {
-        ValeurMiseÀJour = Valeur != (int)gradateur.value; ;
+        ValeurMiseÀJour = Valeur != (int)gradateur.value;
         Valeur = (int)gradateur.value;
         txtValeur.text = Valeur.ToString();
     }
