@@ -38,7 +38,7 @@ public class GestionMouvement : MonoBehaviour
 
     void FixedUpdate()
     {
-        //RendreSautRéaliste();
+        RendreSautRéaliste();
         if(!GestionCamera.PAUSE_CAMERA)
         {
             if (EstAuSol)
