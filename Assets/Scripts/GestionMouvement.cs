@@ -38,8 +38,8 @@ public class GestionMouvement : MonoBehaviour
 
     void FixedUpdate()
     {
-        //RendreSautRéaliste();
-        if(!GestionCamera.PAUSE_CAMERA)
+        RendreSautRéaliste();
+        if (!GestionCamera.PAUSE_CAMERA)
         {
             if (EstAuSol)
             {
@@ -139,7 +139,7 @@ public class GestionMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+  
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -6,6 +6,7 @@ public class GestionBouton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Physics.gravity *= 2;
 		
 	}
 	
