@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GestionHUD : MonoBehaviour
 {
 
@@ -110,9 +111,11 @@ public class GestionHUD : MonoBehaviour
         {
             SauvegardeDesSettings();
         }
-        if ("SaveGame" == Choix)
+        if ("SaveQuit" == Choix)
         {
-           //A FAIRE
+            Paused = false;
+            Time.timeScale = 1.0f;
+            SceneManager.LoadScene("ScnMenuPrincipal");
         }
     }
 

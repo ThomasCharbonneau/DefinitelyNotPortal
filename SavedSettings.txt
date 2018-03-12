@@ -1,7 +1,3 @@
 Niveau Sauvegarder =0
-<<<<<<< HEAD
-Sensibilité =1
-=======
-Sensibilité =2
->>>>>>> b5761e3cb1346ada7ef6aa461ccf452711f01472
+Sensibilité =8
 Son =5

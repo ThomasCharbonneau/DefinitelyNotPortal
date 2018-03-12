@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GestionMenuDemarage : MonoBehaviour
 {
 
@@ -13,6 +14,7 @@ public class GestionMenuDemarage : MonoBehaviour
     Button BtnOption;
     Button BtnCredit;
     Button BtnRetour;
+    string Niveau;
 
     public Canvas CanvasControlleur;
     GestionSauvegarde SauvegardeControlleur;
@@ -72,6 +74,11 @@ public class GestionMenuDemarage : MonoBehaviour
             PnlCredit.gameObject.SetActive(false);
             PnlOptions.gameObject.SetActive(false);
             ValeurMiseAjour = true;
+            if(SauvegardeControlleur.ListeSettings[0] == "0")
+            {
+                BtnLoadJeu.interactable = false;
+            }
+            else { BtnLoadJeu.interactable = true; }
         }
         if ("Option" == Choix)
         {
@@ -102,6 +109,26 @@ public class GestionMenuDemarage : MonoBehaviour
         {
             SauvegardeDesSettings();
         }
+        if ("New" == Choix)
+        {
+            SauvegardeControlleur.ListeSettings[0] = 0f.ToString();
+            SauvegardeControlleur.SaveSettings();
+            DéterminerNiveau();
+
+        }
+        if ("Load" == Choix)
+        {
+            DéterminerNiveau();
+        }
+    }
+    public void DéterminerNiveau()
+    {
+        string NiveauRendu = SauvegardeControlleur.ListeSettings[0];
+        if(NiveauRendu == "0") { Niveau = "ScnPortalGun"; }
+        if(NiveauRendu == "1") { Niveau = ""; }
+        if(NiveauRendu == "2") { Niveau = ""; }
+        if(NiveauRendu == "3") { Niveau = ""; }
+        SceneManager.LoadScene(sceneName: Niveau);
     }
 
     // Update is called once per frame
