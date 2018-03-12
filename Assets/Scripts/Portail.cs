@@ -12,7 +12,7 @@ public class Portail : MonoBehaviour
 
     [SerializeField] AudioClip SonTeleportation;
 
-    const float DÉLAI_PASSAGE = 0.75f;
+    const float DÉLAI_PASSAGE = 0.25f;
     float TempsDepuisDernierPassage;
     public bool passéDansFrame; //Si un objet est passé dans le portail dans le frame actuel.
 
@@ -35,6 +35,7 @@ public class Portail : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+       
         if (portailOpposé.activeSelf && TempsDepuisDernierPassage >= DÉLAI_PASSAGE) // S'assurer que les 2 portails sont placé avant de téléporté le joueur
         {
             if (other.transform.IsChildOf(personnage.transform) && personnage.GetComponent<GestionMouvement>().TientObjet)
@@ -50,7 +51,7 @@ public class Portail : MonoBehaviour
             /*   other.GetComponent<Rigidbody>().AddForce(Vector3.back * 500);*/ //Donner le bon vecteur
             float vitesse = other.GetComponent<Rigidbody>().velocity.magnitude;
             other.GetComponent<Rigidbody>().velocity = portailOpposé.transform.forward;
-            Debug.Log(vitesse);
+           
 
             Vector3 normale = portailOpposé.transform.forward;
 
@@ -62,12 +63,17 @@ public class Portail : MonoBehaviour
             //other.GetComponent<Rigidbody>().AddForce(vitesse, ForceMode.Acceleration);
 
             other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10);//La chose teleportée est placée un peu devant le portail.
-            other.GetComponent<Rigidbody>().AddForce(normale * vitesse * 25, ForceMode.Acceleration);
-            
-            Vector3 directionAFaireFace = Vector3.RotateTowards(other.transform.forward, normale, 360, 360);
+            other.GetComponent<Rigidbody>().AddForce(normale * vitesse * 42, ForceMode.Acceleration);
 
-            other.transform.rotation = Quaternion.LookRotation(directionAFaireFace);
+
+
+            //other.GetComponent<Rigidbody>().rotation = Quaternion.FromToRotation(other.transform.forward, normale);                                                                                     
             //other.GetComponent<Rigidbody>().velocity = vitesse;
+            Debug.Log(other.transform.rotation.x + "  " + other.transform.rotation.y + "  " + other.transform.rotation.z);
+
+            other.transform.Rotate(new Vector3(0, 90, 0));
+
+            Debug.Log(other.transform.rotation.x + "  " + other.transform.rotation.y + "  " + other.transform.rotation.z);
 
 
             //Arranger la direction en sortant... Ne fonctionne pas avec :
@@ -81,37 +87,5 @@ public class Portail : MonoBehaviour
             //Debug.Break();
         }
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (portailOpposé.activeSelf && TempsDepuisDernierPassage >= DÉLAI_PASSAGE && !portailOpposé.GetComponent<Portail>().passéDansFrame) // S'assurer que les 2 portails sont placé avant de téléporter le joueur
-    //    {
-    //        if (other.transform.IsChildOf(personnage.transform) && personnage.GetComponent<GestionMouvement>().TientObjet)
-    //        {
-    //            personnage.GetComponent<GestionMouvement>().RelacherObjet();
-    //        }
-
-    //        AudioSource.PlayClipAtPoint(SonTeleportation, portailOpposé.transform.position);
-
-    //        float vitesse = other.GetComponent<Rigidbody>().velocity.magnitude;
-    //        Debug.Log(vitesse);
-
-    //        other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 5); //La chose teleportée est placée un peu devant le portail.
-
-    //        Quaternion q = Quaternion.FromToRotation(portailOpposé.transform.forward, transform.forward);
-
-    //        other.transform.rotation = q * portailOpposé.transform.rotation;
-
-    //        other.GetComponent<Rigidbody>().velocity = other.transform.forward * vitesse;
-
-    //        //if(other.gameObject.name == "personnage")
-    //        //{
-    //        //    other.transform.rotation = Quaternion.Euler(0, other.transform.rotation.eulerAngles.y, 0);
-    //        //}
-
-    //        TempsDepuisDernierPassage = 0;
-    //        passéDansFrame = true;
-
-    //        //Debug.Break();
-    //    }
-    //}
+    
 }
