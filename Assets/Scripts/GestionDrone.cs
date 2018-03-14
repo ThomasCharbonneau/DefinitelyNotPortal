@@ -58,13 +58,16 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         vie = VIE_INITIALE;
 
-        tempsDepuisTirLaser = DÉLAI_RECHARGE_TIR_LASER; //Pourrait mieux écrire...
+        tempsDepuisTirLaser = DÉLAI_RECHARGE_TIR_LASER;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(Vie <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -86,8 +89,6 @@ public class GestionDrone : MonoBehaviour, Personnage
 
                 break;
         }
-
-        Debug.Log(tempsDepuisTirLaser);
     }
 
     void GérerHauteurAutomatique()
@@ -220,12 +221,10 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         if(hit.rigidbody != null)
         {
-            //GetComponent<GestionDrone>().
             if (hit.rigidbody.gameObject.name == "Drone")
             {
                 hit.rigidbody.gameObject.GetComponent<GestionDrone>().Vie -= 1;
             }
-
             //if (hit.rigidbody.gameObject.name == "Personnage")
             //{
             //    hit.rigidbody.gameObject.GetComponent<GestionJoueur>().Vie -= 1;

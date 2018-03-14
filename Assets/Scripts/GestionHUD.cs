@@ -40,9 +40,7 @@ public class GestionHUD : MonoBehaviour
         CanvasControlleur = GetComponent<Canvas>();
         SauvegardeControlleur = CanvasControlleur.GetComponent<GestionSauvegarde>();
 
-
         InitialisationDesParametres();
-
 
         PnlCrossair.gameObject.SetActive(true);
         PnlMenu.gameObject.SetActive(false);

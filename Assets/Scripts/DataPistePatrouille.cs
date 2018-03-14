@@ -113,15 +113,4 @@ class DataPistePatrouille
 
         return nouvelleListe;
     }
-
-    /// <summary>
-    /// Correspond au premier point de la liste de points principaux
-    /// </summary>
-    public Vector2 PositionInitiale
-    {
-        get
-        {
-            return new Vector2(PointsPrincipaux[0].x, PointsPrincipaux[0].y);
-        }
-    }
 }
