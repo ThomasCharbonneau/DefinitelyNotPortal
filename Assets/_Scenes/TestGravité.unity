@@ -147,6 +147,7 @@ MonoBehaviour:
   portail: {fileID: 44558514}
   personnage: {fileID: 583300179}
   SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
+  "cam\xE9ra": {fileID: 300732862}
   "pass\xE9DansFrame": 0
 --- !u!65 &44558516
 BoxCollider:
@@ -583,6 +584,7 @@ MonoBehaviour:
   portail: {fileID: 495878375}
   personnage: {fileID: 583300179}
   SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
+  "cam\xE9ra": {fileID: 300732862}
   "pass\xE9DansFrame": 0
 --- !u!1001 &555110758
 Prefab:
@@ -651,7 +653,7 @@ Prefab:
     - target: {fileID: 54964547510989570, guid: 555564ceb8c4e0242b030c9fa2637ef9,
         type: 2}
       propertyPath: m_Drag
-      value: 0.1
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 114351959307232994, guid: 555564ceb8c4e0242b030c9fa2637ef9,
         type: 2}
