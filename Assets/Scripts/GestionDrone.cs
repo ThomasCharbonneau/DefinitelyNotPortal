@@ -12,7 +12,6 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     Rigidbody drone;
     Collider colliderDrone;
-    BoxCollider colliderLaser;
     LineRenderer lineRenderer;
 
     Mode mode;
@@ -21,7 +20,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     bool laserTiré; //Si un laser est présentement dans l'environnement ou non
     float tempsDepuisTirLaser;
-    float diamètreLaser = 0.5f;
+    const float DIAMÈTRE_LASER = 0.5f;
     Vector3 origineLaser;
 
     float tempsDepuisVérouillageCible;
@@ -211,8 +210,8 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(0, origineLaser);
-        lineRenderer.startWidth = diamètreLaser;
-        lineRenderer.endWidth = diamètreLaser;
+        lineRenderer.startWidth = DIAMÈTRE_LASER;
+        lineRenderer.endWidth = DIAMÈTRE_LASER;
         lineRenderer.SetPosition(1, positionCible);
 
         RaycastHit hit;
@@ -221,11 +220,12 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         if(hit.rigidbody != null)
         {
-
+            //GetComponent<GestionDrone>().
             if (hit.rigidbody.gameObject.name == "Drone")
             {
                 hit.rigidbody.gameObject.GetComponent<GestionDrone>().Vie -= 1;
             }
+
             //if (hit.rigidbody.gameObject.name == "Personnage")
             //{
             //    hit.rigidbody.gameObject.GetComponent<GestionJoueur>().Vie -= 1;
@@ -242,7 +242,6 @@ public class GestionDrone : MonoBehaviour, Personnage
     void ArrêterLaser()
     {
         lineRenderer.positionCount = 0;
-        //Destroy(colliderLaser.gameObject);
     }
 
     void DéplacerVersPoint(Vector2 pointÀAtteindre)
