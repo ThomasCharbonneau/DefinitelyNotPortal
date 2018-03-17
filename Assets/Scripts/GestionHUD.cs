@@ -127,7 +127,6 @@ public class GestionHUD : MonoBehaviour
                 Paused = true;
                 VerifierMenu("OpenMenu");
             }
-
         }
     }
 }
