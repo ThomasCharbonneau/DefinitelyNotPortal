@@ -52,7 +52,7 @@ public class GestionPortalGun : MonoBehaviour
             AudioSource.PlayClipAtPoint(SonChangementMode, transform.position);
         }
 
-        Debug.Log(GunMode);
+        
 
         TempsDepuisDernierTir += Time.deltaTime;
 
