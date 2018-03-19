@@ -38,7 +38,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     const int NB_DEGRÉS_FOV = 75;
     const int DISTANCE_VISION_MAX = 35; //La distance maximale à laquelle le drone peut appercevoir le joueur
 
-    List<Vector3> PointsDePatrouilleAdaptés; //Les points de patrouille adaptés
+    List<Vector2> PointsDePatrouilleAdaptés; //Les points de patrouille adaptés
 
     const int DÉPLACEMENT_X = 10;
     const int DÉPLACEMENT_Z = 18;
@@ -141,7 +141,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
         else
         {
-            if (transform.position != PointsDePatrouilleAdaptés[IndicePositionPiste])
+            if (new Vector2(transform.position.x, transform.position.z) != PointsDePatrouilleAdaptés[IndicePositionPiste])
             {
                 DéplacerVersPoint(PointsDePatrouilleAdaptés[IndicePositionPiste]);
             }
@@ -157,13 +157,22 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
     }
 
+    public void DéplacerVersPoint(Vector2 pointÀAtteindre)
+    {
+        transform.LookAt(new Vector3(pointÀAtteindre.x, transform.position.y, pointÀAtteindre.y));
+
+        //Changer hauteur normale trouver un moyen de déplacer sans hauteur.
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, HAUTEUR_NORMALE, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
+        //transform.position = Vector2.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, 0, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
+    }
+
     /// <summary>
     /// Fonction qui transfère les points de patrouille en points 3d selon la hauteur du terrain et qui les adapte à l'échelle (scale)
     /// </summary>
     void AdapterPointsDePatrouille()
     {
         List<Vector2> PointsDePatrouille = pistePatrouille.GetPointsDePatrouille();
-        PointsDePatrouilleAdaptés = new List<Vector3>();
+        PointsDePatrouilleAdaptés = new List<Vector2>();
 
         float coordonnéeX;
         float coordonnéeZ;
@@ -282,14 +291,6 @@ public class GestionDrone : MonoBehaviour, Personnage
     void ArrêterLaser()
     {
         lineRenderer.positionCount = 0;
-    }
-
-    public void DéplacerVersPoint(Vector2 pointÀAtteindre)
-    {
-        transform.LookAt(new Vector3(pointÀAtteindre.x, transform.position.y, pointÀAtteindre.y));
-
-        //transform.position = Vector3.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, 0, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
-        transform.position = Vector2.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, 0, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
     }
 
     public int Vie
