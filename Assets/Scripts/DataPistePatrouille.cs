@@ -7,14 +7,13 @@ using UnityEngine;
 
 class DataPistePatrouille
 {
-    const string CHEMIN = "Assets/Resources/";
-    const int MAX_DIMENSION_INITIALE = 8;
+    const string CHEMIN = "Assets/Ressources/";
     const float VARIATION_TEMPORELLE = 0.125f;
 
     const string NOM_FICHIER_X = "SplineX.txt";
     const string NOM_FICHIER_Y = "SplineY.txt";
 
-    const int DIMENSIONS_GRILLE_MAX = 128;
+    const int DIMENSIONS_GRILLE_MAX = 32;
 
     float[,] TableauSplinesX; //Les tableaux qui contiennent les valeurs des coefficients des splines
     float[,] TableauSplinesY;
@@ -32,11 +31,11 @@ class DataPistePatrouille
     {
         PointsPrincipaux = new List<Vector2>();
 
-        List<int> pointsBruts = new List<int>() { 7, 1, 7, 2, 6, 3, 5, 2, 4, 3, 4, 4, 4, 5, 3, 6, 2, 6, 1, 5, 2, 4, 1, 3, 1, 2, 2, 2, 2, 1, 3, 1, 4, 2, 5, 1 };
+        List<int> pointsBruts = new List<int>() { 0, 0, 5, 5, 5, 10, 10, 15, 20, 20, 20, 25, 20, 30, 25, 30, 20, 5, 10, 0 };
         int i = 0;
         while (i < pointsBruts.Count)
         {
-            PointsPrincipaux.Add(new Vector2(pointsBruts[i] * (DIMENSIONS_GRILLE_MAX / MAX_DIMENSION_INITIALE), pointsBruts[i + 1] * (DIMENSIONS_GRILLE_MAX / MAX_DIMENSION_INITIALE)));
+            PointsPrincipaux.Add(new Vector2(pointsBruts[i], pointsBruts[i + 1]));
             i = i + 2;
         }
     }
@@ -76,8 +75,8 @@ class DataPistePatrouille
         {
             i = (int)Mathf.Floor(t);
 
-            float coordonnéeX = (TableauSplinesX[0, i] + Mathf.Pow(t, 3) * TableauSplinesX[1, i] + Mathf.Pow(t, 2) * TableauSplinesX[2, i] + t * TableauSplinesX[3, i]) * (DIMENSIONS_GRILLE_MAX / MAX_DIMENSION_INITIALE);
-            float coordonnéeY = (TableauSplinesY[0, i] + Mathf.Pow(t, 3) * TableauSplinesY[1, i] + Mathf.Pow(t, 2) * TableauSplinesY[2, i] + t * TableauSplinesY[3, i]) * (DIMENSIONS_GRILLE_MAX / MAX_DIMENSION_INITIALE);
+            float coordonnéeX = (TableauSplinesX[0, i] + Mathf.Pow(t, 3) * TableauSplinesX[1, i] + Mathf.Pow(t, 2) * TableauSplinesX[2, i] + t * TableauSplinesX[3, i]);
+            float coordonnéeY = (TableauSplinesY[0, i] + Mathf.Pow(t, 3) * TableauSplinesY[1, i] + Mathf.Pow(t, 2) * TableauSplinesY[2, i] + t * TableauSplinesY[3, i]);
 
             PointsDePatrouille.Add(new Vector2(coordonnéeX, coordonnéeY));
         }
@@ -88,19 +87,6 @@ class DataPistePatrouille
 
     // Liste des points de patrouille
     List<Vector2> PointsDePatrouille;
-
-    public List<Vector2> GetPointsCube()
-    {
-        List<Vector2> nouvelleListe = new List<Vector2>();
-
-        foreach (Vector2 v in PointsPrincipaux)
-        {
-            nouvelleListe.Add(v);
-        }
-
-        return nouvelleListe;
-    }
-
 
     public List<Vector2> GetPointsDePatrouille()
     {

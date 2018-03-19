@@ -960,17 +960,29 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 114519601755706172, guid: 9962342675454e34f9059370697af190,
+=======
+    - target: {fileID: 114216884959917168, guid: 9962342675454e34f9059370697af190,
+>>>>>>> 54667afe5fdf1af438d7c5c4abce1071cf4636f6
         type: 2}
       propertyPath: Joueur
       value: 
       objectReference: {fileID: 836297821}
+<<<<<<< HEAD
     - target: {fileID: 114519601755706172, guid: 9962342675454e34f9059370697af190,
+=======
+    - target: {fileID: 114216884959917168, guid: 9962342675454e34f9059370697af190,
+>>>>>>> 54667afe5fdf1af438d7c5c4abce1071cf4636f6
         type: 2}
       propertyPath: PortailBleu
       value: 
       objectReference: {fileID: 44558514}
+<<<<<<< HEAD
     - target: {fileID: 114519601755706172, guid: 9962342675454e34f9059370697af190,
+=======
+    - target: {fileID: 114216884959917168, guid: 9962342675454e34f9059370697af190,
+>>>>>>> 54667afe5fdf1af438d7c5c4abce1071cf4636f6
         type: 2}
       propertyPath: PortailOrange
       value: 

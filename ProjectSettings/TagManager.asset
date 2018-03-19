@@ -8,6 +8,7 @@ TagManager:
   - Sol
   - Mur
   - Cube
+  - Boutton
   layers:
   - Default
   - TransparentFX

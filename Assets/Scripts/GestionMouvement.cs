@@ -144,7 +144,7 @@ public class GestionMouvement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Sol"))
+        if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton")) 
         {
             EstAuSol = true;
         }
