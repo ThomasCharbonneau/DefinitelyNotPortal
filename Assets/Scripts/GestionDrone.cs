@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Mode { PATROUILLE, ATTAQUE }
+public enum ModeDrone { PATROUILLE, ATTAQUE }
 
 public class GestionDrone : MonoBehaviour, Personnage
 {
     [SerializeField] GameObject joueur;
-    [SerializeField] GameObject rayonLaser;
     GameObject gameObjectDrone;
 
     Rigidbody drone;
     Collider colliderDrone;
     LineRenderer lineRenderer;
 
-    Mode mode;
+    public ModeDrone Mode { get; private set; }
 
     DataPistePatrouille pistePatrouille;
 
@@ -39,20 +38,29 @@ public class GestionDrone : MonoBehaviour, Personnage
     const int NB_DEGRÉS_FOV = 75;
     const int DISTANCE_VISION_MAX = 35; //La distance maximale à laquelle le drone peut appercevoir le joueur
 
+    List<Vector2> PointsDePatrouilleAdaptés; //Les points de patrouille adaptés
+
+    const int DÉPLACEMENT_X = 10;
+    const int DÉPLACEMENT_Z = 18;
+
+    int IndicePositionPiste;
+
     const int VIE_INITIALE = 3;
     int vie;
 
     // Use this for initialization
     void Start()
     {
-        //pistePatrouille = new DataPistePatrouille();
+        pistePatrouille = new DataPistePatrouille();
+        AdapterPointsDePatrouille();
+        IndicePositionPiste = 0;
 
         drone = GetComponent<Rigidbody>();
         gameObjectDrone = drone.gameObject;
         colliderDrone = GetComponent<Collider>();
         lineRenderer = GetComponent<LineRenderer>();
 
-        mode = Mode.PATROUILLE;
+        Mode = ModeDrone.PATROUILLE;
 
         laserTiré = false;
 
@@ -72,19 +80,18 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     private void FixedUpdate()
     {
-        transform.forward = Vector3.RotateTowards(transform.forward, joueur.transform.position - transform.position, 0.25f, 0.25f);
-
         GérerHauteurAutomatique();
 
-        switch (mode)
+        switch (Mode)
         {
-            case Mode.PATROUILLE:
+            case ModeDrone.PATROUILLE:
                 Patrouiller();
 
                 break;
 
-            case Mode.ATTAQUE:
+            case ModeDrone.ATTAQUE:
 
+                transform.forward = Vector3.RotateTowards(transform.forward, joueur.transform.position - transform.position, 0.25f, 0.25f);
                 GérerAttaque();
 
                 break;
@@ -95,12 +102,12 @@ public class GestionDrone : MonoBehaviour, Personnage
     {
         RaycastHit hitSol;
         RaycastHit hitPlafond;
-        Ray raySol = new Ray(colliderDrone.ClosestPointOnBounds(transform.position + Vector3.down * 100), Vector3.down); //Pourrait améliorer écriture...
-        Ray rayPlafond = new Ray(colliderDrone.ClosestPointOnBounds(transform.position + Vector3.up * 100), Vector3.up);
+        Ray raySol = new Ray(transform.position + Vector3.down * 5, Vector3.down);
+        //Ray raySol = new Ray(colliderDrone.ClosestPointOnBounds(transform.position + Vector3.down * 100), Vector3.down);
+        Ray rayPlafond = new Ray(transform.position + Vector3.up * 5, Vector3.up);
+        //Ray rayPlafond = new Ray(colliderDrone.ClosestPointOnBounds(transform.position + Vector3.up * 100), Vector3.up);
         Physics.Raycast(raySol, out hitSol);
         Physics.Raycast(rayPlafond, out hitPlafond);
-
-
 
         if (hitSol.collider != null)
         {
@@ -129,12 +136,55 @@ public class GestionDrone : MonoBehaviour, Personnage
     {
         if (VérifierJoueurVisible())
         {
-            mode = Mode.ATTAQUE;
+            Mode = ModeDrone.ATTAQUE;
             Debug.Log("Le joueur est visible");
         }
         else
         {
-            //Utiliser DéplacerVersPoint déjà codé
+            if (new Vector2(transform.position.x, transform.position.z) != PointsDePatrouilleAdaptés[IndicePositionPiste])
+            {
+                DéplacerVersPoint(PointsDePatrouilleAdaptés[IndicePositionPiste]);
+            }
+            else
+            {
+                IndicePositionPiste++;
+
+                if (IndicePositionPiste == PointsDePatrouilleAdaptés.Count)
+                {
+                    IndicePositionPiste = 0;
+                }
+            }
+        }
+    }
+
+    public void DéplacerVersPoint(Vector2 pointÀAtteindre)
+    {
+        transform.LookAt(new Vector3(pointÀAtteindre.x, transform.position.y, pointÀAtteindre.y));
+
+        //Changer hauteur normale trouver un moyen de déplacer sans hauteur.
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, HAUTEUR_NORMALE, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
+        //transform.position = Vector2.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, 0, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
+    }
+
+    /// <summary>
+    /// Fonction qui transfère les points de patrouille en points 3d selon la hauteur du terrain et qui les adapte à l'échelle (scale)
+    /// </summary>
+    void AdapterPointsDePatrouille()
+    {
+        List<Vector2> PointsDePatrouille = pistePatrouille.GetPointsDePatrouille();
+        PointsDePatrouilleAdaptés = new List<Vector2>();
+
+        float coordonnéeX;
+        float coordonnéeZ;
+
+        for (int i = 0; i < PointsDePatrouille.Count; i++)
+        {
+            coordonnéeX = PointsDePatrouille[i].x + DÉPLACEMENT_X;
+            coordonnéeZ = PointsDePatrouille[i].y + DÉPLACEMENT_Z;
+
+            //Modifier pour que hauteur automatique soit déterminée par drone.
+
+            PointsDePatrouilleAdaptés.Add(new Vector2(coordonnéeX, coordonnéeZ));
         }
     }
 
@@ -241,13 +291,6 @@ public class GestionDrone : MonoBehaviour, Personnage
     void ArrêterLaser()
     {
         lineRenderer.positionCount = 0;
-    }
-
-    void DéplacerVersPoint(Vector2 pointÀAtteindre)
-    {
-        transform.LookAt(new Vector3(pointÀAtteindre.x, transform.position.y, pointÀAtteindre.y));
-
-        transform.position = Vector3.MoveTowards(transform.position, pointÀAtteindre, MAX_DISTANCE_DELTA);
     }
 
     public int Vie
