@@ -7,6 +7,7 @@ public enum ModePortalGun { PORTAIL, LASER }
 public class GestionPortalGun : MonoBehaviour
 {
     [SerializeField] AudioClip SonTirPortal;
+    [SerializeField] AudioClip SonDésactivationPortal;
     [SerializeField] AudioClip SonSurfaceInvalide;
     [SerializeField] AudioClip SonChangementMode; //Click qui indique le changement de mode du fusil
 
@@ -63,11 +64,11 @@ public class GestionPortalGun : MonoBehaviour
                 {
                     case ModePortalGun.PORTAIL:
 
-                        if (Input.GetMouseButton(0))
+                        if (Input.GetMouseButton(1))
                         {
                             TirerPortail(portalOrange);
                         }
-                        if (Input.GetMouseButton(1))
+                        if (Input.GetMouseButton(0))
                         {
                             TirerPortail(portalBleu);
                         }
@@ -84,6 +85,14 @@ public class GestionPortalGun : MonoBehaviour
                         break;
                 }
             }
+        }
+
+        if ((portalBleu.activeSelf || portalOrange.activeSelf) && Input.GetKeyDown("r"))
+        {
+            portalBleu.SetActive(false);
+            portalOrange.SetActive(false);
+
+            AudioSource.PlayClipAtPoint(SonDésactivationPortal, transform.position);
         }
     }
 
@@ -132,7 +141,7 @@ public class GestionPortalGun : MonoBehaviour
         //Debug.Break();
     }
 
-    void TirerLaser() //Mettre une entrant qui dit quel portail tirer // void TirerPortail(GameObject portail)
+    void TirerLaser()
     {
 
     }
