@@ -57,7 +57,6 @@ public class GestionPorte : MonoBehaviour {
             {
                 AnimationPorte["close"].time = (0);
                 AnimationPorte["close"].time = (temps - Time.time + 2 - tempsSuperflus);
-                AnimationPorte["close"].
                 Porte.GetComponent<Animation>().Play("close");
                 tempsSuperflus = temps - Time.time + 2;
 

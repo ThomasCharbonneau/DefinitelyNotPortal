@@ -147,7 +147,7 @@ MonoBehaviour:
   portail: {fileID: 44558514}
   personnage: {fileID: 583300179}
   SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
-  "cam\xE9ra": {fileID: 300732862}
+  "cam\xE9ra": {fileID: 0}
   "pass\xE9DansFrame": 0
 --- !u!65 &44558516
 BoxCollider:
@@ -438,141 +438,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 373531175}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &384064896
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224022542480408144, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224376348520311624, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224436111044057998, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224551177713918838, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224559170992954020, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114216884959917168, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: Joueur
-      value: 
-      objectReference: {fileID: 583300179}
-    - target: {fileID: 114216884959917168, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: PortailOrange
-      value: 
-      objectReference: {fileID: 495878375}
-    - target: {fileID: 114216884959917168, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: PortailBleu
-      value: 
-      objectReference: {fileID: 44558514}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 9962342675454e34f9059370697af190, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &461690602
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,7 +651,7 @@ MonoBehaviour:
   portail: {fileID: 495878375}
   personnage: {fileID: 583300179}
   SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
-  "cam\xE9ra": {fileID: 300732862}
+  "cam\xE9ra": {fileID: 0}
   "pass\xE9DansFrame": 0
 --- !u!1001 &555110758
 Prefab:

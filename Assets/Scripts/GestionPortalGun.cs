@@ -52,10 +52,7 @@ public class GestionPortalGun : MonoBehaviour
             AudioSource.PlayClipAtPoint(SonChangementMode, transform.position);
         }
 
-<<<<<<< HEAD
-=======
-        
->>>>>>> 54667afe5fdf1af438d7c5c4abce1071cf4636f6
+
 
         TempsDepuisDernierTir += Time.deltaTime;
 
