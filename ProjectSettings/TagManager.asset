@@ -9,6 +9,8 @@ TagManager:
   - Mur
   - Cube
   - Boutton
+  - SF_Door
+  - Personnage
   layers:
   - Default
   - TransparentFX
