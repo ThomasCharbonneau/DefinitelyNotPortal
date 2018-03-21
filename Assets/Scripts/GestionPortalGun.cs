@@ -16,10 +16,15 @@ public class GestionPortalGun : MonoBehaviour
     [SerializeField] GameObject portalBleu;
     [SerializeField] GameObject portalOrange;
 
+    LineRenderer lineRenderer;
+
     Vector3 CentrePortailBleu;
     Vector3 CentrePortailOrange;
-
-    GestionUI UserInterface;
+    Vector3 origineLaser;
+    const float DIAMÈTRE_LASER = 0.1f;
+    const int FORCE_LASER = 300;
+    const int TEMPS_TIR_LASER = 2;
+    bool laserTiré;
 
     const float DÉLAI_RECHARGE = 0.75f;
     float TempsDepuisDernierTir;
@@ -29,7 +34,10 @@ public class GestionPortalGun : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        lineRenderer = GetComponent<LineRenderer>();
+
         TempsDepuisDernierTir = 0;
+        laserTiré = false;
 
         GunMode = ModePortalGun.PORTAIL;
     }
@@ -39,7 +47,7 @@ public class GestionPortalGun : MonoBehaviour
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0 || Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            if(GunMode == ModePortalGun.LASER)
+            if (GunMode == ModePortalGun.LASER)
             {
                 GunMode = ModePortalGun.PORTAIL;
             }
@@ -81,6 +89,13 @@ public class GestionPortalGun : MonoBehaviour
                         {
                             TirerLaser();
                         }
+
+                        if (Input.GetMouseButtonUp(0) || (TempsDepuisDernierTir >= TEMPS_TIR_LASER))
+                        {
+                            ArrêterLaser();
+                        }
+
+                        //if (laserTiré && TempsDepuisDernierTir > TEMPS_TIR_LASER)
 
                         break;
                 }
@@ -143,6 +158,51 @@ public class GestionPortalGun : MonoBehaviour
 
     void TirerLaser()
     {
+        if (!laserTiré)
+        {
+            TempsDepuisDernierTir = 0;
+        }
 
+        origineLaser = transform.position + 3f * transform.forward - 0.1f * transform.up - 0.1f * transform.right; //Valeurs pour bien enligner le rayon avec le fusil
+
+        RaycastHit hit;
+        Ray ray = new Ray(origineLaser, Caméra.transform.forward);
+        Physics.Raycast(ray, out hit);
+
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(0, origineLaser);
+        lineRenderer.startWidth = DIAMÈTRE_LASER;
+        lineRenderer.endWidth = DIAMÈTRE_LASER;
+
+        lineRenderer.SetPosition(1, hit.point);
+        //if(hit.point != null)
+        //{
+        //    lineRenderer.SetPosition(1, hit.point);
+        //}
+        //else
+        //{
+        //    lineRenderer.SetPosition(1, );
+        //}
+
+        if (hit.rigidbody != null)
+        {
+            if (hit.rigidbody.gameObject.name == "Drone")
+            {
+                hit.rigidbody.gameObject.GetComponent<GestionDrone>().Vie -= 1;
+            }
+
+            if(hit.rigidbody.gameObject.name == "Cube")
+            {
+                hit.rigidbody.AddForce(ray.direction * FORCE_LASER);
+            }
+        }
+
+        laserTiré = true;
+    }
+
+    void ArrêterLaser()
+    {
+        lineRenderer.positionCount = 0;
+        laserTiré = false;
     }
 }

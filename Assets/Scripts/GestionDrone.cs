@@ -40,8 +40,8 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     List<Vector2> PointsDePatrouilleAdaptés; //Les points de patrouille adaptés
 
-    const int DÉPLACEMENT_X = 10;
-    const int DÉPLACEMENT_Z = 18;
+    const int DÉPLACEMENT_X = 0; //10;
+    const int DÉPLACEMENT_Z = 0; //18;
 
     int IndicePositionPiste;
 
