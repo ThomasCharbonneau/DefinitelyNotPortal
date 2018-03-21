@@ -2112,9 +2112,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SonTirPortal: {fileID: 8300000, guid: 6587c960c0e74ce46a41ceb9482b6c23, type: 3}
-  "SonD\xE9sactivationPortal": {fileID: 0}
+  "SonD\xE9sactivationPortal": {fileID: 8300000, guid: d182ba1760a281d4da37eda8cf38cfe7,
+    type: 3}
   SonSurfaceInvalide: {fileID: 8300000, guid: b65453a1809f5ef448de03b2905b3b93, type: 3}
-  SonChangementMode: {fileID: 0}
+  SonChangementMode: {fileID: 8300000, guid: 8f5bd10ffee3aaa4692fa05e8b87e0e7, type: 3}
   "Cam\xE9ra": {fileID: 20082536506674630}
   portalBleu: {fileID: 0}
   portalOrange: {fileID: 0}
