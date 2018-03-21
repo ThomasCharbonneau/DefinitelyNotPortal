@@ -8,39 +8,35 @@ public class GestionPorte : MonoBehaviour {
     [SerializeField] GameObject Porte;
 
     float temps = 0;
-    float tempsSuperflus = 0;
+    float tempsOuvrir = 0;
+    float tempsFermer = 0;
 
     // Use this for initialization
 
     public Animation AnimationPorte;
     
 	void Start () {
-        AnimationPorte = Porte.GetComponent<Animation>();
-        
-	}
+        AnimationPorte = Porte.GetComponent<Animation>();       
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        
-	}
+
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == ("Cube"))
         {
-            Debug.Log("J'AI TOUCHER LE COLLIDER");
+            tempsFermer = AnimationPorte["close"].time;
             Lampe.GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0, 1, 0.0896f));
-            if ((Time.time - temps) < 2)
+            if (tempsFermer != 0)
             {
-                AnimationPorte["open"].time = (0);
-                AnimationPorte["open"].time = (temps - Time.time + 2 - tempsSuperflus);
+                AnimationPorte["open"].time = (2 - tempsFermer);
                 Porte.GetComponent<Animation>().Play("open");
-                tempsSuperflus = temps - Time.time + 2;
-
             }
             else
             {
                 Porte.GetComponent<Animation>().Play("open");
-                tempsSuperflus = 0;
             }
             temps = Time.time;           
         }
@@ -51,21 +47,17 @@ public class GestionPorte : MonoBehaviour {
     {
         if (other.tag == ("Cube"))
         {
-            Debug.Log("J'AI TOUCHER LE COLLIDER");
+            tempsOuvrir = AnimationPorte["open"].time;
             Lampe.GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(1,0,0));
-            if ((Time.time - temps) < 2)
+            if (tempsOuvrir != 0)
             {
-                AnimationPorte["close"].time = (0);
-                AnimationPorte["close"].time = (temps - Time.time + 2 - tempsSuperflus);
+                               
+                AnimationPorte["close"].time = (2 - tempsOuvrir);
                 Porte.GetComponent<Animation>().Play("close");
-                tempsSuperflus = temps - Time.time + 2;
-
-
             }
             else
             {
                 Porte.GetComponent<Animation>().Play("close");
-                tempsSuperflus = 0;
             }
             temps = Time.time;           
         }
