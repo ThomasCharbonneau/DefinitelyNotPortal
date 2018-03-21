@@ -12,7 +12,7 @@ public class GestionMouvement : MonoBehaviour
 
     const int DISTANCE_MAX_PRISE_OBJET = 15; //La distance maximale entre le joueur et l'objet qu'il peut prendre
 
-    const int VITESSE_MARCHE_MAX = 25;
+    int VITESSE_MARCHE_MAX;
     const int VITESSE_SPRINT_MAX = 35;
     int VitesseHorizontaleMax;
     Vector3 vitesseHorizontale;
@@ -48,50 +48,52 @@ public class GestionMouvement : MonoBehaviour
 
                     personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
 
-                    EstAuSol = false;
+                    //EstAuSol = false;
                 }
+                VITESSE_MARCHE_MAX = 25;
+            }
+            else
+            {
+                VITESSE_MARCHE_MAX = 10;
+            }
+            if (Input.GetKey("w")) //déplacement vers l'avant
+            {
+                déplacementAvant = personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
 
-                if (Input.GetKey("w")) //déplacement vers l'avant
+                if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    déplacementAvant = personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
-
-                    if (Input.GetKey(KeyCode.LeftShift))
-                    {
-                        VitesseHorizontaleMax = VITESSE_SPRINT_MAX;
-                        déplacementAvant *= COEFFICIENTSPRINT;
-                    }
-                    else
-                    {
-                        VitesseHorizontaleMax = VITESSE_MARCHE_MAX;
-                    }
-
-                    personnage.velocity += déplacementAvant;
+                    VitesseHorizontaleMax = VITESSE_SPRINT_MAX;
+                    déplacementAvant *= COEFFICIENTSPRINT;
                 }
-
-                if (Input.GetKey("a")) //déplacement de coté vers la gauche
+                else
                 {
-                    personnage.velocity += -personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+                    VitesseHorizontaleMax = VITESSE_MARCHE_MAX;
                 }
 
-                if (Input.GetKey("s")) //déplacement vers l'arrière
-                {
-                    personnage.velocity += -personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
-                }
+                personnage.velocity += déplacementAvant;
+            }
 
-                if (Input.GetKey("d")) //déplacement de coté vers la droite
-                {
-                    personnage.velocity += personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
-                }
+            if (Input.GetKey("a")) //déplacement de coté vers la gauche
+            {
+                personnage.velocity += -personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+            }
 
-                //
+            if (Input.GetKey("s")) //déplacement vers l'arrière
+            {
+                personnage.velocity += -personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
+            }
 
-                vitesseHorizontale = (new Vector3(personnage.velocity.x, 0, personnage.velocity.z));
-                if (vitesseHorizontale.magnitude > VitesseHorizontaleMax)
-                {
-                    personnage.velocity = new Vector3(0, personnage.velocity.y, 0) + vitesseHorizontale.normalized * VitesseHorizontaleMax;
-                }
+            if (Input.GetKey("d")) //déplacement de coté vers la droite
+            {
+                personnage.velocity += personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+            }
 
-                //
+            //
+
+            vitesseHorizontale = (new Vector3(personnage.velocity.x, 0, personnage.velocity.z));
+            if (vitesseHorizontale.magnitude > VitesseHorizontaleMax)
+            {
+                personnage.velocity = new Vector3(0, personnage.velocity.y, 0) + vitesseHorizontale.normalized * VitesseHorizontaleMax;
             }
             if (Input.GetKeyDown("e")) //prendre un objet devant soi
             {
@@ -120,7 +122,7 @@ public class GestionMouvement : MonoBehaviour
                 ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.4f);
             }
 
-            //Debug.Log(personnage.velocity.magnitude);
+            Debug.Log(personnage.velocity.magnitude);
         }
     }
 
@@ -139,7 +141,10 @@ public class GestionMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+       if ((personnage.velocity.y > 1) || (personnage.velocity.y < -1))
+        {
+            EstAuSol = false;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

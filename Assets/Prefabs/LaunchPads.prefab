@@ -41,9 +41,10 @@ GameObject:
   - component: {fileID: 33962472819168272}
   - component: {fileID: 23796891011813250}
   - component: {fileID: 65744994117575016}
+  - component: {fileID: 64253022348218766}
   m_Layer: 0
   m_Name: LaunchPads
-  m_TagString: Sol
+  m_TagString: Boutton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,6 +159,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1928369136049202}
   m_Mesh: {fileID: 4300000, guid: 6de702723b12ceb4baa77a090e115340, type: 3}
+--- !u!64 &64253022348218766
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1928369136049202}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 6de702723b12ceb4baa77a090e115340, type: 3}
 --- !u!65 &65744994117575016
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -166,7 +181,7 @@ BoxCollider:
   m_GameObject: {fileID: 1928369136049202}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.005759646, y: 0.0055696056, z: 0.0013246005}
   m_Center: {x: -0.00022576691, y: 0.000033654323, z: 0.001033019}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaunchPadScript : MonoBehaviour {
 
-    const float FORCE_Verticale = 20f;
+    const float FORCE_Verticale = 30f;
     const float FORCE_Horizontale = 60f;
     private Vector3 PropulsationVerticale;
     private Vector3 PropulsationHorizontale;
@@ -29,6 +29,7 @@ public class LaunchPadScript : MonoBehaviour {
     {
         timer += Time.deltaTime;
         seconds = (int)timer % 60;
+       // Debug.Log(Personnage.velocity.magnitude);
 
         if (LAUNCH_MODE)
         {
