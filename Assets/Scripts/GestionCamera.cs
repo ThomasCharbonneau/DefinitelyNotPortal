@@ -36,7 +36,8 @@ public class GestionCamera : MonoBehaviour
             Vision += AdoucirCamera;
 
             transform.localRotation = Quaternion.AngleAxis(-Vision.y, Vector3.right);
-            personnage.transform.localRotation = Quaternion.AngleAxis(Vision.x, personnage.transform.up);
+            personnage.transform.localRotation = Quaternion.AngleAxis(Vision.x, personnage.transform.up); ////////////////////////////////////// CETTE LIGNE ME REND FOU
+            
         }
     }
 }
