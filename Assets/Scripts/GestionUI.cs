@@ -1,36 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class GestionUI : MonoBehaviour
 {
-    [SerializeField] GameObject Joueur;
-    [SerializeField] GameObject PortailBleu;
-    [SerializeField] GameObject PortailOrange;
+    GameObject Joueur;
+    GameObject PortailBleu;
+    GameObject PortailOrange;
 
+    
     GestionPortalGun PortalGun;
     GameObject PnlCrossair;
 
-    [SerializeField] GameObject PnlModePortail;
-    [SerializeField] GameObject PnlModeLaser;
+    GameObject PnlModePortail;
+    GameObject PnlModeLaser;
+    Image ImageChargeLaser;
 
-    [SerializeField] GameObject PnlCrosshairBleu;
-    [SerializeField] GameObject PnlCrosshairOrange;
+    GameObject PnlCrosshairBleu;
+    GameObject PnlCrosshairOrange;
 
     ModePortalGun ImageGunMode;
 
     // Use this for initialization
     void Start ()
     {
+        Joueur = GameObject.Find("Personnage");
+        PortailBleu = GameObject.Find("PortailBleu");
+        PortailOrange = GameObject.Find("PortailOrange");
+
+        ImageChargeLaser = GameObject.Find("ImageChargeLaser").GetComponent<Image>();
+
+        PnlCrosshairBleu = GameObject.Find("PnlBleu");
+        PnlCrosshairOrange = GameObject.Find("PnlOrange");
+
+        //ImageChargeLaser = GetComponentInChildren<Image>();
         //ImageGunMode = ModePortalGun.PORTAIL;
         PortalGun = Joueur.GetComponentInChildren<GestionPortalGun>();
 
-        //PnlModeLaser = GameObject.Find("PnlModeLaser");
-        //PnlModePortail = GameObject.Find("PnlModePortail");
-
+        PnlModeLaser = GameObject.Find("PnlModeLaser");
+        PnlModePortail = GameObject.Find("PnlModePortail");
 
         //PnlCrossair = GameObject.Find("PnlCrossair");
-        //PnlCrossair.gameObject.SetActive(true);
     }
 	
 	// Update is called once per frame
@@ -47,6 +59,8 @@ public class GestionUI : MonoBehaviour
         //          ImageGunMode = PortalGun.GunMode;
         //          ChangerImageGunMode();
         //      }
+
+        ImageChargeLaser.fillAmount = PortalGun.ChargeLaser / GestionPortalGun.CHARGE_LASER_MAX;
     }
 
     void ChangerImageGunMode()

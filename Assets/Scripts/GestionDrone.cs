@@ -17,7 +17,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     DataPistePatrouille pistePatrouille;
 
-    bool laserTiré; //Si un laser est présentement dans l'environnement ou non
+    bool laserTiré; //Si un laser de ce drone est présentement dans l'environnement ou non
     float tempsDepuisTirLaser;
     const float DIAMÈTRE_LASER = 0.5f;
     Vector3 origineLaser;
@@ -27,10 +27,10 @@ public class GestionDrone : MonoBehaviour, Personnage
     bool cibleVérouillée;
     Vector3 positionCible;
 
-    const float DÉLAI_TIR_LASER = 0.5f; //Le temps que le rayon laser prend pour est projeté après avoir trouvé la position de la cible
+    const float DÉLAI_TIR_LASER = 0.8f; //Le temps que le rayon laser prend pour est projeté après avoir trouvé la position de la cible
     const float DÉLAI_RECHARGE_TIR_LASER = 2.5f;
     const float TEMPS_TIR_LASER = 0.1f; //Le temps pour lequel un laser reste actif
-    const int DISTANCE_LASER_MAX = 25; //La distance maximale à laquelle un drone peut être pour tirer un laser
+    const int DISTANCE_LASER_MAX = 50; //La distance maximale à laquelle un drone peut être pour tirer un laser
 
     const int HAUTEUR_NORMALE = 10; //La hauteur par défaut à laquelle le drone flotte
     const float MAX_DISTANCE_DELTA = 0.5f;

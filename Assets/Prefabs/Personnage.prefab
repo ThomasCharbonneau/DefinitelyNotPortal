@@ -804,7 +804,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1264821272808600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 68.5, y: 26.87, z: -63.5}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4529829475911328}
@@ -2115,7 +2115,6 @@ MonoBehaviour:
   SonTirPortal: {fileID: 8300000, guid: 6587c960c0e74ce46a41ceb9482b6c23, type: 3}
   "SonD\xE9sactivationPortal": {fileID: 8300000, guid: b26f60b093f7a75429bdcfa9ad196497,
     type: 3}
-  SonSurfaceInvalide: {fileID: 8300000, guid: b65453a1809f5ef448de03b2905b3b93, type: 3}
   SonChangementMode: {fileID: 8300000, guid: 8f5bd10ffee3aaa4692fa05e8b87e0e7, type: 3}
   "Cam\xE9ra": {fileID: 20082536506674630}
   portalBleu: {fileID: 0}
@@ -2146,7 +2145,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 32caed52f36523449ba8cbb90bbf0eeb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2176,17 +2175,17 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 2
-        time: 0
-        value: 1
+        time: 0.52162933
+        value: 0.10236168
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_RotationOrder: 0
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 1, b: 0, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

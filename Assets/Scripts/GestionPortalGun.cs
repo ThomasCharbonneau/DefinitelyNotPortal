@@ -8,7 +8,7 @@ public class GestionPortalGun : MonoBehaviour
 {
     [SerializeField] AudioClip SonTirPortal;
     [SerializeField] AudioClip SonDésactivationPortal;
-    [SerializeField] AudioClip SonSurfaceInvalide;
+    //[SerializeField] AudioClip SonSurfaceInvalide;
     [SerializeField] AudioClip SonChangementMode; //Click qui indique le changement de mode du fusil
 
     [SerializeField] Camera Caméra;
@@ -20,14 +20,41 @@ public class GestionPortalGun : MonoBehaviour
 
     Vector3 CentrePortailBleu;
     Vector3 CentrePortailOrange;
+
+    const float DÉLAI_RECHARGE_PORTAILS = 0.75f;
+    float TempsDepuisDernierTirPortails;
+
     Vector3 origineLaser;
     const float DIAMÈTRE_LASER = 0.1f;
     const int FORCE_LASER = 300;
-    const int TEMPS_TIR_LASER = 2;
+    const float DÉLAI_AVANT_RECHARGE_LASER = 0.5f;
+    public const int CHARGE_LASER_MAX = 100;
     bool laserTiré;
+    float tempsDepuisArrêtLaser = 0;
+    float chargeLaser;
 
-    const float DÉLAI_RECHARGE = 0.75f;
-    float TempsDepuisDernierTir;
+    public float ChargeLaser
+    {
+        get
+        {
+            return chargeLaser;
+        }
+        private set
+        {
+            if(value > CHARGE_LASER_MAX)
+            {
+                chargeLaser = CHARGE_LASER_MAX;
+            }
+            else if(value < 0)
+            {
+                chargeLaser = 0;
+            }
+            else
+            {
+                chargeLaser = value;
+            }
+        }
+    }
 
     public ModePortalGun GunMode { get; private set; }
 
@@ -36,15 +63,27 @@ public class GestionPortalGun : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
 
-        TempsDepuisDernierTir = 0;
+        TempsDepuisDernierTirPortails = 0;
         laserTiré = false;
 
         GunMode = ModePortalGun.PORTAIL;
+
+        ChargeLaser = CHARGE_LASER_MAX;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!laserTiré)
+        {
+            tempsDepuisArrêtLaser += Time.deltaTime;
+
+            if(tempsDepuisArrêtLaser >= DÉLAI_AVANT_RECHARGE_LASER)
+            {
+                ChargeLaser += 0.5f;
+            }
+        }
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0 || Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             if (GunMode == ModePortalGun.LASER)
@@ -60,11 +99,9 @@ public class GestionPortalGun : MonoBehaviour
             AudioSource.PlayClipAtPoint(SonChangementMode, transform.position);
         }
 
+        TempsDepuisDernierTirPortails += Time.deltaTime;
 
-
-        TempsDepuisDernierTir += Time.deltaTime;
-
-        if (TempsDepuisDernierTir >= DÉLAI_RECHARGE)
+        if (TempsDepuisDernierTirPortails >= DÉLAI_RECHARGE_PORTAILS)
         {
             if (!GestionCamera.PAUSE_CAMERA)
             {
@@ -87,10 +124,13 @@ public class GestionPortalGun : MonoBehaviour
 
                         if (Input.GetMouseButton(0))
                         {
-                            TirerLaser();
+                            if (!(ChargeLaser <= (float)CHARGE_LASER_MAX / 4 && !laserTiré))
+                            {
+                                TirerLaser();
+                            }
                         }
 
-                        if (Input.GetMouseButtonUp(0) || (TempsDepuisDernierTir >= TEMPS_TIR_LASER))
+                        if (laserTiré && (Input.GetMouseButtonUp(0) || (ChargeLaser <= 0)))
                         {
                             ArrêterLaser();
                         }
@@ -100,6 +140,8 @@ public class GestionPortalGun : MonoBehaviour
                         break;
                 }
             }
+
+            //Debug.Log("Charge Laser : " + ChargeLaser);
         }
 
         if ((portalBleu.activeSelf || portalOrange.activeSelf) && Input.GetKeyDown("r"))
@@ -148,21 +190,16 @@ public class GestionPortalGun : MonoBehaviour
                 portail.transform.position = hit.point;
                 portail.transform.LookAt(hit.point + hit.normal);
 
-                TempsDepuisDernierTir = 0;
+                TempsDepuisDernierTirPortails = 0;
             }
         }
 
-        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+        //Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
         //Debug.Break();
     }
 
     void TirerLaser()
     {
-        if (!laserTiré)
-        {
-            TempsDepuisDernierTir = 0;
-        }
-
         origineLaser = transform.position + 3f * transform.forward - 0.1f * transform.up - 0.1f * transform.right; //Valeurs pour bien enligner le rayon avec le fusil
 
         RaycastHit hit;
@@ -197,6 +234,8 @@ public class GestionPortalGun : MonoBehaviour
             }
         }
 
+        ChargeLaser -= 2;
+
         laserTiré = true;
     }
 
@@ -204,5 +243,6 @@ public class GestionPortalGun : MonoBehaviour
     {
         lineRenderer.positionCount = 0;
         laserTiré = false;
+        tempsDepuisArrêtLaser = 0;
     }
 }

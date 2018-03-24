@@ -145,9 +145,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "portailOppos\xE9": {fileID: 495878375}
   portail: {fileID: 44558514}
-  personnage: {fileID: 0}
+  personnage: {fileID: 583300179}
   SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
-  "cam\xE9ra": {fileID: 0}
+  "cam\xE9ra": {fileID: 1133040898}
   "pass\xE9DansFrame": 0
 --- !u!65 &44558516
 BoxCollider:
@@ -452,48 +452,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 373531175}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &492980182
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4393814406331172, guid: 5bc34ed05d76bf145b406ba07fb6ba97, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -8.081556
-      objectReference: {fileID: 0}
-    - target: {fileID: 4393814406331172, guid: 5bc34ed05d76bf145b406ba07fb6ba97, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 8.216343
-      objectReference: {fileID: 0}
-    - target: {fileID: 4393814406331172, guid: 5bc34ed05d76bf145b406ba07fb6ba97, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 40.788086
-      objectReference: {fileID: 0}
-    - target: {fileID: 4393814406331172, guid: 5bc34ed05d76bf145b406ba07fb6ba97, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4393814406331172, guid: 5bc34ed05d76bf145b406ba07fb6ba97, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4393814406331172, guid: 5bc34ed05d76bf145b406ba07fb6ba97, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4393814406331172, guid: 5bc34ed05d76bf145b406ba07fb6ba97, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4393814406331172, guid: 5bc34ed05d76bf145b406ba07fb6ba97, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 5bc34ed05d76bf145b406ba07fb6ba97, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &495878375
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,9 +550,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "portailOppos\xE9": {fileID: 44558514}
   portail: {fileID: 495878375}
-  personnage: {fileID: 0}
+  personnage: {fileID: 583300179}
   SonTeleportation: {fileID: 8300000, guid: 06ec43d1c53e79e43bd7c2c0666800c7, type: 3}
-  "cam\xE9ra": {fileID: 0}
+  "cam\xE9ra": {fileID: 1133040898}
   "pass\xE9DansFrame": 0
 --- !u!1001 &545281070
 Prefab:
@@ -668,15 +626,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4785762542657520, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 68.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4785762542657520, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 26.87
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4785762542657520, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -63.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4785762542657520, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
       propertyPath: m_LocalRotation.x
@@ -708,36 +666,6 @@ Prefab:
       propertyPath: portalOrange
       value: 
       objectReference: {fileID: 495878375}
-    - target: {fileID: 120097331389336644, guid: 555564ceb8c4e0242b030c9fa2637ef9,
-        type: 2}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 120097331389336644, guid: 555564ceb8c4e0242b030c9fa2637ef9,
-        type: 2}
-      propertyPath: m_Parameters.widthCurve.m_RotationOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 120097331389336644, guid: 555564ceb8c4e0242b030c9fa2637ef9,
-        type: 2}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 120097331389336644, guid: 555564ceb8c4e0242b030c9fa2637ef9,
-        type: 2}
-      propertyPath: m_Parameters.colorGradient.key0.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 120097331389336644, guid: 555564ceb8c4e0242b030c9fa2637ef9,
-        type: 2}
-      propertyPath: m_Parameters.colorGradient.key0.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 120097331389336644, guid: 555564ceb8c4e0242b030c9fa2637ef9,
-        type: 2}
-      propertyPath: m_Parameters.colorGradient.key0.b
-      value: 0.21379304
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0
@@ -863,69 +791,14 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224659991954173868, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224659991954173868, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224659991954173868, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224659991954173868, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224659991954173868, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224659991954173868, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 800
-      objectReference: {fileID: 0}
-    - target: {fileID: 224659991954173868, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 358
-      objectReference: {fileID: 0}
-    - target: {fileID: 224443727157405116, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224658823620257850, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114216884959917168, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: Joueur
-      value: 
-      objectReference: {fileID: 583300179}
-    - target: {fileID: 114216884959917168, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: PortailOrange
-      value: 
-      objectReference: {fileID: 495878375}
-    - target: {fileID: 114216884959917168, guid: 9962342675454e34f9059370697af190,
-        type: 2}
-      propertyPath: PortailBleu
-      value: 
-      objectReference: {fileID: 44558514}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9962342675454e34f9059370697af190, type: 2}
   m_IsPrefabParent: 0
+--- !u!20 &1133040898 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20082536506674630, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+    type: 2}
+  m_PrefabInternal: {fileID: 555110758}
 --- !u!1 &1408211969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,7 +1001,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 47d8f81d76eb5c244a6497925732a737, type: 2}
+  - {fileID: 2100000, guid: 865473e1356716a40a745f0445eeeffc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
