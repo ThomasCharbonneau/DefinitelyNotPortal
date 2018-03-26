@@ -16,7 +16,10 @@ public class Portail : MonoBehaviour
 
     //const float DÉLAI_PASSAGE = 0.25f;
     float TempsDepuisDernierPassage;
+    float angle;
     public bool passéDansFrame; //Si un objet est passé dans le portail dans le frame actuel.
+
+    GestionCamera scriptGestionCaméra;
 
     Quaternion différenceRotation;
     
@@ -26,6 +29,7 @@ public class Portail : MonoBehaviour
     {
         TempsDepuisDernierPassage = 0;
         passéDansFrame = false;
+        scriptGestionCaméra = caméra.GetComponent<GestionCamera>();
     }
 
     // Update is called once per frame
@@ -33,10 +37,6 @@ public class Portail : MonoBehaviour
     {
         TempsDepuisDernierPassage += Time.deltaTime;
         passéDansFrame = false;
-
-        personnage.GetComponent<Rigidbody>().rotation = Quaternion.Euler(0, 9, 0);
-        personnage.transform.Rotate(0, 9, 0);
-        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,10 +59,22 @@ public class Portail : MonoBehaviour
 
             other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10);
             other.GetComponent<Rigidbody>().AddForce(normale * vitesse * 43);
+
+            angle = Vector3.Angle(other.transform.forward, portailOpposé.transform.forward);
+
+            if (other.transform.eulerAngles.y > 180)
+            {
+                angle *= -1;
+            }
+            scriptGestionCaméra.degréRotation = angle;
+            Debug.Log(Vector3.Angle(other.transform.forward, portailOpposé.transform.forward));
+            Debug.Log(other.transform.eulerAngles.y);
+      
+   
             //other.transform.Rotate(Vector3.up * 90);
 
 
-            other.GetComponent<Rigidbody>().rotation = Quaternion.FromToRotation(other.transform.forward, portailOpposé.transform.forward);
+            //other.GetComponent<Rigidbody>().rotation = Quaternion.FromToRotation(other.transform.forward, portailOpposé.transform.forward);
 
 
 

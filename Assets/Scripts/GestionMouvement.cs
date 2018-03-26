@@ -120,9 +120,7 @@ public class GestionMouvement : MonoBehaviour
             if (TientObjet)
             {
                 ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.4f);
-            }
-
-            Debug.Log(personnage.velocity.magnitude);
+            }           
         }
     }
 

@@ -238,6 +238,11 @@ Prefab:
       propertyPath: personnage
       value: 
       objectReference: {fileID: 583300179}
+    - target: {fileID: 114648821330985766, guid: 494b03fba720ca14f80c270a56e2b085,
+        type: 2}
+      propertyPath: "cam\xE9ra"
+      value: 
+      objectReference: {fileID: 300732862}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 494b03fba720ca14f80c270a56e2b085, type: 2}
   m_IsPrefabParent: 0
@@ -532,7 +537,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4785762542657520, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.3599992
+      value: 22.61
       objectReference: {fileID: 0}
     - target: {fileID: 4785762542657520, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1007,6 +1012,11 @@ Prefab:
       propertyPath: personnage
       value: 
       objectReference: {fileID: 583300179}
+    - target: {fileID: 114385505080495924, guid: 529a1c739233e0d49a15694f4ec331ea,
+        type: 2}
+      propertyPath: "cam\xE9ra"
+      value: 
+      objectReference: {fileID: 300732862}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 529a1c739233e0d49a15694f4ec331ea, type: 2}
   m_IsPrefabParent: 0
