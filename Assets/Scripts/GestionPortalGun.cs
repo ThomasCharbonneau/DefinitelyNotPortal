@@ -74,16 +74,6 @@ public class GestionPortalGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!laserTiré)
-        {
-            tempsDepuisArrêtLaser += Time.deltaTime;
-
-            if(tempsDepuisArrêtLaser >= DÉLAI_AVANT_RECHARGE_LASER)
-            {
-                ChargeLaser += 0.5f;
-            }
-        }
-
         if (Input.GetAxis("Mouse ScrollWheel") > 0 || Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             if (GunMode == ModePortalGun.LASER)
@@ -122,6 +112,16 @@ public class GestionPortalGun : MonoBehaviour
 
                     case ModePortalGun.LASER:
 
+                        if (!laserTiré)
+                        {
+                            tempsDepuisArrêtLaser += Time.deltaTime;
+
+                            if (tempsDepuisArrêtLaser >= DÉLAI_AVANT_RECHARGE_LASER)
+                            {
+                                ChargeLaser += 0.5f;
+                            }
+                        }
+
                         if (Input.GetMouseButton(0))
                         {
                             if (!(ChargeLaser <= (float)CHARGE_LASER_MAX / 4 && !laserTiré))
@@ -140,8 +140,6 @@ public class GestionPortalGun : MonoBehaviour
                         break;
                 }
             }
-
-            //Debug.Log("Charge Laser : " + ChargeLaser);
         }
 
         if ((portalBleu.activeSelf || portalOrange.activeSelf) && Input.GetKeyDown("r"))
