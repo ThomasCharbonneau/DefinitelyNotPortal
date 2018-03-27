@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 987109022}
   - component: {fileID: 987109026}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: FinDePartieCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -767,6 +767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63e311a0e23027a4fbf475fd053a15d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  "ancienneSc\xE8ne": 
 --- !u!1 &988802013
 GameObject:
   m_ObjectHideFlags: 0
