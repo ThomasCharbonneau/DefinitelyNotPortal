@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GestionFinDePartie : MonoBehaviour {
@@ -19,6 +20,10 @@ public class GestionFinDePartie : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-       // FAIRE APPARAITRE MENU QUI PERMET AU JOUEUR DE REVENIR AU MENU/QUITTER/PROCHAIN NIVEAU
+        if (other.transform.tag == "Cube" || other.transform.tag == "Personnage")
+        {
+            SceneManager.LoadScene("FinDePartie");
+        }
+
     }
 }

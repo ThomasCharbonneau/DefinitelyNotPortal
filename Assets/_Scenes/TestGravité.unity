@@ -676,6 +676,11 @@ Prefab:
       propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 136184856967405724, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0
@@ -803,7 +808,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1251857665}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.747498, y: 10.137497, z: -29.706625}
+  m_LocalPosition: {x: 35.747498, y: 1, z: -29.706625}
   m_LocalScale: {x: 16.96875, y: 1.13125, z: 16.96875}
   m_Children: []
   m_Father: {fileID: 1476053924}
