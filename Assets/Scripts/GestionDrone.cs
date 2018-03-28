@@ -7,6 +7,7 @@ public enum ModeDrone { PATROUILLE, ATTAQUE, RETOUR_VERS_PATROUILLE, DÉPLACEMEN
 public class GestionDrone : MonoBehaviour, Personnage
 {
     [SerializeField] AudioClip SonDétectionJoueur;
+    [SerializeField] AudioClip SonTirLaser;
 
     [SerializeField] GameObject joueur;
     GameObject gameObjectDrone;
@@ -141,7 +142,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     {
         if (Mode == ModeDrone.PATROUILLE && VérifierJoueurVisible())
         {
-            AudioSource.PlayClipAtPoint(SonDétectionJoueur, transform.position, 10);
+            AudioSource.PlayClipAtPoint(SonDétectionJoueur, transform.position);
             Mode = ModeDrone.ATTAQUE;
             Debug.Log("Le joueur est détecté");
         }
@@ -175,10 +176,10 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
         Debug.Log("Changement de Sens à : " + Time.deltaTime);
+        PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
     }
 
     public void DéplacerVersPoint(Vector2 pointÀAtteindre)
@@ -252,6 +253,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
                 if (tempsDepuisVérouillageCible >= DÉLAI_VÉROUILLAGE_CIBLE)
                 {
+                    AudioSource.PlayClipAtPoint(SonTirLaser, transform.position);
                     TirerLaser(positionCible);
                     tempsDepuisTirLaser = 0;
                     cibleVérouillée = false;

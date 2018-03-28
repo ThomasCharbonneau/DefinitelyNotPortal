@@ -10,6 +10,7 @@ public class GestionPortalGun : MonoBehaviour
     [SerializeField] AudioClip SonDésactivationPortal;
     //[SerializeField] AudioClip SonSurfaceInvalide;
     [SerializeField] AudioClip SonChangementMode; //Click qui indique le changement de mode du fusil
+    [SerializeField] AudioClip SonTirLaser;
 
     [SerializeField] Camera Caméra;
 
@@ -112,6 +113,11 @@ public class GestionPortalGun : MonoBehaviour
 
                     case ModePortalGun.LASER:
 
+                        if (!(ChargeLaser <= (float)CHARGE_LASER_MAX / 4) && Input.GetMouseButtonDown(0))
+                        {
+                            AudioSource.PlayClipAtPoint(SonTirLaser, transform.position);
+                        }
+
                         if (!laserTiré)
                         {
                             tempsDepuisArrêtLaser += Time.deltaTime;
@@ -134,8 +140,6 @@ public class GestionPortalGun : MonoBehaviour
                         {
                             ArrêterLaser();
                         }
-
-                        //if (laserTiré && TempsDepuisDernierTir > TEMPS_TIR_LASER)
 
                         break;
                 }

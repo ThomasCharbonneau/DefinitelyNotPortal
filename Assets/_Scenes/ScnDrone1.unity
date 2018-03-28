@@ -361,6 +361,21 @@ Prefab:
       propertyPath: joueur
       value: 
       objectReference: {fileID: 583300179}
+    - target: {fileID: 54245592672559790, guid: 8710be3359cbeeb419b440a2a17bc8ff,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54245592672559790, guid: 8710be3359cbeeb419b440a2a17bc8ff,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114612820184171152, guid: 8710be3359cbeeb419b440a2a17bc8ff,
+        type: 2}
+      propertyPath: SonTirLaser
+      value: 
+      objectReference: {fileID: 8300000, guid: f4b548df8fff68843b1181697bbf7ca3, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
   m_IsPrefabParent: 0
@@ -413,6 +428,11 @@ Prefab:
       propertyPath: portalOrange
       value: 
       objectReference: {fileID: 495878375}
+    - target: {fileID: 114351959307232994, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: SonTirLaser
+      value: 
+      objectReference: {fileID: 8300000, guid: f4b548df8fff68843b1181697bbf7ca3, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0
@@ -750,6 +770,18 @@ Prefab:
     - target: {fileID: 4433792933616074, guid: 1baad39768a320847a6d2642c8b68365, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4812961220961160, guid: 1baad39768a320847a6d2642c8b68365, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4812961220961160, guid: 1baad39768a320847a6d2642c8b68365, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4812961220961160, guid: 1baad39768a320847a6d2642c8b68365, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1baad39768a320847a6d2642c8b68365, type: 2}

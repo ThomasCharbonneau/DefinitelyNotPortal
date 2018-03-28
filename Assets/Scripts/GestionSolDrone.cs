@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GestionSol : MonoBehaviour
+public class GestionSolDrone : MonoBehaviour
 {
     const float ÉTENDUE = 200; //L'étendue du sol en unités de Unity
     const int ÉTENDUE_CHARPENTE = 20;
@@ -20,12 +20,14 @@ public class GestionSol : MonoBehaviour
     int NbSommets;
     int NbTriangles;
 
-    void Awake ()
+    void Start ()
     {
         CalculerDonnéesDeBase();
         GénérerTriangles();
 
         transform.gameObject.GetComponent<MeshCollider>().sharedMesh = Maillage;
+
+        TrouverObstacles();
     }
 
     private void CalculerDonnéesDeBase()
@@ -150,4 +152,22 @@ public class GestionSol : MonoBehaviour
     {
 		
 	}
+
+    void TrouverObstacles()
+    {
+        RaycastHit hit;
+        foreach (Vector3 point in Sommets)
+        {
+            Ray ray = new Ray(point, Vector3.up);
+            Physics.Raycast(ray, out hit);
+
+            //if(hit.collider.GetComponent<GameObject>().name == "plafond")
+            {
+                if(hit.collider.name != "Plafond")
+                {
+                    Debug.Log(hit.collider.name);
+                }
+            }
+        }
+    }
 }
