@@ -24,6 +24,8 @@ public class GestionMenuDemarage : MonoBehaviour
     [SerializeField] Slider SldSensitivité;
     [SerializeField] Slider SldSon;
 
+    
+
     Button BtnNewGame;
     Button BtnLoadJeu;
     bool ValeurMiseAjour;
@@ -35,7 +37,7 @@ public class GestionMenuDemarage : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+       
         TableauBoutons = new Button[NOMBRE_NIVEAUX_MAX];
         CheatCode = false;
         PnlOptions = GameObject.Find("PnlOptions");

@@ -52,12 +52,10 @@ public class GestionRespawnLave : MonoBehaviour {
             {
                 other.transform.position = spawnPointCube3;
             }
-
         }
         if (other.tag == "Personnage")
         {
             other.transform.position = spawnPointPersonnage;
-            Debug.Log("J'ai changé la position de mon personnage");
         }
     }
 }

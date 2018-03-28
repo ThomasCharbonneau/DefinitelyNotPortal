@@ -27,6 +27,7 @@ public class Portail : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
         TempsDepuisDernierPassage = 0;
         passéDansFrame = false;
         scriptGestionCaméra = caméra.GetComponent<GestionCamera>();

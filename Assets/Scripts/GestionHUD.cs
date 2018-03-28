@@ -23,6 +23,7 @@ public class GestionHUD : MonoBehaviour
     Camera Caméra;
     GestionCamera cameraControlleur;
 
+
     // Use this for initialization
     void Start()
     {
@@ -33,6 +34,7 @@ public class GestionHUD : MonoBehaviour
         PnlBoutons = GameObject.Find("PnlBoutons");
         PnlCrossair = GameObject.Find("PnlCrossair");
 
+        
         BtnResumer = GameObject.Find("BtnResumer").GetComponent<Button>();
         BtnOption = GameObject.Find("BtnOption").GetComponent<Button>();
         BtnRetour = GameObject.Find("BtnRetour").GetComponent<Button>();
@@ -72,6 +74,11 @@ public class GestionHUD : MonoBehaviour
             PnlOptions.gameObject.SetActive(true);
             PnlBoutons.gameObject.SetActive(false);
             InitialisationDesParametres();
+        }
+        if ("Reloader" == Choix)
+        {
+            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if ("Resumer" == Choix)
         {
