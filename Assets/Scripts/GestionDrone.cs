@@ -42,6 +42,8 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     List<Vector2> PointsDePatrouilleAdaptés; //Les points de patrouille adaptés
 
+    bool PatrouilleEnSensHoraire; //Vrai si le drone patrouille en sens horaire, faux si il patrouille en sens anti-horaire
+
     const int DÉPLACEMENT_X = 0; //10;
     const int DÉPLACEMENT_Z = 0; //18;
 
@@ -56,6 +58,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         pistePatrouille = new DataPistePatrouille();
         AdapterPointsDePatrouille();
         IndicePositionPiste = 0;
+        PatrouilleEnSensHoraire = true;
 
         drone = GetComponent<Rigidbody>();
         gameObjectDrone = drone.gameObject;
@@ -150,14 +153,32 @@ public class GestionDrone : MonoBehaviour, Personnage
             }
             else
             {
-                IndicePositionPiste++;
-
-                if (IndicePositionPiste == PointsDePatrouilleAdaptés.Count)
+                if(PatrouilleEnSensHoraire)
                 {
-                    IndicePositionPiste = 0;
+                    IndicePositionPiste--;
+
+                    if (IndicePositionPiste < 0)
+                    {
+                        IndicePositionPiste = PointsDePatrouilleAdaptés.Count - 1;
+                    }
+                }
+                else
+                {
+                    IndicePositionPiste++;
+
+                    if (IndicePositionPiste == PointsDePatrouilleAdaptés.Count)
+                    {
+                        IndicePositionPiste = 0;
+                    }
                 }
             }
         }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
+        Debug.Log("Changement de Sens à : " + Time.deltaTime);
     }
 
     public void DéplacerVersPoint(Vector2 pointÀAtteindre)

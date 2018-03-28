@@ -327,7 +327,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "R\xE9alis\xE9 par\nArmando Junior Pereira\nThomas Charbonneau\nZachary
-    Tuotte"
+    Thuotte"
 --- !u!222 &148462983
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3347,6 +3347,11 @@ Prefab:
     - target: {fileID: 1423506559673304, guid: 715935baf3b8ed348a8841f14d7a7b17, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114125257453445768, guid: 715935baf3b8ed348a8841f14d7a7b17,
+        type: 2}
+      propertyPath: m_Text
+      value: Clic Souris = Portal Bleu/Orange
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 715935baf3b8ed348a8841f14d7a7b17, type: 2}
