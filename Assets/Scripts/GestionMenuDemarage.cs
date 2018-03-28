@@ -10,10 +10,12 @@ public class GestionMenuDemarage : MonoBehaviour
     GameObject PnlPrincipale;
     GameObject PnlJouer;
     GameObject PnlCredit;
+    GameObject PnlChoixNiveau;
     Button BtnJouer;
     Button BtnOption;
     Button BtnCredit;
     Button BtnRetour;
+    Button BtnChoixNiveau;
     string Niveau;
 
     public Canvas CanvasControlleur;
@@ -24,6 +26,8 @@ public class GestionMenuDemarage : MonoBehaviour
     Button BtnNewGame;
     Button BtnLoadJeu;
     bool ValeurMiseAjour;
+
+    string NiveauRendu;
     // Use this for initialization
     void Start()
     {
@@ -31,11 +35,13 @@ public class GestionMenuDemarage : MonoBehaviour
         PnlPrincipale = GameObject.Find("PnlPrincipale");
         PnlCredit = GameObject.Find("PnlCredit");
         PnlJouer = GameObject.Find("PnlJouer");
+        PnlChoixNiveau = GameObject.Find("PnlChoixNiveau");
 
         BtnJouer = GameObject.Find("BtnJouer").GetComponent<Button>();
         BtnOption = GameObject.Find("BtnOption").GetComponent<Button>();
         BtnCredit = GameObject.Find("BtnCredit").GetComponent<Button>();
         BtnRetour = GameObject.Find("BtnRetour").GetComponent<Button>();
+        BtnChoixNiveau = GameObject.Find("BtnMenuNiveau").GetComponent<Button>();
 
         BtnNewGame = GameObject.Find("BtnNewGame").GetComponent<Button>();
         BtnLoadJeu = GameObject.Find("BtnLoadJeu").GetComponent<Button>();
@@ -48,6 +54,7 @@ public class GestionMenuDemarage : MonoBehaviour
         PnlOptions.gameObject.SetActive(false);
         PnlJouer.gameObject.SetActive(false);
         PnlCredit.gameObject.SetActive(false);
+        PnlChoixNiveau.gameObject.SetActive(false);
 
         ValeurMiseAjour = true;
 
@@ -73,6 +80,7 @@ public class GestionMenuDemarage : MonoBehaviour
             PnlPrincipale.gameObject.SetActive(false);
             PnlCredit.gameObject.SetActive(false);
             PnlOptions.gameObject.SetActive(false);
+            PnlChoixNiveau.gameObject.SetActive(false);
             ValeurMiseAjour = true;
             if(SauvegardeControlleur.ListeSettings[0] == "0")
             {
@@ -86,6 +94,7 @@ public class GestionMenuDemarage : MonoBehaviour
             PnlJouer.gameObject.SetActive(false);
             PnlPrincipale.gameObject.SetActive(false);
             PnlCredit.gameObject.SetActive(false);
+            PnlChoixNiveau.gameObject.SetActive(false);
             InitialisationDesParametres();
             ValeurMiseAjour = true;
         }
@@ -95,6 +104,7 @@ public class GestionMenuDemarage : MonoBehaviour
             PnlOptions.gameObject.SetActive(false);
             PnlJouer.gameObject.SetActive(false);
             PnlPrincipale.gameObject.SetActive(false);
+            PnlChoixNiveau.gameObject.SetActive(false);
             ValeurMiseAjour = true;
         }
         if ("Retour" == Choix)
@@ -103,6 +113,16 @@ public class GestionMenuDemarage : MonoBehaviour
             PnlCredit.gameObject.SetActive(false);
             PnlOptions.gameObject.SetActive(false);
             PnlJouer.gameObject.SetActive(false);
+            PnlChoixNiveau.gameObject.SetActive(false);
+            ValeurMiseAjour = true;
+        }
+        if ("ChoixNiveau" == Choix)
+        {
+            PnlPrincipale.gameObject.SetActive(false);
+            PnlCredit.gameObject.SetActive(false);
+            PnlOptions.gameObject.SetActive(false);
+            PnlJouer.gameObject.SetActive(false);
+            PnlChoixNiveau.gameObject.SetActive(true);
             ValeurMiseAjour = true;
         }
         if ("Sauvegarder" == Choix)
@@ -114,21 +134,28 @@ public class GestionMenuDemarage : MonoBehaviour
             SauvegardeControlleur.ListeSettings[0] = 0f.ToString();
             SauvegardeControlleur.SaveSettings();
             DéterminerNiveau();
+            LoaderNiveau(NiveauRendu);
 
         }
         if ("Load" == Choix)
         {
             DéterminerNiveau();
+            LoaderNiveau(NiveauRendu);
         }
     }
     public void DéterminerNiveau()
     {
-        string NiveauRendu = SauvegardeControlleur.ListeSettings[0];
+        NiveauRendu = SauvegardeControlleur.ListeSettings[0];
         if(NiveauRendu == "0") { Niveau = "ScnPortalGun"; }
         if(NiveauRendu == "1") { Niveau = ""; }
         if(NiveauRendu == "2") { Niveau = ""; }
         if(NiveauRendu == "3") { Niveau = ""; }
-        SceneManager.LoadScene(sceneName: Niveau);
+        
+    }
+
+    public void LoaderNiveau(string chiffre)
+    {
+        SceneManager.LoadScene("Niveau" + chiffre);
     }
 
     // Update is called once per frame
