@@ -67,7 +67,12 @@ public class Portail : MonoBehaviour
             {
                 angle *= -1;
             }
-            scriptGestionCaméra.degréRotation = angle;
+
+            if(other.name == "Personnage")
+            {
+                scriptGestionCaméra.degréRotation = angle;
+            }
+
             Debug.Log(Vector3.Angle(other.transform.forward, portailOpposé.transform.forward));
             Debug.Log(other.transform.eulerAngles.y);
       
