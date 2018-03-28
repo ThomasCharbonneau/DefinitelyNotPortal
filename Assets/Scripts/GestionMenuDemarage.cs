@@ -17,6 +17,7 @@ public class GestionMenuDemarage : MonoBehaviour
     Button BtnRetour;
     Button BtnChoixNiveau;
     string Niveau;
+    Button[] TableauBoutons;
 
     public Canvas CanvasControlleur;
     GestionSauvegarde SauvegardeControlleur;
@@ -26,11 +27,17 @@ public class GestionMenuDemarage : MonoBehaviour
     Button BtnNewGame;
     Button BtnLoadJeu;
     bool ValeurMiseAjour;
+    bool CheatCode;
 
     string NiveauRendu;
+    const int NOMBRE_NIVEAUX_MAX = 12;
+
     // Use this for initialization
     void Start()
     {
+
+        TableauBoutons = new Button[NOMBRE_NIVEAUX_MAX];
+        CheatCode = false;
         PnlOptions = GameObject.Find("PnlOptions");
         PnlPrincipale = GameObject.Find("PnlPrincipale");
         PnlCredit = GameObject.Find("PnlCredit");
@@ -48,6 +55,7 @@ public class GestionMenuDemarage : MonoBehaviour
 
         CanvasControlleur = GetComponent<Canvas>();
         SauvegardeControlleur = CanvasControlleur.GetComponent<GestionSauvegarde>();
+        InitialiserBoutons();
         InitialisationDesParametres();
 
         BtnRetour.gameObject.SetActive(true);
@@ -57,6 +65,7 @@ public class GestionMenuDemarage : MonoBehaviour
         PnlChoixNiveau.gameObject.SetActive(false);
 
         ValeurMiseAjour = true;
+      
 
     }
     public void InitialisationDesParametres()
@@ -71,6 +80,14 @@ public class GestionMenuDemarage : MonoBehaviour
         SauvegardeControlleur.ListeSettings[2] = SldSon.value.ToString();
         SauvegardeControlleur.SaveSettings();
         InitialisationDesParametres();
+    }
+
+    public void InitialiserBoutons()
+    {
+        for (int i = 1; i<= NOMBRE_NIVEAUX_MAX; i++)
+        {
+            TableauBoutons[i - 1] = GameObject.Find("BtnNiveau" + i).GetComponent<Button>();
+        }
     }
     public void VerifierMenu(string Choix)
     {
@@ -123,6 +140,8 @@ public class GestionMenuDemarage : MonoBehaviour
             PnlOptions.gameObject.SetActive(false);
             PnlJouer.gameObject.SetActive(false);
             PnlChoixNiveau.gameObject.SetActive(true);
+            DéterminerNiveau();
+            LoaderPanelNiveaux();
             ValeurMiseAjour = true;
         }
         if ("Sauvegarder" == Choix)
@@ -146,16 +165,44 @@ public class GestionMenuDemarage : MonoBehaviour
     public void DéterminerNiveau()
     {
         NiveauRendu = SauvegardeControlleur.ListeSettings[0];
-        if(NiveauRendu == "0") { Niveau = "ScnPortalGun"; }
-        if(NiveauRendu == "1") { Niveau = ""; }
-        if(NiveauRendu == "2") { Niveau = ""; }
-        if(NiveauRendu == "3") { Niveau = ""; }
+
+        //if(NiveauRendu == "0") { Niveau = "ScnPortalGun"; }
+        //if(NiveauRendu == "1") { Niveau = ""; }
+        //if(NiveauRendu == "2") { Niveau = ""; }
+        //if(NiveauRendu == "3") { Niveau = ""; }
         
     }
 
     public void LoaderNiveau(string chiffre)
     {
+        if (float.Parse(chiffre) == 0) { chiffre = "1"; }
         SceneManager.LoadScene("Niveau" + chiffre);
+    }
+
+    public void LoaderPanelNiveaux()
+    {
+        if(CheatCode)
+        {
+            for (int i = 1; i <= NOMBRE_NIVEAUX_MAX; i++)
+            {
+               TableauBoutons[i-1].gameObject.SetActive(true);
+            }          
+        }
+        else
+        {
+            for (int i = 1; i <= NOMBRE_NIVEAUX_MAX; i++)
+            {
+                if (i <= float.Parse(NiveauRendu) || i == 1)
+                {
+                    TableauBoutons[i - 1].gameObject.SetActive(true);
+                }
+                else
+                {
+                    TableauBoutons[i - 1].gameObject.SetActive(false);
+                }
+                
+            }
+        }
     }
 
     // Update is called once per frame
@@ -170,6 +217,12 @@ public class GestionMenuDemarage : MonoBehaviour
             }
             else { BtnRetour.interactable = true; }
             ValeurMiseAjour = false;
+        }
+
+        if (Input.GetKey("1") && Input.GetKey("2") && Input.GetKey("3"))
+        {
+            CheatCode = true;
+            LoaderPanelNiveaux();
         }
     }
 }
