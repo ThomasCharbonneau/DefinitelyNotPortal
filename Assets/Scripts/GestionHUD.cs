@@ -77,7 +77,7 @@ public class GestionHUD : MonoBehaviour
         }
         if ("Reloader" == Choix)
         {
-            
+            VerifierMenu("Resumer");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if ("Resumer" == Choix)
