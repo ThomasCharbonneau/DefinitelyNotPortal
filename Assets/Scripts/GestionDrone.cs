@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ModeDrone { PATROUILLE, ATTAQUE }
+public enum ModeDrone { PATROUILLE, ATTAQUE, RETOUR_VERS_PATROUILLE, DÉPLACEMENT_VERS_MARQUEUR }
 
 public class GestionDrone : MonoBehaviour, Personnage
 {
+    [SerializeField] AudioClip SonDétectionJoueur;
+
     [SerializeField] GameObject joueur;
     GameObject gameObjectDrone;
 
@@ -33,7 +35,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     const int DISTANCE_LASER_MAX = 50; //La distance maximale à laquelle un drone peut être pour tirer un laser
 
     const int HAUTEUR_NORMALE = 10; //La hauteur par défaut à laquelle le drone flotte
-    const float MAX_DISTANCE_DELTA = 0.5f;
+    const float MAX_DISTANCE_DELTA = 0.25f;
 
     const int NB_DEGRÉS_FOV = 75;
     const int DISTANCE_VISION_MAX = 35; //La distance maximale à laquelle le drone peut appercevoir le joueur
@@ -134,10 +136,11 @@ public class GestionDrone : MonoBehaviour, Personnage
     /// </summary>
     void Patrouiller()
     {
-        if (VérifierJoueurVisible())
+        if (Mode == ModeDrone.PATROUILLE && VérifierJoueurVisible())
         {
+            AudioSource.PlayClipAtPoint(SonDétectionJoueur, transform.position, 10);
             Mode = ModeDrone.ATTAQUE;
-            Debug.Log("Le joueur est visible");
+            Debug.Log("Le joueur est détecté");
         }
         else
         {

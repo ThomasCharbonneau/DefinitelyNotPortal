@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 65015779589637156}
   - component: {fileID: 114612820184171152}
   - component: {fileID: 75935951807432950}
-  - component: {fileID: 195683851511427668}
+  - component: {fileID: 120537227390445480}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -41,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1368755843999928}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 10, z: 25}
+  m_LocalPosition: {x: 0, y: 15, z: 60}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +99,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 48
   m_CollisionDetection: 0
@@ -114,7 +114,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2, y: 4.6, z: 5}
-  m_Center: {x: 0, y: 1, z: -1}
+  m_Center: {x: 0, y: 1, z: 1}
 --- !u!65 &65866459596364866
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -126,7 +126,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 9, y: 0.75, z: 3.8}
-  m_Center: {x: 0, y: 3.75, z: -0.6}
+  m_Center: {x: 0, y: 3.75, z: 0.6}
 --- !u!75 &75935951807432950
 ConstantForce:
   m_ObjectHideFlags: 1
@@ -149,25 +149,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a38ff8f82f754749a101f6fa28a5f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  "SonD\xE9tectionJoueur": {fileID: 8300000, guid: 33be6f09036a6084f92e8f3f243de224,
+    type: 3}
   joueur: {fileID: 0}
---- !u!195 &195683851511427668
-NavMeshAgent:
+--- !u!120 &120537227390445480
+LineRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1368755843999928}
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 4.410423
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 8.348945
-  m_BaseOffset: 4.1744723
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 865473e1356716a40a745f0445eeeffc, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 2
+    widthMultiplier: 1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 1}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 65535
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 65535
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    generateLightingData: 0
+  m_UseWorldSpace: 1
+  m_Loop: 0
