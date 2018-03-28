@@ -50,6 +50,7 @@ public class GestionHUD : MonoBehaviour
         PnlOptions.gameObject.SetActive(false);
         PnlBoutons.gameObject.SetActive(false);
         Paused = false;
+        VerifierMenu("Resumer");
     }
     public void InitialisationDesParametres()
     {
