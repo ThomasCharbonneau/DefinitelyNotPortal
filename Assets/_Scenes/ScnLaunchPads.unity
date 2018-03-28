@@ -162,6 +162,11 @@ Prefab:
       propertyPath: personnage
       value: 
       objectReference: {fileID: 836297821}
+    - target: {fileID: 114511844150731104, guid: 7a316920836eeee4cb86068cf96e0883,
+        type: 2}
+      propertyPath: "cam\xE9ra"
+      value: 
+      objectReference: {fileID: 120853654}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a316920836eeee4cb86068cf96e0883, type: 2}
   m_IsPrefabParent: 0
@@ -221,6 +226,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e17401026aff1a54b9c9bef0b480e142, type: 2}
   m_IsPrefabParent: 0
+--- !u!20 &120853654 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20082536506674630, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+    type: 2}
+  m_PrefabInternal: {fileID: 555110758}
 --- !u!1001 &137227220
 Prefab:
   m_ObjectHideFlags: 0
@@ -270,6 +280,11 @@ Prefab:
       propertyPath: personnage
       value: 
       objectReference: {fileID: 836297821}
+    - target: {fileID: 114393315796847066, guid: 2e95045766a9d3847a27d98a8b0954fb,
+        type: 2}
+      propertyPath: "cam\xE9ra"
+      value: 
+      objectReference: {fileID: 120853654}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e95045766a9d3847a27d98a8b0954fb, type: 2}
   m_IsPrefabParent: 0
