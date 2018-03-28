@@ -25,7 +25,7 @@ public class GestionPorte : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == ("Cube"))
+        if (other.tag == ("Cube") || other.tag == ("Personnage"))
         {
             tempsFermer = AnimationPorte["close"].time;
             Lampe.GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0, 1, 0.0896f));
@@ -45,7 +45,7 @@ public class GestionPorte : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == ("Cube"))
+        if (other.tag == ("Cube") || other.tag == ("Personnage"))
         {
             tempsOuvrir = AnimationPorte["open"].time;
             Lampe.GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(1,0,0));

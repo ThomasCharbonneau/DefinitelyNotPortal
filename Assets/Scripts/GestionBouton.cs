@@ -21,18 +21,9 @@ public class GestionBouton : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Cube")
+        if (other.tag == "Cube" || other.tag == ("Personnage"))
         {
-            InverserGravité();
-
-            //other.transform.localEulerAngles = new Vector3(0, other.transform.localEulerAngles.y, other.transform.localEulerAngles.z + 180);
-
-   
-            Debug.Log(" J'ai inversé la gravité");
-            
-            
-        
-        }
-        
+            InverserGravité();                            
+        }       
     }
 }
