@@ -115,6 +115,7 @@ public class GestionPortalGun : MonoBehaviour
 
                         if (!(ChargeLaser <= (float)CHARGE_LASER_MAX / 4) && Input.GetMouseButtonDown(0))
                         {
+                            lineRenderer.enabled = true;
                             AudioSource.PlayClipAtPoint(SonTirLaser, transform.position);
                         }
 
@@ -244,6 +245,7 @@ public class GestionPortalGun : MonoBehaviour
     void ArrêterLaser()
     {
         lineRenderer.positionCount = 0;
+        lineRenderer.enabled = false;
         laserTiré = false;
         tempsDepuisArrêtLaser = 0;
     }
