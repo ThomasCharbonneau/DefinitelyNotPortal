@@ -7,6 +7,8 @@ using UnityEngine;
 
 class PistePatrouille : MonoBehaviour
 {
+    [SerializeField] TextAsset TxtPointsBruts;
+
     const string CHEMIN = "Assets/Ressources/";
     const float VARIATION_TEMPORELLE = 0.125f;
 
@@ -33,13 +35,15 @@ class PistePatrouille : MonoBehaviour
 
     void GénérerListePointsPrincipaux()
     {
+
+        List<string> pointsBruts = TxtPointsBruts.text.Split(',').ToList();
+
         PointsPrincipaux = new List<Vector2>();
 
-        List<int> pointsBruts = new List<int>() { 0, 0, 5, 5, 5, 10, 10, 15, 20, 20, 20, 25, 20, 30, 25, 30, 20, 5, 10, 0 };
         int i = 0;
         while (i < pointsBruts.Count)
         {
-            PointsPrincipaux.Add(new Vector2(pointsBruts[i], pointsBruts[i + 1]));
+            PointsPrincipaux.Add(new Vector2(int.Parse(pointsBruts[i]), int.Parse(pointsBruts[i + 1])));
             i = i + 2;
         }
     }
@@ -79,8 +83,9 @@ class PistePatrouille : MonoBehaviour
         {
             i = (int)Mathf.Floor(t);
 
-            float coordonnéeX = (TableauSplinesX[0, i] + Mathf.Pow(t, 3) * TableauSplinesX[1, i] + Mathf.Pow(t, 2) * TableauSplinesX[2, i] + t * TableauSplinesX[3, i]);
-            float coordonnéeY = (TableauSplinesY[0, i] + Mathf.Pow(t, 3) * TableauSplinesY[1, i] + Mathf.Pow(t, 2) * TableauSplinesY[2, i] + t * TableauSplinesY[3, i]);
+            float coordonnéeX = (Mathf.Pow(t, 3) * TableauSplinesX[0, i] + Mathf.Pow(t, 2) * TableauSplinesX[1, i] + t * TableauSplinesX[2, i] + TableauSplinesX[3, i]);
+            float coordonnéeY = (Mathf.Pow(t, 3) * TableauSplinesY[0, i] + Mathf.Pow(t, 2) * TableauSplinesY[1, i] + t * TableauSplinesY[2, i] + TableauSplinesY[3, i]);
+            //float coordonnéeY = (TableauSplinesY[0, i] + Mathf.Pow(t, 3) * TableauSplinesY[1, i] + Mathf.Pow(t, 2) * TableauSplinesY[2, i] + t * TableauSplinesY[3, i]);
 
             PointsDePatrouille.Add(new Vector2(coordonnéeX, coordonnéeY));
         }
@@ -108,9 +113,19 @@ class PistePatrouille : MonoBehaviour
     {
         lineRenderer.positionCount = PointsDePatrouille.Count;
 
-        for(int i = 0; i <= PointsDePatrouille.Count; i++)
+        for(int i = 0; i < PointsDePatrouille.Count; i++)
         {
-            lineRenderer.SetPosition(i, new Vector3(PointsDePatrouille[i].x, 0, PointsDePatrouille[i].y));
+            lineRenderer.SetPosition(i, new Vector3(PointsDePatrouille[i].x, 0.5f, PointsDePatrouille[i].y));
         }
+    }
+
+    public void ColorerPiste()
+    {
+        GetComponent<Material>().color = Color.cyan;
+    }
+
+    public void DécolorerPiste()
+    {
+        GetComponent<Material>().color = Color.grey;
     }
 }

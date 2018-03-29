@@ -155,6 +155,23 @@ public class GestionSolDrone : MonoBehaviour
 
     void TrouverObstacles()
     {
+        GameObject[] TableauObstacles = GameObject.FindGameObjectsWithTag("Mur");
+
+        for (int i = 0; i < TableauObstacles.Length; i++)
+        {
+            Vector3[] TableauSommets = TableauObstacles[i].GetComponent<Mesh>().vertices;
+            //Rendre en localworldSpace ou vice versa
+
+            for (int j = 0; j < TableauObstacles.Length; j++)
+            {
+                if (TableauSommets[j].y == 0)
+                {
+                    //foreach() dans grille, dire invalide, ajouter à la liste à surveiller aussi.
+                    //TableauSommets[j]
+                }
+            }
+        }
+
         RaycastHit hit;
         foreach (Vector3 point in Sommets)
         {

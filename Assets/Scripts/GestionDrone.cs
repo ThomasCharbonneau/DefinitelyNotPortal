@@ -57,7 +57,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     void Start()
     {
         pistePatrouille = GameObject.Find("PistePatrouille").GetComponent<PistePatrouille>();
-        AdapterPointsDePatrouille();
+        //AdapterPointsDePatrouille();
         IndicePositionPiste = 0;
         PatrouilleEnSensHoraire = true;
 
@@ -151,6 +151,7 @@ public class GestionDrone : MonoBehaviour, Personnage
             if (new Vector2(transform.position.x, transform.position.z) != PointsDePatrouilleAdaptés[IndicePositionPiste])
             {
                 DéplacerVersPoint(PointsDePatrouilleAdaptés[IndicePositionPiste]);
+                Debug.Log(PointsDePatrouilleAdaptés[IndicePositionPiste]);
             }
             else
             {
@@ -191,27 +192,27 @@ public class GestionDrone : MonoBehaviour, Personnage
         //transform.position = Vector2.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, 0, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
     }
 
-    /// <summary>
-    /// Fonction qui transfère les points de patrouille en points 3d selon la hauteur du terrain et qui les adapte à l'échelle (scale)
-    /// </summary>
-    void AdapterPointsDePatrouille()
-    {
-        List<Vector2> PointsDePatrouille = pistePatrouille.GetPointsDePatrouille();
-        PointsDePatrouilleAdaptés = new List<Vector2>();
+    ///// <summary>
+    ///// Fonction qui transfère les points de patrouille en points 3d selon la hauteur du terrain et qui les adapte à l'échelle (scale)
+    ///// </summary>
+    //void AdapterPointsDePatrouille()
+    //{
+    //    List<Vector2> PointsDePatrouille = pistePatrouille.GetPointsDePatrouille();
+    //    PointsDePatrouilleAdaptés = new List<Vector2>();
 
-        float coordonnéeX;
-        float coordonnéeZ;
+    //    float coordonnéeX;
+    //    float coordonnéeZ;
 
-        for (int i = 0; i < PointsDePatrouille.Count; i++)
-        {
-            coordonnéeX = PointsDePatrouille[i].x + DÉPLACEMENT_X;
-            coordonnéeZ = PointsDePatrouille[i].y + DÉPLACEMENT_Z;
+    //    for (int i = 0; i < PointsDePatrouille.Count; i++)
+    //    {
+    //        coordonnéeX = PointsDePatrouille[i].x + DÉPLACEMENT_X;
+    //        coordonnéeZ = PointsDePatrouille[i].y + DÉPLACEMENT_Z;
 
-            //Modifier pour que hauteur automatique soit déterminée par drone.
+    //        //Modifier pour que hauteur automatique soit déterminée par drone.
 
-            PointsDePatrouilleAdaptés.Add(new Vector2(coordonnéeX, coordonnéeZ));
-        }
-    }
+    //        PointsDePatrouilleAdaptés.Add(new Vector2(coordonnéeX, coordonnéeZ));
+    //    }
+    //}
 
     /// <summary>
     /// 
@@ -253,6 +254,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
                 if (tempsDepuisVérouillageCible >= DÉLAI_VÉROUILLAGE_CIBLE)
                 {
+                    lineRenderer.enabled = true;
                     AudioSource.PlayClipAtPoint(SonTirLaser, transform.position);
                     TirerLaser(positionCible);
                     tempsDepuisTirLaser = 0;
@@ -317,6 +319,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     void ArrêterLaser()
     {
         lineRenderer.positionCount = 0;
+        lineRenderer.enabled = false;
     }
 
     public int Vie
