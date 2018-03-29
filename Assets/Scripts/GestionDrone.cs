@@ -18,7 +18,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     public ModeDrone Mode { get; private set; }
 
-    DataPistePatrouille pistePatrouille;
+    PistePatrouille pistePatrouille;
 
     bool laserTiré; //Si un laser de ce drone est présentement dans l'environnement ou non
     float tempsDepuisTirLaser;
@@ -56,7 +56,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     // Use this for initialization
     void Start()
     {
-        pistePatrouille = new DataPistePatrouille();
+        pistePatrouille = GameObject.Find("PistePatrouille").GetComponent<PistePatrouille>();
         AdapterPointsDePatrouille();
         IndicePositionPiste = 0;
         PatrouilleEnSensHoraire = true;
@@ -337,4 +337,9 @@ public class GestionDrone : MonoBehaviour, Personnage
             }
         }
     }
+
+    //public DataPistePatrouille GetPistePatrouille()
+    //{
+    //    return dataPistePatrouille;
+    //}
 }
