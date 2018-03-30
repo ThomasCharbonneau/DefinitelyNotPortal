@@ -44,20 +44,20 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     List<PistePatrouille> ListePistesPatrouille = new List<PistePatrouille>();
     List<Vector2> ListePointsDePatrouille;
+    int IndicePositionPiste;
 
     List<Vector2> ListePointsPathfinding; //La liste des points des noeuds à parcourir pour arriver à un point donné
 
     public Vector2 MarqueurÀAtteindre;
-    bool NoeudInitialLePlusProcheTrouvé;
+    bool NoeudsLesPlusProchesTrouvés;
     bool NoeudInitialLePlusProcheAtteint;
     Transform TransformNoeudInitial;
+    Transform TransformNoeudFinal;
 
     bool PatrouilleEnSensHoraire; //Vrai si le drone patrouille en sens horaire, faux si il patrouille en sens anti-horaire
 
     const int DÉPLACEMENT_X = 0; //10;
     const int DÉPLACEMENT_Z = 0; //18;
-
-    int IndicePositionPiste;
 
     const int VIE_INITIALE = 50;
     int vie;
@@ -87,11 +87,13 @@ public class GestionDrone : MonoBehaviour, Personnage
         gestionPathfinding = GetComponent<GestionPathfinding>();
         gestionSolDrone = GetComponent<GestionSolDrone>();
 
-        Mode = ModeDrone.PATROUILLE;
+        //Mode = ModeDrone.PATROUILLE;
 
         //Pour faire des tests :
-        //Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
-        //MarqueurÀAtteindre = new Vector3(-90, 0, -80);
+        Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
+        MarqueurÀAtteindre = new Vector3(-90, 0, -80);
+        NoeudsLesPlusProchesTrouvés = false;
+        NoeudInitialLePlusProcheAtteint = false;
         //
 
         laserTiré = false;
@@ -297,45 +299,64 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     void GérerDéplacementVersMarqueur()
     {
-        if(!NoeudInitialLePlusProcheTrouvé)
+        if(!NoeudsLesPlusProchesTrouvés)
         {
-            TransformNoeudInitial = TrouverTransformNoeudPlusProche();
-            NoeudInitialLePlusProcheAtteint = true;
+            TransformNoeudInitial = TrouverTransformNoeudPlusProche(transform.position);
+            TransformNoeudFinal = TrouverTransformNoeudPlusProche(MarqueurÀAtteindre);
+            NoeudsLesPlusProchesTrouvés = true;
         }
 
-        if(!NoeudInitialLePlusProcheAtteint)
+        if (!NoeudInitialLePlusProcheAtteint)
         {
             if ((transform.position.x != TransformNoeudInitial.position.x) && (transform.position.z != TransformNoeudInitial.position.z))
             {
-                DéplacerVersPoint(TransformNoeudInitial.position);
+                //Pourrait améliorer écriture
+                DéplacerVersPoint(new Vector2(TransformNoeudInitial.position.x, TransformNoeudInitial.position.y));
             }
             else
             {
-                //gestionPathfinding.TrouverCheminPlusCourt()
                 NoeudInitialLePlusProcheAtteint = true;
+                List<Vector3> listePointsPathfinding3d = gestionPathfinding.TrouverCheminPlusCourt(TransformNoeudInitial, TransformNoeudFinal);
+
+                for(int i = 0; i < listePointsPathfinding3d.Count; i++)
+                {
+                    ListePointsPathfinding.Add(new Vector2(listePointsPathfinding3d[i].x, listePointsPathfinding3d[i].z));
+                    Debug.Log("Liste de points pathfinding : point # " + i + "est égal à : " + new Vector2(listePointsPathfinding3d[i].x, listePointsPathfinding3d[i].z));
+                }
             }
         }
 
         if (new Vector2(transform.position.x, transform.position.z) != ListePointsDePatrouille[IndicePositionPiste])
         {
-            DéplacerVersPoint(ListePointsDePatrouille[IndicePositionPiste]);
+            DéplacerVersPoint(ListePointsPathfinding[IndicePositionPiste]);
         }
 
         //ListePointsPiste = gestionPathfinding.TrouverCheminPlusCourt();
     }
 
-    Transform TrouverTransformNoeudPlusProche()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns>Le transform du noeud de la grille le plus proche</returns>
+    Transform TrouverTransformNoeudPlusProche(Vector3 position)
     {
         List<Transform> listeNoeuds = gestionSolDrone.ListeNoeuds;
+
+        //Pour tester :
+        Debug.Log(listeNoeuds[0].name);
 
         Transform transformNoeudPlusProche = listeNoeuds[0];
         float distanceNoeudPlusProche = float.MaxValue;
 
         for (int i = 0; i < listeNoeuds.Count; i++)
         {
-            if(Vector3.Distance(transform.position, listeNoeuds[i].position) < distanceNoeudPlusProche)
+            if(listeNoeuds[i].GetComponent<Noeud>().EstDisponible())
             {
-                transformNoeudPlusProche = listeNoeuds[i];
+                if (Vector3.Distance(position, listeNoeuds[i].position) < distanceNoeudPlusProche)
+                {
+                    transformNoeudPlusProche = listeNoeuds[i];
+                }
             }
         }
 

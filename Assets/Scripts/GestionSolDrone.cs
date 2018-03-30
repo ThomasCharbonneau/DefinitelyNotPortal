@@ -22,10 +22,12 @@ public class GestionSolDrone : MonoBehaviour
     int NbSommets;
     int NbTriangles;
 
-    public List<Transform> ListeNoeuds = new List<Transform>();
+    public List<Transform> ListeNoeuds;
 
     void Start()
     {
+        ListeNoeuds = new List<Transform>();
+
         CalculerDonnéesDeBase();
         GénérerTriangles();
 
@@ -176,25 +178,25 @@ public class GestionSolDrone : MonoBehaviour
         //}
 
         RaycastHit hit;
-        foreach (Transform n in ListeNoeuds)
+        foreach (Transform t in ListeNoeuds)
         {
-            Ray ray = new Ray(n.position, Vector3.up);
+            Ray ray = new Ray(t.position, Vector3.up);
             Physics.Raycast(ray, out hit);
 
             //if(hit.collider.GetComponent<GameObject>().name == "plafond")
             {
                 if (hit.collider.tag == "Mur")
                 {
-                    n.GetComponent<Noeud>().SetDisponibilité(false);
+                    t.GetComponent<Noeud>().SetDisponibilité(false);
 
                     //À arranger
-                    foreach (Transform nVoisin in n.GetComponent<Noeud>().GetNoeudsVoisin())
-                    {
-                        nVoisin.GetComponent<Noeud>().SetDisponibilité(false);
-                        Debug.Log(nVoisin.name);
-                    }
+                    //foreach (Transform nVoisin in t.GetComponent<Noeud>().GetNoeudsVoisin())
+                    //{
+                    //    nVoisin.GetComponent<Noeud>().SetDisponibilité(false);
+                    //    Debug.Log(nVoisin.name);
+                    //}
                     
-                    Debug.Log(n.name + " : " + hit.collider.name);
+                    Debug.Log(t.name + " : " + hit.collider.name);
                 }
             }
         }
