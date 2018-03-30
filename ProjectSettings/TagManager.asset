@@ -4,13 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Plancher
   - Sol
   - Mur
   - Cube
   - Boutton
   - SF_Door
   - Personnage
+  - Noeud
   layers:
   - Default
   - TransparentFX

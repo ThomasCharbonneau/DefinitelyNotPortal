@@ -811,3 +811,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7f5ffea40b5da4f809a4ae44085641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PrefabNoeud: {fileID: 0}
+  ListeNoeuds: []

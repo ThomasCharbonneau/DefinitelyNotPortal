@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GestionSolDrone : MonoBehaviour
 {
+    [SerializeField] Transform PrefabNoeud;
+
     const float ÉTENDUE = 200; //L'étendue du sol en unités de Unity
-    const int ÉTENDUE_CHARPENTE = 20;
+    const int DIMENSION_CHARPENTE = 20;
     const int NB_TRIANGLES_PAR_TUILE = 2;
     const int NB_SOMMETS_PAR_TRIANGLE = 3;
 
@@ -20,7 +22,9 @@ public class GestionSolDrone : MonoBehaviour
     int NbSommets;
     int NbTriangles;
 
-    void Start ()
+    public List<Transform> ListeNoeuds = new List<Transform>();
+
+    void Start()
     {
         CalculerDonnéesDeBase();
         GénérerTriangles();
@@ -33,8 +37,8 @@ public class GestionSolDrone : MonoBehaviour
     private void CalculerDonnéesDeBase()
     {
         Origine = new Vector3(-ÉTENDUE / 2, 0, -ÉTENDUE / 2); //Vector3.zero;  
-        NbColonnes = ÉTENDUE_CHARPENTE;
-        NbRangées = ÉTENDUE_CHARPENTE;
+        NbColonnes = DIMENSION_CHARPENTE;
+        NbRangées = DIMENSION_CHARPENTE;
         NbSommets = (NbColonnes + 1) * (NbRangées + 1);
         NbTriangles = NbColonnes * NB_TRIANGLES_PAR_TUILE * NbRangées;
         DeltaTexture = new Vector2(ÉTENDUE / NbColonnes, ÉTENDUE / NbRangées);
@@ -46,27 +50,25 @@ public class GestionSolDrone : MonoBehaviour
         GetComponent<MeshFilter>().mesh = Maillage;
 
         Maillage.name = "Surface";
-        GénérerSommets();
+        GénérerSommetsEtNoeuds();
         GénérerListeTriangles();
     }
 
-    private void GénérerSommets()
+    private void GénérerSommetsEtNoeuds()
     {
         Sommets = new Vector3[NbSommets];
-        Vector2[] coordonnéesTexture = new Vector2[NbSommets]; // Le tableau qui contiendra les différentes coordonnées de textures (uv) de la primitive
-
-        //
-        //Vous devez ici produire un algorithme qui permettra de créer le tableau contenant la position des sommets, 
-        //ainsi que le tableau contenant les coordonnées des textures.
-        //
+        Vector2[] coordonnéesTexture = new Vector2[NbSommets]; // Le tableau qui contiend les différentes coordonnées de textures (uv) de la primitive
 
         int i = 0;
-
         for (int j = 0; j < NbRangées + 1; j++)
         {
             for (int k = 0; k < NbColonnes + 1; k++)
             {
                 Sommets[i] = Origine + new Vector3(DeltaTexture.x * k, 0, DeltaTexture.y * j);
+
+                Transform noeud = Instantiate(PrefabNoeud, Sommets[i], Quaternion.identity, gameObject.transform);
+                noeud.name = "neud # " + i;
+                ListeNoeuds.Add(noeud);
 
                 coordonnéesTexture[i] = new Vector3((DeltaTexture.x * k) / ÉTENDUE, (DeltaTexture.y * j) / ÉTENDUE, 0);
 
@@ -148,41 +150,51 @@ public class GestionSolDrone : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-		
-	}
+
+    }
 
     void TrouverObstacles()
     {
-        GameObject[] TableauObstacles = GameObject.FindGameObjectsWithTag("Mur");
+        //GameObject[] TableauObstacles = GameObject.FindGameObjectsWithTag("Mur");
 
-        for (int i = 0; i < TableauObstacles.Length; i++)
-        {
-            Vector3[] TableauSommets = TableauObstacles[i].GetComponent<Mesh>().vertices;
-            //Rendre en localworldSpace ou vice versa
+        //for (int i = 0; i < TableauObstacles.Length; i++)
+        //{
+        //    Vector3[] TableauSommetsObstacle = TableauObstacles[i].GetComponent<Mesh>().vertices;
+        //    //Rendre en localworldSpace ou vice versa
 
-            for (int j = 0; j < TableauObstacles.Length; j++)
-            {
-                if (TableauSommets[j].y == 0)
-                {
-                    //foreach() dans grille, dire invalide, ajouter à la liste à surveiller aussi.
-                    //TableauSommets[j]
-                }
-            }
-        }
+        //    for (int j = 0; j < TableauObstacles.Length; j++)
+        //    {
+        //        if (TableauSommetsObstacle[j].y == 0)
+        //        {
+        //            //foreach(Noeud n in ListeNoeuds.)
+        //            //foreach() dans grille, dire invalide, ajouter à la liste à surveiller aussi.
+        //            //TableauSommets[j]
+        //        }
+        //    }
+        //}
 
         RaycastHit hit;
-        foreach (Vector3 point in Sommets)
+        foreach (Transform n in ListeNoeuds)
         {
-            Ray ray = new Ray(point, Vector3.up);
+            Ray ray = new Ray(n.position, Vector3.up);
             Physics.Raycast(ray, out hit);
 
             //if(hit.collider.GetComponent<GameObject>().name == "plafond")
             {
-                if(hit.collider.name != "Plafond")
+                if (hit.collider.tag == "Mur")
                 {
-                    Debug.Log(hit.collider.name);
+                    n.GetComponent<Noeud>().SetDisponibilité(false);
+
+                    //À arranger
+                    foreach (Transform nVoisin in n.GetComponent<Noeud>().GetNoeudsVoisin())
+                    {
+                        nVoisin.GetComponent<Noeud>().SetDisponibilité(false);
+                        Debug.Log(nVoisin.name);
+                    }
+                    
+                    Debug.Log(n.name + " : " + hit.collider.name);
                 }
             }
         }
