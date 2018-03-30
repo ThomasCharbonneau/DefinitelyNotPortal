@@ -87,11 +87,11 @@ public class GestionDrone : MonoBehaviour, Personnage
         gestionPathfinding = GetComponent<GestionPathfinding>();
         gestionSolDrone = GetComponent<GestionSolDrone>();
 
-        //Mode = ModeDrone.PATROUILLE;
+        Mode = ModeDrone.PATROUILLE;
 
         //Pour faire des tests :
-        Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
-        MarqueurÀAtteindre = new Vector3(-90, 0, -80);
+        //Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
+        //MarqueurÀAtteindre = new Vector3(-90, 0, -80);
         //
 
         laserTiré = false;
