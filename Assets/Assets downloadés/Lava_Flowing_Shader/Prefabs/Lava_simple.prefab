@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   - component: {fileID: 11400000}
-  - component: {fileID: 64358698140281210}
   - component: {fileID: 114849632007152088}
+  - component: {fileID: 65987879498233556}
   m_Layer: 0
   m_Name: Lava_simple
   m_TagString: Untagged
@@ -98,8 +98,8 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
---- !u!64 &64358698140281210
-MeshCollider:
+--- !u!65 &65987879498233556
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -107,11 +107,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999976, z: 6.123233e-17}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114849632007152088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,5 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da08c23a9dd10d1448391af789680d59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cube: {fileID: 0}
+  cube1: {fileID: 0}
+  cube2: {fileID: 0}
+  cube3: {fileID: 0}
   Personnage: {fileID: 0}

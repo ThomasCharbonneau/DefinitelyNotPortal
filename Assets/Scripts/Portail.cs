@@ -27,6 +27,7 @@ public class Portail : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        portail.SetActive(false);
 
         TempsDepuisDernierPassage = 0;
         passéDansFrame = false;

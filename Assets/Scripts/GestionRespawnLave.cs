@@ -19,7 +19,11 @@ public class GestionRespawnLave : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        spawnPointCube1 = cube1.transform.position;
+        if (cube1 != null)
+        {
+            spawnPointCube1 = cube1.transform.position;
+        }
+        
         if(cube2 != null)
         {
             spawnPointCube2 = cube2.transform.position;
