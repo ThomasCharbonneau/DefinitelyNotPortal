@@ -31,6 +31,7 @@ class PistePatrouille : MonoBehaviour
         GénérerListePointsDePatrouille();
 
         DessinerPiste();
+        DécolorerPiste();
     }
 
     void GénérerListePointsPrincipaux()
@@ -121,7 +122,7 @@ class PistePatrouille : MonoBehaviour
 
     public void ColorerPiste()
     {
-        GetComponent<Material>().color = Color.cyan;
+        GetComponent<Renderer>().material.color = new Color(0,255, 223);
     }
 
     public void DécolorerPiste()
