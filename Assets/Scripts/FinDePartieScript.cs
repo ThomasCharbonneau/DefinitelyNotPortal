@@ -7,16 +7,13 @@ public class FinDePartieScript : MonoBehaviour {
 
     public static string ancienneScène;
     float chiffreAncienneScene;
+    public string chiffreScene;
 
     // Use this for initialization
-    void Start () {
-		
-	}
+    void Start () {}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update () {}
 
     public void RéessayerNiveau()
     {
@@ -25,7 +22,8 @@ public class FinDePartieScript : MonoBehaviour {
 
     public void ProchainNiveau()
     {
-        float.TryParse(ancienneScène, out chiffreAncienneScene);
+        chiffreScene = ancienneScène.Substring(6);
+        float.TryParse(chiffreScene, out chiffreAncienneScene);
         if (chiffreAncienneScene > 20 || chiffreAncienneScene == 0) // remplacer 20 par le nombre max de niveau
         {
             chiffreAncienneScene = 1;
@@ -34,10 +32,7 @@ public class FinDePartieScript : MonoBehaviour {
         {
             chiffreAncienneScene += 1;
         }
-
         SceneManager.LoadScene("Niveau" + chiffreAncienneScene);
-
-        // loader prochain niveau
     }
 
     public void LoaderMenu()
