@@ -9,6 +9,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 {
     [SerializeField] AudioClip SonDétectionJoueur;
     [SerializeField] AudioClip SonTirLaser;
+    [SerializeField] AudioClip SonExplosion;
 
     GameObject Joueur;
     GameObject gameObjectDrone;
@@ -69,7 +70,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         TrouverPistesPatrouille();
 
-        //Devra change en fonction du niveau
+        //Devra changer en fonction du niveau
         ListePointsDePatrouille = ListePistesPatrouille[0].GetPointsDePatrouille();
         //
 
@@ -87,13 +88,15 @@ public class GestionDrone : MonoBehaviour, Personnage
         gestionPathfinding = GetComponent<GestionPathfinding>();
         gestionSolDrone = GetComponent<GestionSolDrone>();
 
-        //Mode = ModeDrone.PATROUILLE;
+        Mode = ModeDrone.PATROUILLE;
 
         //Pour faire des tests :
-        Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
-        MarqueurÀAtteindre = new Vector3(-90, 0, -80);
-        NoeudsLesPlusProchesTrouvés = false;
-        NoeudInitialLePlusProcheAtteint = false;
+
+        //Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
+        //MarqueurÀAtteindre = new Vector3(-90, 0, -80);
+        //NoeudsLesPlusProchesTrouvés = false;
+        //NoeudInitialLePlusProcheAtteint = false;
+
         //
 
         laserTiré = false;
@@ -119,6 +122,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     {
         if(Vie <= 0)
         {
+            AudioSource.PlayClipAtPoint(SonExplosion, Joueur.transform.position);
             Destroy(gameObject);
         }
     }
@@ -390,12 +394,12 @@ public class GestionDrone : MonoBehaviour, Personnage
         {
             if (hit.rigidbody.gameObject.name == "Drone")
             {
-                hit.rigidbody.gameObject.GetComponent<GestionDrone>().Vie -= 1;
+                hit.rigidbody.gameObject.GetComponent<GestionDrone>().Vie -= 40;
             }
-            //if (hit.rigidbody.gameObject.name == "Personnage")
-            //{
-            //    hit.rigidbody.gameObject.GetComponent<GestionJoueur>().Vie -= 1;
-            //}
+            if (hit.rigidbody.gameObject.name == "Personnage")
+            {
+                hit.rigidbody.gameObject.GetComponent<GestionVieJoueur>().Vie -= 40;
+            }
         }
 
         //colliderLaser = GetComponent<BoxCollider>();

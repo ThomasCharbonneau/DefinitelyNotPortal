@@ -9,7 +9,6 @@ public class GestionUI : MonoBehaviour
     GameObject Joueur;
     GameObject PortailBleu;
     GameObject PortailOrange;
-
     
     GestionPortalGun PortalGun;
     GameObject PnlCrossair;
@@ -17,20 +16,29 @@ public class GestionUI : MonoBehaviour
     GameObject PnlModePortail;
     GameObject PnlModeLaser;
     Image ImageChargeLaser;
+    Image ImageVie;
 
     GameObject PnlCrosshairBleu;
     GameObject PnlCrosshairOrange;
 
     ModePortalGun ImageGunMode;
 
+    GestionVieJoueur GestionVie;
+
+    float différencePourcentageVie;
+
     // Use this for initialization
     void Start ()
     {
         Joueur = GameObject.Find("Personnage");
+        GestionVie = Joueur.GetComponent<GestionVieJoueur>();
+        différencePourcentageVie = 0;
+
         PortailBleu = GameObject.Find("PortailBleu");
         PortailOrange = GameObject.Find("PortailOrange");
 
         ImageChargeLaser = GameObject.Find("ImageChargeLaser").GetComponent<Image>();
+        ImageVie = GameObject.Find("ImageVie").GetComponent<Image>();
 
         PnlCrosshairBleu = GameObject.Find("PnlBleu");
         PnlCrosshairOrange = GameObject.Find("PnlOrange");
@@ -61,6 +69,21 @@ public class GestionUI : MonoBehaviour
         //      }
 
         ImageChargeLaser.fillAmount = PortalGun.ChargeLaser / GestionPortalGun.CHARGE_LASER_MAX;
+
+        if (ImageVie.fillAmount != ((float)GestionVie.Vie) / GestionVieJoueur.VIE_INITIALE)
+        {
+            if (différencePourcentageVie == 0)
+            {
+                différencePourcentageVie = ImageVie.fillAmount - (((float)GestionVie.Vie) / GestionVieJoueur.VIE_INITIALE);
+                Debug.Log(différencePourcentageVie);
+            }
+
+            ImageVie.fillAmount -= 0.01f;
+        }
+        else
+        {
+            différencePourcentageVie = 0;
+        }
     }
 
     void ChangerImageGunMode()
