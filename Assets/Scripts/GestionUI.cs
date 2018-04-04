@@ -70,13 +70,13 @@ public class GestionUI : MonoBehaviour
 
         ImageChargeLaser.fillAmount = PortalGun.ChargeLaser / GestionPortalGun.CHARGE_LASER_MAX;
 
-        if (ImageVie.fillAmount != ((float)GestionVie.Vie) / GestionVieJoueur.VIE_INITIALE)
+        if (Mathf.Round(ImageVie.fillAmount * GestionVieJoueur.VIE_INITIALE) != ((float)GestionVie.Vie))
         {
-            if (différencePourcentageVie == 0)
-            {
-                différencePourcentageVie = ImageVie.fillAmount - (((float)GestionVie.Vie) / GestionVieJoueur.VIE_INITIALE);
-                Debug.Log(différencePourcentageVie);
-            }
+            //if (différencePourcentageVie == 0)
+            //{
+            //    différencePourcentageVie = ImageVie.fillAmount - (((float)GestionVie.Vie) / GestionVieJoueur.VIE_INITIALE);
+            //    Debug.Log(différencePourcentageVie);
+            //}
 
             ImageVie.fillAmount -= 0.01f;
         }
