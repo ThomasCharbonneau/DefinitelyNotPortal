@@ -43,6 +43,7 @@ public class LaunchPadNoTimerScript : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Entre");
         if (scriptGestionMouvement.TientObjet)
         {
             if (other.CompareTag("Personnage"))
@@ -57,9 +58,17 @@ public class LaunchPadNoTimerScript : MonoBehaviour {
                 Debug.Log("Nest pas un personnage et Il est dans sa main");
             }
         }
+        else
+        {
+            Debug.Log("Entre");
+            LAUNCH_MODE = true;
+            CibleALaunch = other.GetComponent<Rigidbody>();
+            DirectionJoueur = Personnage.transform.forward;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("sort");
         LAUNCH_MODE = false;
     }
 }

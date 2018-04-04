@@ -93,6 +93,15 @@ public class LaunchPadScript : MonoBehaviour {
                 Debug.Log("Nest pas un personnage et Il est dans sa main");
             }
         }
+        else
+        {
+            Debug.Log("Entre");
+            LAUNCH_MODE = true;
+            LaunchTime = seconds + 3;
+            CibleALaunch = other.GetComponent<Rigidbody>();
+            DirectionJoueur = Personnage.transform.forward;
+            i = 0;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
