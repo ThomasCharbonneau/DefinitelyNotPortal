@@ -69,7 +69,7 @@ public class GestionSolDrone : MonoBehaviour
                 Sommets[i] = Origine + new Vector3(DeltaTexture.x * k, 0, DeltaTexture.y * j);
 
                 Transform noeud = Instantiate(PrefabNoeud, Sommets[i], Quaternion.identity, gameObject.transform);
-                noeud.name = "neud # " + i;
+                noeud.name = "Noeud # " + i;
                 ListeNoeuds.Add(noeud);
 
                 coordonnéesTexture[i] = new Vector3((DeltaTexture.x * k) / ÉTENDUE, (DeltaTexture.y * j) / ÉTENDUE, 0);

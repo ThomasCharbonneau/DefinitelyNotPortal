@@ -79,7 +79,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         ListePointsDePatrouille = ListePistesPatrouille[0].GetPointsDePatrouille();
         //
 
-        //Au début, trouve la piste la moins couteuser en déplacement et s'y rend... Ignorer ligne suivante surement.
+        //Au début, trouve la piste la moins couteuse en déplacement et s'y rend... Ignorer ligne suivante surement.
         //pistePatrouille = GameObject.Find("PistePatrouille").GetComponent<PistePatrouille>();
 
         IndicePositionPiste = 0;
@@ -91,17 +91,17 @@ public class GestionDrone : MonoBehaviour, Personnage
         colliderDrone = GetComponent<Collider>();
         lineRenderer = GetComponent<LineRenderer>();
         gestionPathfinding = GetComponent<GestionPathfinding>();
-        gestionSolDrone = GetComponent<GestionSolDrone>();
+        gestionSolDrone = GameObject.Find("SolDrone").GetComponent<GestionSolDrone>();
 
-        Mode = ModeDrone.PATROUILLE;
+        //Mode = ModeDrone.PATROUILLE;
         DroneArrêté = false;
 
         //Pour faire des tests :
 
-        //Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
-        //MarqueurÀAtteindre = new Vector3(-90, 0, -80);
-        //NoeudsLesPlusProchesTrouvés = false;
-        //NoeudInitialLePlusProcheAtteint = false;
+        Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
+        MarqueurÀAtteindre = new Vector3(-90, 0, -80);
+        NoeudsLesPlusProchesTrouvés = false;
+        NoeudInitialLePlusProcheAtteint = false;
 
         //
 
@@ -258,10 +258,13 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Changement de Sens à : " + Time.deltaTime);
+        if (Mode == ModeDrone.PATROUILLE)
+        {
+            Debug.Log("Changement de sens de patrouille à : " + Time.fixedTime);
 
-        //Changer pour faire listePointsPatrouille.Reverse à la place
-        PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
+            //Changer pour faire listePointsPatrouille.Reverse à la place
+            PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
+        }
     }
 
     public void DéplacerVersPoint(Vector2 pointÀAtteindre)
@@ -274,7 +277,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     }
 
     /// <summary>
-    /// 
+    /// Fonction qui vérifie si le joueur est dans le champs de vision du drone
     /// </summary>
     /// <returns>Vrai si le joueur est visible. Faux sinon</returns>
     bool VérifierJoueurVisible()
@@ -342,12 +345,17 @@ public class GestionDrone : MonoBehaviour, Personnage
             NoeudsLesPlusProchesTrouvés = true;
         }
 
+        //Debug.Log("Nom :" + TransformNoeudInitial.name + "X = " + TransformNoeudInitial.position.x + "et Z = " + TransformNoeudInitial.position.z);
+
         if (!NoeudInitialLePlusProcheAtteint)
         {
-            if ((transform.position.x != TransformNoeudInitial.position.x) && (transform.position.z != TransformNoeudInitial.position.z))
+            Debug.Log("Allo rendu ici");
+            //if ((transform.position.x != TransformNoeudInitial.position.x) && (transform.position.z != TransformNoeudInitial.position.z))
+            if (!((transform.position.x == TransformNoeudInitial.position.x) && (transform.position.z == TransformNoeudInitial.position.z)))
             {
                 //Pourrait améliorer écriture
-                DéplacerVersPoint(new Vector2(TransformNoeudInitial.position.x, TransformNoeudInitial.position.y));
+                Debug.Log("X : " + TransformNoeudInitial.position.x + "et Z : " + TransformNoeudInitial.position.z);
+                DéplacerVersPoint(new Vector2(TransformNoeudInitial.position.x, TransformNoeudInitial.position.z));
             }
             else
             {
@@ -379,19 +387,22 @@ public class GestionDrone : MonoBehaviour, Personnage
     {
         List<Transform> listeNoeuds = gestionSolDrone.ListeNoeuds;
 
-        //Pour tester :
-        Debug.Log(listeNoeuds[0].name);
-
         Transform transformNoeudPlusProche = listeNoeuds[0];
         float distanceNoeudPlusProche = float.MaxValue;
+        float distanceNoeudActuel;
 
         for (int i = 0; i < listeNoeuds.Count; i++)
         {
             if(listeNoeuds[i].GetComponent<Noeud>().EstDisponible())
             {
-                if (Vector3.Distance(position, listeNoeuds[i].position) < distanceNoeudPlusProche)
+                distanceNoeudActuel = Vector3.Distance(position, listeNoeuds[i].position);
+
+                if (distanceNoeudActuel < distanceNoeudPlusProche)
                 {
+                    //Debug.Log("Distance du noeud nommé " + listeNoeuds[i].name + " est égale à : " + Vector3.Distance(position, listeNoeuds[i].position));
                     transformNoeudPlusProche = listeNoeuds[i];
+
+                    distanceNoeudPlusProche = distanceNoeudActuel;
                 }
             }
         }

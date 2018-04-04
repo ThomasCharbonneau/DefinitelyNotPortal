@@ -8,12 +8,11 @@ using UnityEngine;
 class PistePatrouille : MonoBehaviour
 {
     [SerializeField] TextAsset TxtPointsBruts;
+    [SerializeField] string NomFichierSplineX;
+    [SerializeField] string NomFichierSplineY;
 
     const string CHEMIN = "Assets/Ressources/";
-    const float VARIATION_TEMPORELLE = 0.125f;
-
-    const string NOM_FICHIER_X = "SplineX.txt";
-    const string NOM_FICHIER_Y = "SplineY.txt";
+    const float VARIATION_TEMPORELLE = 0.05f;
 
     float[,] TableauSplinesX; //Les tableaux qui contiennent les valeurs des coefficients des splines
     float[,] TableauSplinesY;
@@ -31,7 +30,9 @@ class PistePatrouille : MonoBehaviour
         GénérerListePointsDePatrouille();
 
         DessinerPiste();
-        DécolorerPiste();
+
+        //Pour test :
+        ColorerPiste();
     }
 
     void GénérerListePointsPrincipaux()
@@ -54,8 +55,8 @@ class PistePatrouille : MonoBehaviour
         TableauSplinesX = new float[4, PointsPrincipaux.Count];
         TableauSplinesY = new float[4, PointsPrincipaux.Count];
 
-        StreamReader fichierLectureX = new StreamReader(CHEMIN + NOM_FICHIER_X);
-        StreamReader fichierLectureY = new StreamReader(CHEMIN + NOM_FICHIER_Y);
+        StreamReader fichierLectureX = new StreamReader(CHEMIN + NomFichierSplineX);
+        StreamReader fichierLectureY = new StreamReader(CHEMIN + NomFichierSplineY);
 
         int j = 0;
 
