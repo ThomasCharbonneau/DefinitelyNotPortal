@@ -7,13 +7,14 @@ public class GestionMouvement : MonoBehaviour
     const float FORCE_RELACHEMENT = 1000f; //La froce avec laquelle l'objet tenu est relaché vers l'avant.
     const float FORCE_SAUT = 9f;
     const float FORCE_DÉPLACEMENT = 30f;
-    const float COEFFICIENTSPRINT = 2.5f;
+    const float COEFFICIENTSPRINT = 3f;
     const float COEFFICIENT_CHUTE = 1.5F;
 
     const int DISTANCE_MAX_PRISE_OBJET = 15; //La distance maximale entre le joueur et l'objet qu'il peut prendre
 
-    int VITESSE_MARCHE_MAX;
+    const int VITESSE_MARCHE_MAX = 25;
     const int VITESSE_SPRINT_MAX = 35;
+    const int VITESSE_MARCHE_AIR = 15;
     int VitesseHorizontaleMax;
     Vector3 vitesseHorizontale;
 
@@ -31,7 +32,7 @@ public class GestionMouvement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Physics.gravity = new Vector3(0f,-19.6f,0f);
+        //Physics.gravity = new Vector3(0f,-19.0f,0f);
         EstAuSol = true;
         TientObjet = false;
         personnage = GetComponent<Rigidbody>();
@@ -48,45 +49,71 @@ public class GestionMouvement : MonoBehaviour
                 {
 
                     personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
-
-                    //EstAuSol = false;
                 }
-                VITESSE_MARCHE_MAX = 25;
+
+                if (Input.GetKey("w")) //déplacement vers l'avant
+                {
+                    déplacementAvant = personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
+
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        VitesseHorizontaleMax = VITESSE_SPRINT_MAX;
+                        déplacementAvant *= COEFFICIENTSPRINT;
+                    }
+                    else
+                    {
+                        VitesseHorizontaleMax = VITESSE_MARCHE_MAX;
+                    }
+
+                    personnage.velocity += déplacementAvant;
+                }
+
+                if (Input.GetKey("a")) //déplacement de coté vers la gauche
+                {
+                    personnage.velocity += -personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+                }
+
+                if (Input.GetKey("s")) //déplacement vers l'arrière
+                {
+                    personnage.velocity += -personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
+                }
+
+                if (Input.GetKey("d")) //déplacement de coté vers la droite
+                {
+                    personnage.velocity += personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+                }
+
+                //
+
+                vitesseHorizontale = (new Vector3(personnage.velocity.x, 0, personnage.velocity.z));
+                if (vitesseHorizontale.magnitude > VitesseHorizontaleMax)
+                {
+                    personnage.velocity = new Vector3(0, personnage.velocity.y, 0) + vitesseHorizontale.normalized * VitesseHorizontaleMax;
+                }
+
+                //
             }
             else
             {
-                VITESSE_MARCHE_MAX = 10;
-            }
-            if (Input.GetKey("w")) //déplacement vers l'avant
-            {
-                déplacementAvant = personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
-
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKey("w")) //déplacement vers l'avant
                 {
-                    VitesseHorizontaleMax = VITESSE_SPRINT_MAX;
-                    déplacementAvant *= COEFFICIENTSPRINT;
-                }
-                else
-                {
-                    VitesseHorizontaleMax = VITESSE_MARCHE_MAX;
+                    déplacementAvant = personnage.transform.forward * VITESSE_MARCHE_AIR * Time.deltaTime;
                 }
 
-                personnage.velocity += déplacementAvant;
-            }
+                    if (Input.GetKey("a")) //déplacement de coté vers la gauche
+                {
+                    personnage.velocity += -personnage.transform.right * VITESSE_MARCHE_AIR * Time.deltaTime;
+                }
 
-            if (Input.GetKey("a")) //déplacement de coté vers la gauche
-            {
-                personnage.velocity += -personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
-            }
+                if (Input.GetKey("s")) //déplacement vers l'arrière
+                {
+                    personnage.velocity += -personnage.transform.forward * VITESSE_MARCHE_AIR * Time.deltaTime;
+                }
 
-            if (Input.GetKey("s")) //déplacement vers l'arrière
-            {
-                personnage.velocity += -personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
-            }
-
-            if (Input.GetKey("d")) //déplacement de coté vers la droite
-            {
-                personnage.velocity += personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+                if (Input.GetKey("d")) //déplacement de coté vers la droite
+                {
+                    personnage.velocity += personnage.transform.right * VITESSE_MARCHE_AIR * Time.deltaTime;
+                }
             }
 
             //
