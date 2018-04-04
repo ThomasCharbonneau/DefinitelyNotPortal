@@ -33,15 +33,15 @@ public class GestionDrone : MonoBehaviour, Personnage
     Vector3 positionCible;
 
     const float DÉLAI_TIR_LASER = 0.8f; //Le temps que le rayon laser prend pour est projeté après avoir trouvé la position de la cible
-    const float DÉLAI_RECHARGE_TIR_LASER = 2.5f;
+    const float DÉLAI_RECHARGE_TIR_LASER = 1.5f;
     const float TEMPS_TIR_LASER = 0.1f; //Le temps pour lequel un laser reste actif
     const int DISTANCE_LASER_MAX = 50; //La distance maximale à laquelle un drone peut être pour tirer un laser
 
     const int HAUTEUR_NORMALE = 10; //La hauteur par défaut à laquelle le drone flotte
     const float MAX_DISTANCE_DELTA = 0.25f;
 
-    const int NB_DEGRÉS_FOV = 75;
-    const int DISTANCE_VISION_MAX = 35; //La distance maximale à laquelle le drone peut appercevoir le joueur
+    const int NB_DEGRÉS_FOV = 90;
+    const int DISTANCE_VISION_MAX = 50; //La distance maximale à laquelle le drone peut appercevoir le joueur
 
     List<PistePatrouille> ListePistesPatrouille = new List<PistePatrouille>();
     List<Vector2> ListePointsDePatrouille;
@@ -62,6 +62,11 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     const int VIE_INITIALE = 50;
     int vie;
+
+    const float TEMPS_ARRÊT_ATTAQUE = 7.5f;
+    bool DroneArrêté;
+    float tempsDepuisArrêt;
+    ModeDrone DernierMode;
 
     // Use this for initialization
     void Start()
@@ -89,6 +94,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         gestionSolDrone = GetComponent<GestionSolDrone>();
 
         Mode = ModeDrone.PATROUILLE;
+        DroneArrêté = false;
 
         //Pour faire des tests :
 
@@ -141,7 +147,30 @@ public class GestionDrone : MonoBehaviour, Personnage
             case ModeDrone.ATTAQUE:
 
                 transform.forward = Vector3.RotateTowards(transform.forward, Joueur.transform.position - transform.position, 0.25f, 0.25f);
-                GérerAttaque();
+
+                if(!DroneArrêté)
+                {
+                    DroneArrêté = true;
+                    tempsDepuisArrêt = 0;
+                }
+                else
+                {
+                    tempsDepuisArrêt += Time.deltaTime;
+
+                    GérerAttaque();
+
+                    if (tempsDepuisArrêt >= TEMPS_ARRÊT_ATTAQUE) //Si le joueur n'est pas visible : retourner au dernier mode
+                    {
+                        if (!VérifierJoueurVisible())
+                        {
+                            Mode = DernierMode;
+                        }
+                        else
+                        {
+                            tempsDepuisArrêt = 0;
+                        }
+                    }
+                }
 
                 break;
             case ModeDrone.DÉPLACEMENT_VERS_MARQUEUR:
@@ -188,9 +217,12 @@ public class GestionDrone : MonoBehaviour, Personnage
     /// </summary>
     void Patrouiller()
     {
-        if (Mode == ModeDrone.PATROUILLE && VérifierJoueurVisible())
+        if (VérifierJoueurVisible()) //&& Mode == ModeDrone.PATROUILLE
         {
             AudioSource.PlayClipAtPoint(SonDétectionJoueur, transform.position);
+
+            DernierMode = Mode;
+
             Mode = ModeDrone.ATTAQUE;
             Debug.Log("Le joueur est détecté");
         }
