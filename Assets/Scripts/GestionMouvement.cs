@@ -20,6 +20,7 @@ public class GestionMouvement : MonoBehaviour
 
     public bool EstAuSol;
     public bool TientObjet; //Si le personnage a un objet ou non dans ses mains
+    public float ValeurTenirObjet;
 
     Rigidbody ObjetTenu; //Le rigidbody de l'objet que l'on tient
 
@@ -36,6 +37,7 @@ public class GestionMouvement : MonoBehaviour
         EstAuSol = true;
         TientObjet = false;
         personnage = GetComponent<Rigidbody>();
+        ValeurTenirObjet = 1f;
     }
 
     void FixedUpdate()
@@ -91,13 +93,13 @@ public class GestionMouvement : MonoBehaviour
                     personnage.velocity = new Vector3(0, personnage.velocity.y, 0) + vitesseHorizontale.normalized * VitesseHorizontaleMax;
                 }
 
-                //
+
             }
             else
             {
                 if (Input.GetKey("w")) //déplacement vers l'avant
                 {
-                    déplacementAvant = personnage.transform.forward * VITESSE_MARCHE_AIR * Time.deltaTime;
+                    personnage.velocity += personnage.transform.forward * VITESSE_MARCHE_AIR * Time.deltaTime;
                 }
 
                     if (Input.GetKey("a")) //déplacement de coté vers la gauche
@@ -116,13 +118,6 @@ public class GestionMouvement : MonoBehaviour
                 }
             }
 
-            //
-
-            vitesseHorizontale = (new Vector3(personnage.velocity.x, 0, personnage.velocity.z));
-            if (vitesseHorizontale.magnitude > VitesseHorizontaleMax)
-            {
-                personnage.velocity = new Vector3(0, personnage.velocity.y, 0) + vitesseHorizontale.normalized * VitesseHorizontaleMax;
-            }
             if (Input.GetKeyDown("e")) //prendre un objet devant soi
             {
                 if (TientObjet)
@@ -146,8 +141,9 @@ public class GestionMouvement : MonoBehaviour
             }
 
             if (TientObjet)
-            {
-                ObjetTenu.transform.position = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, 0.4f);
+            {      
+                ObjetTenu.transform.position 
+                = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, ValeurTenirObjet);
             }           
         }
     }
