@@ -255,7 +255,7 @@ Prefab:
       objectReference: {fileID: 316324018}
     - target: {fileID: 1264821272808600, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
       propertyPath: m_Name
-      value: Personnage (1)
+      value: Personnage
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
@@ -326,7 +326,7 @@ Prefab:
       objectReference: {fileID: 297380757}
     - target: {fileID: 1627076169455598, guid: 2e95045766a9d3847a27d98a8b0954fb, type: 2}
       propertyPath: m_Name
-      value: PortailOrange (1)
+      value: PortailOrange
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e95045766a9d3847a27d98a8b0954fb, type: 2}
@@ -706,7 +706,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1869271191976122, guid: 829634c25a995ef4b921717e6d5f4b0a, type: 2}
       propertyPath: m_Name
-      value: FinDePartie (1)
+      value: FinDePartie
       objectReference: {fileID: 0}
     - target: {fileID: 4419753997960408, guid: 829634c25a995ef4b921717e6d5f4b0a, type: 2}
       propertyPath: m_LocalScale.x
@@ -1117,7 +1117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1315653109}
   m_Layer: 0
-  m_Name: Niveau (1)
+  m_Name: Niveau
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1755,7 +1755,7 @@ Prefab:
       objectReference: {fileID: 297380757}
     - target: {fileID: 1769359101786306, guid: 7a316920836eeee4cb86068cf96e0883, type: 2}
       propertyPath: m_Name
-      value: PortailBleu (1)
+      value: PortailBleu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a316920836eeee4cb86068cf96e0883, type: 2}
@@ -1944,7 +1944,7 @@ GameObject:
   - component: {fileID: 1817957591}
   - component: {fileID: 1817957590}
   m_Layer: 0
-  m_Name: Directional light (1)
+  m_Name: Directional light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2118,7 +2118,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1028549277544560, guid: 9962342675454e34f9059370697af190, type: 2}
       propertyPath: m_Name
-      value: HUD (1)
+      value: HUD
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9962342675454e34f9059370697af190, type: 2}

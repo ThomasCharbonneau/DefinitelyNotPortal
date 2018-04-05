@@ -43,12 +43,12 @@ public class Portail : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(TempsDepuisDernierPassage > DÉLAI_PASSAGE)
-        {
+        
             /*if (portailOpposé.activeSelf && TempsDepuisDernierPassage >= DÉLAI_PASSAGE)*/ // S'assurer que les 2 portails sont placé avant de téléporté le joueur
             if (portailOpposé.activeSelf)
             {
-                if (other.transform.IsChildOf(personnage.transform) && personnage.GetComponent<GestionMouvement>().TientObjet)
+
+            if (other.transform.IsChildOf(personnage.transform) && personnage.GetComponent<GestionMouvement>().TientObjet)
                 {
                     personnage.GetComponent<GestionMouvement>().RelacherObjet();
                 }
@@ -61,7 +61,7 @@ public class Portail : MonoBehaviour
                 Vector3 normale = portailOpposé.transform.forward;
                 other.GetComponent<Rigidbody>().velocity = normale;
 
-                other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 1);
+                other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10);
                 other.GetComponent<Rigidbody>().AddForce(normale * (vitesse / Time.fixedDeltaTime), ForceMode.Acceleration);
                 Debug.Log(vitesse);
                 Debug.Log("vitesse calculé : " + (normale * vitesse / Time.fixedDeltaTime));
@@ -106,7 +106,7 @@ public class Portail : MonoBehaviour
 
                 //Debug.Break();
                 TempsDepuisDernierPassage = 0;
-            }
+            
 
         }
     }
