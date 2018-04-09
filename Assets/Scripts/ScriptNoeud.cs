@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Noeud : MonoBehaviour
+public class ScriptNoeud : MonoBehaviour
 {
+    float Cout = int.MaxValue;
+    GameObject NoeudParent = null;
+    List<GameObject> NoeudsVoisins;
+    bool Disponible = true;
 
-    private float Cout = int.MaxValue;
-    private Transform NoeudParent = null;
-    private List<Transform> NoeudsVosins;
-    private bool Disponible = true;
+    public int Rangée;
+    public int Colonne;
 
-    // Use this for initialization
-    void Start()
+    void Awake()
     {
         ResetNoeud();
+        NoeudsVoisins = new List<GameObject>();
     }
 
     public void ResetNoeud()
@@ -23,7 +25,7 @@ public class Noeud : MonoBehaviour
         NoeudParent = null;
     }
 
-    public void SetNoeudParent(Transform node)
+    public void SetNoeudParent(GameObject node)
     {
         NoeudParent = node;
     }
@@ -39,15 +41,20 @@ public class Noeud : MonoBehaviour
         Disponible = value;
     }
 
-    //Inutile. À enlever...?
-    public void AddNeighbourNode(Transform node)
+    public void AjouterNoeudVoisin(GameObject node)
     {
-        NoeudsVosins.Add(node);
+        //Problème ici...
+
+        Debug.Log("Count NoeudsVosin : " + NoeudsVoisins.Count);
+
+        Debug.Log("A");
+        NoeudsVoisins.Add(node);
+        Debug.Log("B");
     }
 
-    public List<Transform> GetNoeudsVoisin()
+    public List<GameObject> GetNoeudsVoisins()
     {
-        List<Transform> result = NoeudsVosins;
+        List<GameObject> result = NoeudsVoisins;
         return result;
     }
 
@@ -58,9 +65,9 @@ public class Noeud : MonoBehaviour
 
     }
 
-    public Transform GetNoeudParent()
+    public GameObject GetNoeudParent()
     {
-        Transform result = NoeudParent;
+        GameObject result = NoeudParent;
         return result;
     }
 

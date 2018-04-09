@@ -49,11 +49,11 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     List<Vector2> ListePointsPathfinding; //La liste des points des noeuds à parcourir pour arriver à un point donné
 
-    public Vector2 MarqueurÀAtteindre;
+    public Vector3 MarqueurÀAtteindre;
     bool NoeudsLesPlusProchesTrouvés;
     bool NoeudInitialLePlusProcheAtteint;
-    Transform TransformNoeudInitial;
-    Transform TransformNoeudFinal;
+    GameObject NoeudInitial;
+    GameObject NoeudFinal;
 
     bool PatrouilleEnSensHoraire; //Vrai si le drone patrouille en sens horaire, faux si il patrouille en sens anti-horaire
 
@@ -340,8 +340,8 @@ public class GestionDrone : MonoBehaviour, Personnage
     {
         if(!NoeudsLesPlusProchesTrouvés)
         {
-            TransformNoeudInitial = TrouverTransformNoeudPlusProche(transform.position);
-            TransformNoeudFinal = TrouverTransformNoeudPlusProche(MarqueurÀAtteindre);
+            NoeudInitial = TrouverNoeudPlusProche(transform.position);
+            NoeudFinal = TrouverNoeudPlusProche(MarqueurÀAtteindre);
             NoeudsLesPlusProchesTrouvés = true;
         }
 
@@ -349,18 +349,25 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         if (!NoeudInitialLePlusProcheAtteint)
         {
-            Debug.Log("Allo rendu ici");
+            //Debug.Log(TransformNoeudInitial.position + TransformNoeudInitial.name);
+
             //if ((transform.position.x != TransformNoeudInitial.position.x) && (transform.position.z != TransformNoeudInitial.position.z))
-            if (!((transform.position.x == TransformNoeudInitial.position.x) && (transform.position.z == TransformNoeudInitial.position.z)))
+            if (!((transform.position.x == NoeudInitial.transform.position.x) && (transform.position.z == NoeudInitial.transform.position.z)))
             {
+                //Debug.Log("X : " + TransformNoeudInitial.position.x + "et Z : " + TransformNoeudInitial.position.z);
+
                 //Pourrait améliorer écriture
-                Debug.Log("X : " + TransformNoeudInitial.position.x + "et Z : " + TransformNoeudInitial.position.z);
-                DéplacerVersPoint(new Vector2(TransformNoeudInitial.position.x, TransformNoeudInitial.position.z));
+                DéplacerVersPoint(new Vector2(NoeudInitial.transform.position.x, NoeudInitial.transform.position.z));
             }
             else
             {
+
+                Debug.Log(NoeudInitial + " à " + NoeudFinal);
                 NoeudInitialLePlusProcheAtteint = true;
-                List<Vector3> listePointsPathfinding3d = gestionPathfinding.TrouverCheminPlusCourt(TransformNoeudInitial, TransformNoeudFinal);
+
+                List<Vector3> listePointsPathfinding3d = gestionPathfinding.TrouverCheminPlusCourt(NoeudInitial, NoeudFinal);
+
+                Debug.Log(listePointsPathfinding3d);
 
                 for(int i = 0; i < listePointsPathfinding3d.Count; i++)
                 {
@@ -379,35 +386,36 @@ public class GestionDrone : MonoBehaviour, Personnage
     }
 
     /// <summary>
-    /// 
+    /// Trouve le noeud le plus proche d'une position 3d dans la liste de transform des noeuds du sol
     /// </summary>
     /// <param name="position"></param>
     /// <returns>Le transform du noeud de la grille le plus proche</returns>
-    Transform TrouverTransformNoeudPlusProche(Vector3 position)
+    GameObject TrouverNoeudPlusProche(Vector3 position)
     {
-        List<Transform> listeNoeuds = gestionSolDrone.ListeNoeuds;
+        List<GameObject> listeNoeuds = gestionSolDrone.ListeNoeuds;
 
-        Transform transformNoeudPlusProche = listeNoeuds[0];
+        GameObject NoeudPlusProche = listeNoeuds[0];
         float distanceNoeudPlusProche = float.MaxValue;
         float distanceNoeudActuel;
 
         for (int i = 0; i < listeNoeuds.Count; i++)
         {
-            if(listeNoeuds[i].GetComponent<Noeud>().EstDisponible())
+            if(listeNoeuds[i].GetComponent<ScriptNoeud>().EstDisponible())
             {
-                distanceNoeudActuel = Vector3.Distance(position, listeNoeuds[i].position);
+                distanceNoeudActuel = Vector3.Distance(position, listeNoeuds[i].transform.position);
 
                 if (distanceNoeudActuel < distanceNoeudPlusProche)
                 {
                     //Debug.Log("Distance du noeud nommé " + listeNoeuds[i].name + " est égale à : " + Vector3.Distance(position, listeNoeuds[i].position));
-                    transformNoeudPlusProche = listeNoeuds[i];
+                    NoeudPlusProche = listeNoeuds[i];
 
                     distanceNoeudPlusProche = distanceNoeudActuel;
                 }
             }
         }
 
-        return transformNoeudPlusProche;
+        Debug.Log(NoeudPlusProche.name);
+        return NoeudPlusProche;
     }
 
     Vector3 ViserCible()

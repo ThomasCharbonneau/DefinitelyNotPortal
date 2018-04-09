@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GestionSolDrone : MonoBehaviour
 {
-    [SerializeField] Transform PrefabNoeud;
+    [SerializeField] GameObject PrefabNoeud;
 
     const float ÉTENDUE = 200; //L'étendue du sol en unités de Unity
     const int DIMENSION_CHARPENTE = 20;
@@ -22,18 +22,22 @@ public class GestionSolDrone : MonoBehaviour
     int NbSommets;
     int NbTriangles;
 
-    public List<Transform> ListeNoeuds;
+    public List<GameObject> ListeNoeuds;
 
     void Start()
     {
-        ListeNoeuds = new List<Transform>();
+        ListeNoeuds = new List<GameObject>();
 
         CalculerDonnéesDeBase();
         GénérerTriangles();
 
         transform.gameObject.GetComponent<MeshCollider>().sharedMesh = Maillage;
 
+        TrouverNoeudsVoisins();
+
         TrouverObstacles();
+
+        IndisponibiliserNoeudsObstaclesVoisins();
     }
 
     private void CalculerDonnéesDeBase()
@@ -68,11 +72,18 @@ public class GestionSolDrone : MonoBehaviour
             {
                 Sommets[i] = Origine + new Vector3(DeltaTexture.x * k, 0, DeltaTexture.y * j);
 
-                Transform noeud = Instantiate(PrefabNoeud, Sommets[i], Quaternion.identity, gameObject.transform);
-                noeud.name = "Noeud # " + i;
-                ListeNoeuds.Add(noeud);
-
                 coordonnéesTexture[i] = new Vector3((DeltaTexture.x * k) / ÉTENDUE, (DeltaTexture.y * j) / ÉTENDUE, 0);
+
+                //Noeuds
+                GameObject noeud = Instantiate(PrefabNoeud, Sommets[i], Quaternion.identity, gameObject.transform);
+
+                noeud.name = "Noeud # " + i;
+
+                noeud.GetComponent<ScriptNoeud>().Rangée = j;
+                noeud.GetComponent<ScriptNoeud>().Colonne = k;
+
+                ListeNoeuds.Add(noeud);
+                //
 
                 i++;
             }
@@ -82,6 +93,36 @@ public class GestionSolDrone : MonoBehaviour
 
         Maillage.vertices = Sommets;
         Maillage.uv = coordonnéesTexture;
+    }
+
+    void TrouverNoeudsVoisins()
+    {
+        ScriptNoeud scriptNoeudI;
+        ScriptNoeud scriptNoeudJ;
+
+        Debug.Log("Count : " + ListeNoeuds.Count);
+
+        for (int i = 0; i < ListeNoeuds.Count; i++)
+        {
+            scriptNoeudI = ListeNoeuds[i].GetComponent<ScriptNoeud>();
+
+            for (int j = 0; j < ListeNoeuds.Count; j++)
+            {
+                scriptNoeudJ = ListeNoeuds[j].GetComponent<ScriptNoeud>();
+
+                Debug.Log("i : " + i);
+                Debug.Log("j : " + j);
+
+                //On ne veut pas ajouter le noeud lui-même
+                if ((i != j) && (scriptNoeudI.Rangée == scriptNoeudJ.Rangée || scriptNoeudI.Colonne == scriptNoeudJ.Colonne))
+                {
+                    scriptNoeudI.AjouterNoeudVoisin(ListeNoeuds[i]);
+                    Debug.Log(ListeNoeuds[j] + "est ajouté comme voisin de" + ListeNoeuds[i]);
+
+                    Debug.Log("Count ici : " + ListeNoeuds.Count);
+                }
+            }
+        }
     }
 
     private void GénérerListeTriangles()
@@ -178,16 +219,16 @@ public class GestionSolDrone : MonoBehaviour
         //}
 
         RaycastHit hit;
-        foreach (Transform t in ListeNoeuds)
+        foreach (GameObject g in ListeNoeuds)
         {
-            Ray ray = new Ray(t.position, Vector3.up);
+            Ray ray = new Ray(g.transform.position, Vector3.up);
             Physics.Raycast(ray, out hit);
 
             //if(hit.collider.GetComponent<GameObject>().name == "plafond")
             {
                 if (hit.collider.tag == "Mur")
                 {
-                    t.GetComponent<Noeud>().SetDisponibilité(false);
+                    g.GetComponent<ScriptNoeud>().SetDisponibilité(false);
 
                     //À arranger
                     //foreach (Transform nVoisin in t.GetComponent<Noeud>().GetNoeudsVoisin())
@@ -196,9 +237,17 @@ public class GestionSolDrone : MonoBehaviour
                     //    Debug.Log(nVoisin.name);
                     //}
                     
-                    Debug.Log(t.name + " : " + hit.collider.name);
+                    Debug.Log(g.name + " : " + hit.collider.name);
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Rend indisponible les noeuds voisins des noeuds qui sont vis-à-vis des obstacles
+    /// </summary>
+    void IndisponibiliserNoeudsObstaclesVoisins()
+    {
+
     }
 }

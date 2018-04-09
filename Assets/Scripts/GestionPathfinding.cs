@@ -8,17 +8,17 @@ class GestionPathfinding : MonoBehaviour
 {
     private GameObject[] noeuds;
 
-    public List<Vector3> TrouverCheminPlusCourt(Transform noeudDépart, Transform noeudFinal)
+    public List<Vector3> TrouverCheminPlusCourt(GameObject noeudDépart, GameObject noeudFinal)
     {
         noeuds = GameObject.FindGameObjectsWithTag("Noeud");
 
         List<Vector3> ListePointsRésultat = new List<Vector3>();
-        Transform noeud = FaireAlgorithmeDijkstra(noeudDépart, noeudFinal);
+        GameObject noeud = FaireAlgorithmeDijkstra(noeudDépart, noeudFinal);
 
         while (noeud != null)
         {
-            ListePointsRésultat.Add(noeud.position);
-            Noeud noeudActuel = noeud.GetComponent<Noeud>();
+            ListePointsRésultat.Add(noeud.transform.position);
+            ScriptNoeud noeudActuel = noeud.GetComponent<ScriptNoeud>();
             noeud = noeudActuel.GetNoeudParent();
         }
 
@@ -26,41 +26,42 @@ class GestionPathfinding : MonoBehaviour
         return ListePointsRésultat;
     }
 
-    private Transform FaireAlgorithmeDijkstra(Transform noeudDépart, Transform noeudFinal)
+    private GameObject FaireAlgorithmeDijkstra(GameObject noeudDépart, GameObject noeudFinal)
     {
-        List<Transform> listeTransformInexplorés = new List<Transform>();
+        List<GameObject> listeTransformInexplorés = new List<GameObject>();
 
         foreach (GameObject g in noeuds)
         {
-            Noeud n = g.GetComponent<Noeud>();
+            ScriptNoeud n = g.GetComponent<ScriptNoeud>();
             if (n.EstDisponible())
             {
                 n.ResetNoeud();
-                listeTransformInexplorés.Add(g.transform);
+                listeTransformInexplorés.Add(g);
             }
         }
 
-        Noeud NoeudDépart = noeudDépart.GetComponent<Noeud>();
+        ScriptNoeud NoeudDépart = noeudDépart.GetComponent<ScriptNoeud>();
         NoeudDépart.SetCout(0);
 
         while (listeTransformInexplorés.Count > 0)
         {
-            listeTransformInexplorés.Sort((x, y) => x.GetComponent<Noeud>().GetCout().CompareTo(y.GetComponent<Noeud>().GetCout()));
+            listeTransformInexplorés.Sort((x, y) => x.GetComponent<ScriptNoeud>().GetCout().CompareTo(y.GetComponent<ScriptNoeud>().GetCout()));
 
-            Transform current = listeTransformInexplorés[0];
+            GameObject current = listeTransformInexplorés[0];
 
             listeTransformInexplorés.Remove(current);
 
-            Noeud noeudActuel = current.GetComponent<Noeud>();
-            List<Transform> listeNoeudsVoisin = noeudActuel.GetNoeudsVoisin();
-            foreach (Transform noeudVoisin in listeNoeudsVoisin)
+            ScriptNoeud noeudActuel = current.GetComponent<ScriptNoeud>();
+            List<GameObject> listeNoeudsVoisin = noeudActuel.GetNoeudsVoisins();
+
+            foreach (GameObject noeudVoisin in listeNoeudsVoisin)
             {
-                Noeud node = noeudVoisin.GetComponent<Noeud>();
+                ScriptNoeud node = noeudVoisin.GetComponent<ScriptNoeud>();
 
                 //Seulement les noeuds voisins et disponibles
                 if (listeTransformInexplorés.Contains(noeudVoisin) && node.EstDisponible())
                 {
-                    float distance = Vector3.Distance(noeudVoisin.position, current.position);
+                    float distance = Vector3.Distance(noeudVoisin.transform.position, current.transform.position);
                     distance = noeudActuel.GetCout() + distance;
 
                     if (distance < node.GetCout())
