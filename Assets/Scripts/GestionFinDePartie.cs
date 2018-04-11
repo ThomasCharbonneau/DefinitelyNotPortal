@@ -7,9 +7,16 @@ using UnityEngine.SceneManagement;
 public class GestionFinDePartie : MonoBehaviour {
 
     FinDePartieScript scriptFinDePartieScript;
-	// Use this for initialization
-	void Start () {
-              
+    GameObject HUD;
+    GestionHUD ScriptHUD;
+
+    GestionSauvegarde SauvegardeControlleur;
+    // Use this for initialization
+    void Start () {
+        HUD = GameObject.Find("HUD");
+        ScriptHUD = HUD.GetComponent<GestionHUD>();;
+        SauvegardeControlleur = HUD.GetComponent<GestionSauvegarde>();
+
     }
 	
 	// Update is called once per frame
@@ -23,7 +30,10 @@ public class GestionFinDePartie : MonoBehaviour {
     {
         if (other.transform.tag == "Cube" || other.transform.tag == "Personnage")
         {         
-            FinDePartieScript.ancienneScène = SceneManager.GetActiveScene().name;           
+            FinDePartieScript.ancienneScène = SceneManager.GetActiveScene().name;
+            SauvegardeControlleur.ListeSettings[0] = ( ( ((int.Parse(SauvegardeControlleur.ListeSettings[0])) + 1 ).ToString()));
+            SauvegardeControlleur.SaveSettings();
+            ScriptHUD.VerifierMenu("OpenMenu");
             SceneManager.LoadScene("FinDePartie");
         }
 

@@ -152,7 +152,7 @@ public class GestionMenuDemarage : MonoBehaviour
         }
         if ("New" == Choix)
         {
-            SauvegardeControlleur.ListeSettings[0] = 0f.ToString();
+            SauvegardeControlleur.ListeSettings[0] = 1f.ToString();
             SauvegardeControlleur.SaveSettings();
             DéterminerNiveau();
             LoaderNiveau(NiveauRendu);
@@ -168,16 +168,11 @@ public class GestionMenuDemarage : MonoBehaviour
     {
         NiveauRendu = SauvegardeControlleur.ListeSettings[0];
 
-        //if(NiveauRendu == "0") { Niveau = "ScnPortalGun"; }
-        //if(NiveauRendu == "1") { Niveau = ""; }
-        //if(NiveauRendu == "2") { Niveau = ""; }
-        //if(NiveauRendu == "3") { Niveau = ""; }
         
     }
 
     public void LoaderNiveau(string chiffre)
     {
-        if (float.Parse(chiffre) == 0) { chiffre = "1"; }
         SceneManager.LoadScene("Niveau" + chiffre);
     }
 
