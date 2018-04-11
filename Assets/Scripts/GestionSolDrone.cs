@@ -95,11 +95,14 @@ public class GestionSolDrone : MonoBehaviour
         Maillage.uv = coordonnéesTexture;
     }
 
+    ScriptNoeud scriptNoeudI;
+    ScriptNoeud scriptNoeudJ;
+
+    /// <summary>
+    /// Fonction qui trouve et qui ajoute les noeuds qui sont voisins de chacun des noeuds de la grille
+    /// </summary>
     void TrouverNoeudsVoisins()
     {
-        ScriptNoeud scriptNoeudI;
-        ScriptNoeud scriptNoeudJ;
-
         Debug.Log("Count : " + ListeNoeuds.Count);
 
         for (int i = 0; i < ListeNoeuds.Count; i++)
@@ -110,16 +113,21 @@ public class GestionSolDrone : MonoBehaviour
             {
                 scriptNoeudJ = ListeNoeuds[j].GetComponent<ScriptNoeud>();
 
-                Debug.Log("i : " + i);
-                Debug.Log("j : " + j);
+                //Debug.Log("i : " + i);
+                //Debug.Log("j : " + j);
 
-                //On ne veut pas ajouter le noeud lui-même
-                if ((i != j) && (scriptNoeudI.Rangée == scriptNoeudJ.Rangée || scriptNoeudI.Colonne == scriptNoeudJ.Colonne))
+                if(i != j)
                 {
-                    scriptNoeudI.AjouterNoeudVoisin(ListeNoeuds[i]);
-                    Debug.Log(ListeNoeuds[j] + "est ajouté comme voisin de" + ListeNoeuds[i]);
+                    //On ne veut pas ajouter le noeud lui-même
+                    //if ((i != j) && ((Mathf.Abs(scriptNoeudJ.Rangée - scriptNoeudJ.Rangée) <= 1 && Mathf.Abs(scriptNoeudI.Colonne - scriptNoeudJ.Colonne) <= 1)))
 
-                    Debug.Log("Count ici : " + ListeNoeuds.Count);
+                    if (((scriptNoeudJ.Rangée + 1 == scriptNoeudI.Rangée) || (scriptNoeudJ.Rangée - 1 == scriptNoeudI.Rangée)) && ((scriptNoeudJ.Colonne + 1 == scriptNoeudI.Colonne) || (scriptNoeudJ.Colonne - 1 == scriptNoeudI.Colonne)))
+                    {
+                        Debug.Log("(");
+                        scriptNoeudI.AjouterNoeudVoisin(ListeNoeuds[j]);
+                        Debug.Log(")");
+                        //Debug.Log(ListeNoeuds[j] + "est ajouté comme voisin de" + ListeNoeuds[i]);
+                    }
                 }
             }
         }
@@ -231,12 +239,12 @@ public class GestionSolDrone : MonoBehaviour
                     g.GetComponent<ScriptNoeud>().SetDisponibilité(false);
 
                     //À arranger
-                    //foreach (Transform nVoisin in t.GetComponent<Noeud>().GetNoeudsVoisin())
-                    //{
-                    //    nVoisin.GetComponent<Noeud>().SetDisponibilité(false);
-                    //    Debug.Log(nVoisin.name);
-                    //}
-                    
+                    foreach (GameObject nVoisin in g.GetComponent<ScriptNoeud>().GetNoeudsVoisins())
+                    {
+                        Debug.Log("zzz : " + nVoisin.name);
+                        nVoisin.GetComponent<ScriptNoeud>().SetDisponibilité(false);
+                    }
+
                     Debug.Log(g.name + " : " + hit.collider.name);
                 }
             }

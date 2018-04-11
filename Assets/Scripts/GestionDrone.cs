@@ -99,9 +99,11 @@ public class GestionDrone : MonoBehaviour, Personnage
         //Pour faire des tests :
 
         Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
-        MarqueurÀAtteindre = new Vector3(-90, 0, -80);
+        MarqueurÀAtteindre = new Vector3(-90, 0, 0);
         NoeudsLesPlusProchesTrouvés = false;
         NoeudInitialLePlusProcheAtteint = false;
+
+        ListePointsPathfinding = new List<Vector2>();
 
         //
 
@@ -362,12 +364,24 @@ public class GestionDrone : MonoBehaviour, Personnage
             else
             {
 
-                Debug.Log(NoeudInitial + " à " + NoeudFinal);
                 NoeudInitialLePlusProcheAtteint = true;
+
+                //Debug.Log("Parcours pathfinding : " + NoeudInitial + " à " + NoeudFinal);
 
                 List<Vector3> listePointsPathfinding3d = gestionPathfinding.TrouverCheminPlusCourt(NoeudInitial, NoeudFinal);
 
-                Debug.Log(listePointsPathfinding3d);
+                //Debug.Log("Count ici : " + listePointsPathfinding3d.Count);
+
+                //
+                //Debug.Log("Liste points pathfinding");
+                //Debug.Log(listePointsPathfinding3d[0]);
+                //int z = 0;
+                //foreach(Vector3 v in listePointsPathfinding3d)
+                //{
+                //    Debug.Log(z + " : " + v);
+
+                //}
+                //
 
                 for(int i = 0; i < listePointsPathfinding3d.Count; i++)
                 {
@@ -376,10 +390,12 @@ public class GestionDrone : MonoBehaviour, Personnage
                 }
             }
         }
-
-        if (new Vector2(transform.position.x, transform.position.z) != ListePointsDePatrouille[IndicePositionPiste])
+        else
         {
-            DéplacerVersPoint(ListePointsPathfinding[IndicePositionPiste]);
+            if (new Vector2(transform.position.x, transform.position.z) != ListePointsDePatrouille[IndicePositionPiste])
+            {
+                DéplacerVersPoint(ListePointsPathfinding[IndicePositionPiste]);
+            }
         }
 
         //ListePointsPiste = gestionPathfinding.TrouverCheminPlusCourt();
@@ -414,7 +430,7 @@ public class GestionDrone : MonoBehaviour, Personnage
             }
         }
 
-        Debug.Log(NoeudPlusProche.name);
+        //Debug.Log(NoeudPlusProche.name);
         return NoeudPlusProche;
     }
 

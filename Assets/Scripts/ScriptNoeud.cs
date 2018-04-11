@@ -13,7 +13,7 @@ public class ScriptNoeud : MonoBehaviour
     public int Rangée;
     public int Colonne;
 
-    void Awake()
+    void Start()
     {
         ResetNoeud();
         NoeudsVoisins = new List<GameObject>();
@@ -41,14 +41,12 @@ public class ScriptNoeud : MonoBehaviour
         Disponible = value;
     }
 
-    public void AjouterNoeudVoisin(GameObject node)
+    public void AjouterNoeudVoisin(GameObject noeudÀAjouter)
     {
         //Problème ici...
 
-        Debug.Log("Count NoeudsVosin : " + NoeudsVoisins.Count);
-
         Debug.Log("A");
-        NoeudsVoisins.Add(node);
+        NoeudsVoisins.Add(noeudÀAjouter);
         Debug.Log("B");
     }
 
