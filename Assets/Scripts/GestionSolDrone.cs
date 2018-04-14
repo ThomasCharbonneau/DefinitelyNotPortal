@@ -7,7 +7,7 @@ public class GestionSolDrone : MonoBehaviour
     [SerializeField] GameObject PrefabNoeud;
 
     const float ÉTENDUE = 200; //L'étendue du sol en unités de Unity
-    const int DIMENSION_CHARPENTE = 20;
+    const int DIMENSION_CHARPENTE = 40;
     const int NB_TRIANGLES_PAR_TUILE = 2;
     const int NB_SOMMETS_PAR_TRIANGLE = 3;
 
@@ -103,8 +103,6 @@ public class GestionSolDrone : MonoBehaviour
     /// </summary>
     void TrouverNoeudsVoisins()
     {
-        Debug.Log("Count : " + ListeNoeuds.Count);
-
         for (int i = 0; i < ListeNoeuds.Count; i++)
         {
             scriptNoeudI = ListeNoeuds[i].GetComponent<ScriptNoeud>();
@@ -116,16 +114,14 @@ public class GestionSolDrone : MonoBehaviour
                 //Debug.Log("i : " + i);
                 //Debug.Log("j : " + j);
 
-                if(i != j)
+                if (i != j)
                 {
                     //On ne veut pas ajouter le noeud lui-même
                     //if ((i != j) && ((Mathf.Abs(scriptNoeudJ.Rangée - scriptNoeudJ.Rangée) <= 1 && Mathf.Abs(scriptNoeudI.Colonne - scriptNoeudJ.Colonne) <= 1)))
 
-                    if (((scriptNoeudJ.Rangée + 1 == scriptNoeudI.Rangée) || (scriptNoeudJ.Rangée - 1 == scriptNoeudI.Rangée)) && ((scriptNoeudJ.Colonne + 1 == scriptNoeudI.Colonne) || (scriptNoeudJ.Colonne - 1 == scriptNoeudI.Colonne)))
+                    if (((scriptNoeudJ.Rangée == scriptNoeudI.Rangée) || (scriptNoeudJ.Rangée + 1 == scriptNoeudI.Rangée) || (scriptNoeudJ.Rangée - 1 == scriptNoeudI.Rangée)) && ((scriptNoeudJ.Colonne == scriptNoeudI.Colonne) || (scriptNoeudJ.Colonne + 1 == scriptNoeudI.Colonne) || (scriptNoeudJ.Colonne - 1 == scriptNoeudI.Colonne)))
                     {
-                        Debug.Log("(");
                         scriptNoeudI.AjouterNoeudVoisin(ListeNoeuds[j]);
-                        Debug.Log(")");
                         //Debug.Log(ListeNoeuds[j] + "est ajouté comme voisin de" + ListeNoeuds[i]);
                     }
                 }
@@ -241,11 +237,11 @@ public class GestionSolDrone : MonoBehaviour
                     //À arranger
                     foreach (GameObject nVoisin in g.GetComponent<ScriptNoeud>().GetNoeudsVoisins())
                     {
-                        Debug.Log("zzz : " + nVoisin.name);
+                        //Debug.Log("zzz : " + nVoisin.name);
                         nVoisin.GetComponent<ScriptNoeud>().SetDisponibilité(false);
                     }
 
-                    Debug.Log(g.name + " : " + hit.collider.name);
+                    //Debug.Log(g.name + " : " + hit.collider.name);
                 }
             }
         }

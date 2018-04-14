@@ -7,9 +7,11 @@ public enum ModeDrone { PATROUILLE, ATTAQUE, RETOUR_VERS_PATROUILLE, DÉPLACEMEN
 
 public class GestionDrone : MonoBehaviour, Personnage
 {
+    [SerializeField] AudioClip SonRotor;
     [SerializeField] AudioClip SonDétectionJoueur;
     [SerializeField] AudioClip SonTirLaser;
     [SerializeField] AudioClip SonExplosion;
+    [SerializeField] AudioClip SonMarqueur;
 
     GameObject Joueur;
     GameObject gameObjectDrone;
@@ -44,10 +46,10 @@ public class GestionDrone : MonoBehaviour, Personnage
     const int DISTANCE_VISION_MAX = 50; //La distance maximale à laquelle le drone peut appercevoir le joueur
 
     List<PistePatrouille> ListePistesPatrouille = new List<PistePatrouille>();
-    List<Vector2> ListePointsDePatrouille;
+    List<Vector2> ListePointsPatrouille;
     int IndicePositionPiste;
 
-    List<Vector2> ListePointsPathfinding; //La liste des points des noeuds à parcourir pour arriver à un point donné
+    List<Vector2> ListePointsPathfinding = new List<Vector2>(); //La liste des points des noeuds à parcourir pour arriver à un point donné
 
     public Vector3 MarqueurÀAtteindre;
     bool NoeudsLesPlusProchesTrouvés;
@@ -76,14 +78,14 @@ public class GestionDrone : MonoBehaviour, Personnage
         TrouverPistesPatrouille();
 
         //Devra changer en fonction du niveau
-        ListePointsDePatrouille = ListePistesPatrouille[0].GetPointsDePatrouille();
+        ListePointsPatrouille = ListePistesPatrouille[0].GetPointsDePatrouille();
         //
 
         //Au début, trouve la piste la moins couteuse en déplacement et s'y rend... Ignorer ligne suivante surement.
         //pistePatrouille = GameObject.Find("PistePatrouille").GetComponent<PistePatrouille>();
 
         IndicePositionPiste = 0;
-        transform.position = ListePointsDePatrouille[IndicePositionPiste];
+        transform.position = ListePointsPatrouille[IndicePositionPiste];
         PatrouilleEnSensHoraire = true;
 
         drone = GetComponent<Rigidbody>();
@@ -103,11 +105,11 @@ public class GestionDrone : MonoBehaviour, Personnage
         NoeudsLesPlusProchesTrouvés = false;
         NoeudInitialLePlusProcheAtteint = false;
 
-        ListePointsPathfinding = new List<Vector2>();
-
         //
 
         laserTiré = false;
+
+        //AudioDrone = GetComponent<AudioSource>();
 
         vie = VIE_INITIALE;
 
@@ -128,6 +130,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     // Update is called once per frame
     void Update()
     {
+
         if(Vie <= 0)
         {
             AudioSource.PlayClipAtPoint(SonExplosion, Joueur.transform.position);
@@ -175,6 +178,7 @@ public class GestionDrone : MonoBehaviour, Personnage
                 }
 
                 break;
+            
             case ModeDrone.DÉPLACEMENT_VERS_MARQUEUR:
 
                 GérerDéplacementVersMarqueur();
@@ -230,9 +234,9 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
         else
         {
-            if (new Vector2(transform.position.x, transform.position.z) != ListePointsDePatrouille[IndicePositionPiste])
+            if (new Vector2(transform.position.x, transform.position.z) != ListePointsPatrouille[IndicePositionPiste])
             {
-                DéplacerVersPoint(ListePointsDePatrouille[IndicePositionPiste]);
+                DéplacerVersPoint(ListePointsPatrouille[IndicePositionPiste]);
             }
             else
             {
@@ -242,14 +246,14 @@ public class GestionDrone : MonoBehaviour, Personnage
 
                     if (IndicePositionPiste < 0)
                     {
-                        IndicePositionPiste = ListePointsDePatrouille.Count - 1;
+                        IndicePositionPiste = ListePointsPatrouille.Count - 1;
                     }
                 }
                 else
                 {
                     IndicePositionPiste++;
 
-                    if (IndicePositionPiste == ListePointsDePatrouille.Count)
+                    if (IndicePositionPiste == ListePointsPatrouille.Count)
                     {
                         IndicePositionPiste = 0;
                     }
@@ -392,13 +396,20 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
         else
         {
-            if (new Vector2(transform.position.x, transform.position.z) != ListePointsDePatrouille[IndicePositionPiste])
+            if (new Vector2(transform.position.x, transform.position.z) != ListePointsPathfinding[IndicePositionPiste])
             {
                 DéplacerVersPoint(ListePointsPathfinding[IndicePositionPiste]);
             }
-        }
+            else
+            {
+                IndicePositionPiste++;
+            }
 
-        //ListePointsPiste = gestionPathfinding.TrouverCheminPlusCourt();
+            if(IndicePositionPiste == ListePointsPathfinding.Count)
+            {
+                AudioSource.PlayClipAtPoint(SonMarqueur, Joueur.transform.position);
+            }
+        }
     }
 
     /// <summary>

@@ -183,15 +183,18 @@ public class GestionMouvement : MonoBehaviour
         Ray ray = Caméra.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit);
 
-        if (hit.rigidbody != null && hit.distance <= DISTANCE_MAX_PRISE_OBJET)
+        if(hit.rigidbody != null)
         {
-            ObjetTenu = hit.rigidbody;
+            if (hit.rigidbody.name != "Drone" && hit.distance <= DISTANCE_MAX_PRISE_OBJET)
+            {
+                ObjetTenu = hit.rigidbody;
 
-            ObjetTenu.transform.parent = Caméra.transform;
-            ObjetTenu.useGravity = false;
-            ObjetTenu.freezeRotation = true;
+                ObjetTenu.transform.parent = Caméra.transform;
+                ObjetTenu.useGravity = false;
+                ObjetTenu.freezeRotation = true;
 
-            TientObjet = true;
+                TientObjet = true;
+            }
         }
     }
 

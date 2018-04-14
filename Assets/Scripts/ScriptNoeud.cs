@@ -7,7 +7,7 @@ public class ScriptNoeud : MonoBehaviour
 {
     float Cout = int.MaxValue;
     GameObject NoeudParent = null;
-    List<GameObject> NoeudsVoisins;
+    List<GameObject> NoeudsVoisins = new List<GameObject>();
     bool Disponible = true;
 
     public int Rangée;
@@ -16,7 +16,7 @@ public class ScriptNoeud : MonoBehaviour
     void Start()
     {
         ResetNoeud();
-        NoeudsVoisins = new List<GameObject>();
+        //NoeudsVoisins = new List<GameObject>();
     }
 
     public void ResetNoeud()
@@ -43,11 +43,7 @@ public class ScriptNoeud : MonoBehaviour
 
     public void AjouterNoeudVoisin(GameObject noeudÀAjouter)
     {
-        //Problème ici...
-
-        Debug.Log("A");
         NoeudsVoisins.Add(noeudÀAjouter);
-        Debug.Log("B");
     }
 
     public List<GameObject> GetNoeudsVoisins()
