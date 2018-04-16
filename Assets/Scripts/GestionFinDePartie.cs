@@ -31,8 +31,11 @@ public class GestionFinDePartie : MonoBehaviour {
         if (other.transform.tag == "Cube" || other.transform.tag == "Personnage")
         {         
             FinDePartieScript.ancienneScène = SceneManager.GetActiveScene().name;
-            SauvegardeControlleur.ListeSettings[0] = ( ( ((int.Parse(SauvegardeControlleur.ListeSettings[0])) + 1 ).ToString()));
-            SauvegardeControlleur.SaveSettings();
+            if(int.Parse(FinDePartieScript.ancienneScène.Substring(6)) >= int.Parse(SauvegardeControlleur.ListeSettings[0]))
+            {
+                SauvegardeControlleur.ListeSettings[0] = ((((int.Parse(SauvegardeControlleur.ListeSettings[0])) + 1).ToString()));
+                SauvegardeControlleur.SaveSettings();
+            }
             ScriptHUD.VerifierMenu("OpenMenu");
             SceneManager.LoadScene("FinDePartie");
         }

@@ -8,7 +8,7 @@ public class GestionMouvement : MonoBehaviour
     const float FORCE_SAUT = 9f;
     const float FORCE_DÉPLACEMENT = 30f;
     const float COEFFICIENTSPRINT = 3f;
-    const float COEFFICIENT_CHUTE = 1.5F;
+    const float COEFFICIENT_CHUTE = 2F;
 
     const int DISTANCE_MAX_PRISE_OBJET = 15; //La distance maximale entre le joueur et l'objet qu'il peut prendre
 
@@ -33,7 +33,7 @@ public class GestionMouvement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Physics.gravity = new Vector3(0f,-19.0f,0f);
+       // Physics.gravity = new Vector3(0f,-19.0f,0f);
         EstAuSol = true;
         TientObjet = false;
         personnage = GetComponent<Rigidbody>();
@@ -171,7 +171,7 @@ public class GestionMouvement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton")) 
+        if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton") || collision.gameObject.CompareTag("Plancher")) 
         {
             EstAuSol = true;
         }
