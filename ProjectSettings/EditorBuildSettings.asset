@@ -9,11 +9,35 @@ EditorBuildSettings:
     path: Assets/_Scenes/ScnMenuPrincipal.unity
     guid: 9a33608acceb7424180e8663e87d4720
   - enabled: 1
-    path: Assets/Niveau1.unity
+    path: Assets/_Scenes/Niveau/Niveau1.unity
     guid: 9a49af0f111841e46bb23d8edbdffc94
   - enabled: 1
     path: "Assets/_Scenes/TestGravit\xE9.unity"
     guid: 80872effcaa8ebd4e8d0848af7fef251
   - enabled: 1
-    path: Assets/_Scenes/FinDePartie.unity
+    path: Assets/_Scenes/Niveau/FinDePartie.unity
     guid: 4066f1b8523bc80419a1e4ec8aef09aa
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/_Scenes/ScnDrone.unity
+    guid: 9b22beab823f2e946bc1b5305f249710
+  - enabled: 1
+    path: Assets/_Scenes/Niveau/Niveau3.unity
+    guid: e005f74fcb2ab9045949e79fa3787084
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/_Scenes/ScnLaunchPads.unity
+    guid: 9f29136dc505cbc46a417a76cb06a0c1
+  - enabled: 1
+    path: Assets/_Scenes/Niveau/Niveau2.unity
+    guid: 23f0ff8d6b6734d4b93ecbd58631378e
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
