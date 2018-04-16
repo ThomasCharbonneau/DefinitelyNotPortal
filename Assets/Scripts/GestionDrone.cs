@@ -407,6 +407,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
             if(IndicePositionPiste == ListePointsPathfinding.Count)
             {
+                Mode = ModeDrone.ATTAQUE;
                 AudioSource.PlayClipAtPoint(SonMarqueur, Joueur.transform.position);
             }
         }

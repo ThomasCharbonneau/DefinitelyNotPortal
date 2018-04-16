@@ -59,7 +59,7 @@ public class GestionRespawnLave : MonoBehaviour {
         }
         if (other.tag == "Personnage")
         {
-            Physics.gravity = new Vector3(0f, -19.6f, 0f);
+            Physics.gravity = new Vector3(0f, -9.8f, 0f);
             other.transform.position = spawnPointPersonnage;
         }
     }
