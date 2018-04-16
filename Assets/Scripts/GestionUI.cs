@@ -21,6 +21,8 @@ public class GestionUI : MonoBehaviour
     GameObject PnlCrosshairBleu;
     GameObject PnlCrosshairOrange;
 
+    GameObject ÉcranMort;
+
     ModePortalGun ImageGunMode;
 
     GestionVieJoueur GestionVie;
@@ -42,6 +44,9 @@ public class GestionUI : MonoBehaviour
 
         PnlCrosshairBleu = GameObject.Find("PnlBleu");
         PnlCrosshairOrange = GameObject.Find("PnlOrange");
+
+        ÉcranMort = GameObject.Find("ÉcranMort");
+        ÉcranMort.SetActive(false);
 
         //ImageChargeLaser = GetComponentInChildren<Image>();
         //ImageGunMode = ModePortalGun.PORTAIL;
@@ -70,16 +75,16 @@ public class GestionUI : MonoBehaviour
 
         ImageChargeLaser.fillAmount = PortalGun.ChargeLaser / GestionPortalGun.CHARGE_LASER_MAX;
 
-        ////if (Mathf.Round(ImageVie.fillAmount * GestionVieJoueur.VIE_INITIALE) != ((float)GestionVie.Vie))
-        //{
-        //    //if (différencePourcentageVie == 0)
-        //    //{
-        //    //    différencePourcentageVie = ImageVie.fillAmount - (((float)GestionVie.Vie) / GestionVieJoueur.VIE_INITIALE);
-        //    //    Debug.Log(différencePourcentageVie);
-        //    //}
+        if (Mathf.Round(ImageVie.fillAmount * GestionVieJoueur.VIE_INITIALE) != ((float)GestionVie.Vie))
+        {
+            //if (différencePourcentageVie == 0)
+            //{
+            //    différencePourcentageVie = ImageVie.fillAmount - (((float)GestionVie.Vie) / GestionVieJoueur.VIE_INITIALE);
+            //    Debug.Log(différencePourcentageVie);
+            //}
 
-        //    ImageVie.fillAmount -= 0.01f;
-        //}
+            ImageVie.fillAmount -= 0.01f;
+        }
         //else
         //{
         //    différencePourcentageVie = 0;
@@ -98,5 +103,10 @@ public class GestionUI : MonoBehaviour
         //    PnlModePortail.SetActive(false);
         //    PnlModeLaser.SetActive(true);
         //}
+    }
+
+    public void AfficherÉcranMort()
+    {
+        ÉcranMort.SetActive(true);
     }
 }
