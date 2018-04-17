@@ -33,11 +33,7 @@ public class GestionMouvement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-<<<<<<< HEAD
        // Physics.gravity = new Vector3(0f,-19.0f,0f);
-=======
-        //Physics.gravity = new Vector3(0f,-19.0f,0f);
->>>>>>> 9dfe01418f817727e1d65f82c1c8a999b17826a5
         EstAuSol = true;
         TientObjet = false;
         personnage = GetComponent<Rigidbody>();
