@@ -4,4 +4,37 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/Niveau4.unity
+    guid: 502b582b8cc8b7f499daf5b349764c6b
+  - enabled: 1
+    path: Assets/_Scenes/FinDePartie.unity
+    guid: 1982a5c34329c884bb4e65683a8688c3
+  - enabled: 1
+    path: Assets/_Scenes/Niveau1.unity
+    guid: 31cfb7c48c40c6343b5d37ac462a2868
+  - enabled: 1
+    path: Assets/_Scenes/Niveau2.unity
+    guid: 1e9a2c747601d6f45a043a4088119e92
+  - enabled: 1
+    path: Assets/_Scenes/Niveau3.unity
+    guid: b03ff29d8fc113e4da7250d25bbf0b39
+  - enabled: 1
+    path: Assets/_Scenes/Niveau9.unity
+    guid: 10fced97dc4c7a742a6a79b56eb1e6e7
+  - enabled: 1
+    path: Assets/_Scenes/ScnDrone.unity
+    guid: 9b22beab823f2e946bc1b5305f249710
+  - enabled: 1
+    path: Assets/_Scenes/ScnDrone1.unity
+    guid: 2f63ef65b5bb74343ac3f844664c286e
+  - enabled: 1
+    path: Assets/_Scenes/ScnLaunchPads.unity
+    guid: 9f29136dc505cbc46a417a76cb06a0c1
+  - enabled: 1
+    path: Assets/_Scenes/ScnMenuPrincipal.unity
+    guid: 9a33608acceb7424180e8663e87d4720
+  - enabled: 1
+    path: "Assets/_Scenes/TestGravit\xE9.unity"
+    guid: 80872effcaa8ebd4e8d0848af7fef251

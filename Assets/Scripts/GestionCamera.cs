@@ -36,7 +36,7 @@ public class GestionCamera : MonoBehaviour
             var VariationSouris = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
             Vision.y = Mathf.Clamp(Vision.y, -90f, 90f);
 
-            VariationSouris = Vector2.Scale(VariationSouris, new Vector2(Sensitivité * FacteurAdoucir, Sensitivité * FacteurAdoucir));
+            VariationSouris = Vector2.Scale(VariationSouris, new Vector2((Sensitivité /5) * FacteurAdoucir, (Sensitivité /5) * FacteurAdoucir));
             AdoucirCamera.x = Mathf.Lerp(AdoucirCamera.x, VariationSouris.x, 1f / FacteurAdoucir);
             AdoucirCamera.y = Mathf.Lerp(AdoucirCamera.y, VariationSouris.y, 1f / FacteurAdoucir);
             Vision += AdoucirCamera;
