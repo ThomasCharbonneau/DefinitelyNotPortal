@@ -24,7 +24,7 @@ public class GestionVieJoueur : MonoBehaviour, Personnage
         if (Vie <= 0)
         {
             GestionUI.AfficherÉcranMort();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

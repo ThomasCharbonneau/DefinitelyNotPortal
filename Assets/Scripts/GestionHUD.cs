@@ -10,7 +10,7 @@ public class GestionHUD : MonoBehaviour
     GameObject PnlOptions;
     GameObject PnlBoutons;
     GameObject PnlCrossair;
-
+    
     public Canvas CanvasControlleur;
     GestionSauvegarde SauvegardeControlleur;
     Button BtnResumer;
@@ -20,6 +20,7 @@ public class GestionHUD : MonoBehaviour
     bool Paused;
     [SerializeField] Slider SldSensitivité;
     [SerializeField] Slider SldSon;
+    [SerializeField] GameObject PnlMort;
     Camera Caméra;
     GestionCamera cameraControlleur;
 
@@ -32,9 +33,9 @@ public class GestionHUD : MonoBehaviour
         PnlMenu = GameObject.Find("PnlMenu");
         PnlOptions = GameObject.Find("PnlOptions");
         PnlBoutons = GameObject.Find("PnlBoutons");
-        PnlCrossair = GameObject.Find("PnlCrossair");
+        PnlCrossair = GameObject.Find("PnlCrossair");      
 
-        
+
         BtnResumer = GameObject.Find("BtnResumer").GetComponent<Button>();
         BtnOption = GameObject.Find("BtnOption").GetComponent<Button>();
         BtnRetour = GameObject.Find("BtnRetour").GetComponent<Button>();
@@ -122,6 +123,13 @@ public class GestionHUD : MonoBehaviour
             Paused = false;
             Time.timeScale = 1.0f;
             SceneManager.LoadScene("ScnMenuPrincipal");
+        }
+        if ("ReloaderMort" == Choix)
+        {
+            Debug.Log(("Jai passer par reloadermort"));        
+            PnlMort.gameObject.SetActive(false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
         }
     }
 

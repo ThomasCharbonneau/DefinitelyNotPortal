@@ -36,7 +36,9 @@ public class GestionFinDePartie : MonoBehaviour {
                 SauvegardeControlleur.ListeSettings[0] = ((((int.Parse(SauvegardeControlleur.ListeSettings[0])) + 1).ToString()));
                 SauvegardeControlleur.SaveSettings();
             }
-            ScriptHUD.VerifierMenu("OpenMenu");
+            Time.timeScale = 0.0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             SceneManager.LoadScene("FinDePartie");
         }
 

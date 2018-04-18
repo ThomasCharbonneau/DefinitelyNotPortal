@@ -108,5 +108,8 @@ public class GestionUI : MonoBehaviour
     public void AfficherÉcranMort()
     {
         ÉcranMort.SetActive(true);
+        Time.timeScale = 0.0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
