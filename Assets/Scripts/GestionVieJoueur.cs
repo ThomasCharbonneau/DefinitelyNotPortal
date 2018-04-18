@@ -8,7 +8,7 @@ public class GestionVieJoueur : MonoBehaviour, Personnage
     GestionUI GestionUI;
 
     public const int VIE_INITIALE = 100;
-    int vie;
+    static int vie;
 
     // Use this for initialization
     void Start ()

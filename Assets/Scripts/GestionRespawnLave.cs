@@ -14,11 +14,14 @@ public class GestionRespawnLave : MonoBehaviour {
     Vector3 spawnPointCube3;
     Vector3 spawnPointPersonnage;
 
+    GestionVieJoueur scriptGestionVieJoueur;
+
   
     
 
 	// Use this for initialization
 	void Start () {
+        scriptGestionVieJoueur = Personnage.GetComponent<GestionVieJoueur>();
         if (cube1 != null)
         {
             spawnPointCube1 = cube1.transform.position;
@@ -59,8 +62,12 @@ public class GestionRespawnLave : MonoBehaviour {
         }
         if (other.tag == "Personnage")
         {
-            Physics.gravity = new Vector3(0f, -9.8f, 0f);
-            other.transform.position = spawnPointPersonnage;
+            scriptGestionVieJoueur.Vie -= 25;
+            if (scriptGestionVieJoueur.Vie != 0)
+            {
+                Physics.gravity = new Vector3(0f, -9.8f, 0f);
+                other.transform.position = spawnPointPersonnage;
+            }    
         }
     }
 }
