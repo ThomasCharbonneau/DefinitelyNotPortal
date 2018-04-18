@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 54964547510989570}
   - component: {fileID: 114027868645080130}
   - component: {fileID: 23789782162576164}
+  - component: {fileID: 114840169851972590}
   m_Layer: 0
   m_Name: Personnage
   m_TagString: Personnage
@@ -804,7 +805,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1264821272808600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.92, y: 9.4, z: 25.5}
+  m_LocalPosition: {x: 0, y: 10, z: -95}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4529829475911328}
@@ -946,7 +947,6 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -2065,7 +2065,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1264821272808600}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0.01
   m_AngularDrag: 5
   m_UseGravity: 1
@@ -2117,7 +2117,7 @@ MonoBehaviour:
   "SonD\xE9sactivationPortal": {fileID: 8300000, guid: b26f60b093f7a75429bdcfa9ad196497,
     type: 3}
   SonChangementMode: {fileID: 8300000, guid: 8f5bd10ffee3aaa4692fa05e8b87e0e7, type: 3}
-  SonTirLaser: {fileID: 0}
+  SonTirLaser: {fileID: 8300000, guid: f4b548df8fff68843b1181697bbf7ca3, type: 3}
   "Cam\xE9ra": {fileID: 20082536506674630}
   portalBleu: {fileID: 0}
   portalOrange: {fileID: 0}
@@ -2134,13 +2134,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "Sensitivit\xE9": 1
   "degr\xE9Rotation": 0
+--- !u!114 &114840169851972590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264821272808600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fce51ba9e41a7f45abc1b295c02cec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!120 &120097331389336644
 LineRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1687779137266500}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
