@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LaunchPadScript : MonoBehaviour {
-
-    const float FORCE_Verticale = 30f;
-    const float FORCE_Horizontale = 60f;
+    const float FORCE_Verticale_PAR_DEFAUT = 30f;
+    const float FORCE_Horizontale_PAR_DEFAUT = 60f;
+    public float ForceHorizontaleDefault_60;
+    public float ForceVerticalDefault_30;
+    float FORCE_Horizontale;
+    float FORCE_Verticale;
     private Vector3 PropulsationVerticale;
     private Vector3 PropulsationHorizontale;
     private Vector3 DirectionJoueur;
@@ -25,6 +28,18 @@ public class LaunchPadScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         scriptGestionMouvement = Personnage.GetComponent<GestionMouvement>();
+
+        if (ForceHorizontaleDefault_60 < 1f)
+        {
+            FORCE_Horizontale = FORCE_Horizontale_PAR_DEFAUT;
+        }
+        else { FORCE_Horizontale = ForceHorizontaleDefault_60; }
+
+        if (ForceVerticalDefault_30 < 1f)
+        {
+            FORCE_Verticale = FORCE_Verticale_PAR_DEFAUT;
+        }
+        else { FORCE_Verticale = ForceVerticalDefault_30; }
     }
     void FixedUpdate()
     {
