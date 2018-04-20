@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GestionMouvement : MonoBehaviour
 {
-    const float FORCE_RELACHEMENT = 1000f; //La froce avec laquelle l'objet tenu est relaché vers l'avant.
+    const float FORCE_RELACHEMENT = 6000f; //La froce avec laquelle l'objet tenu est relaché vers l'avant.
     const float FORCE_SAUT = 9f;
     const float FORCE_DÉPLACEMENT = 30f;
     const float COEFFICIENTSPRINT = 3f;
@@ -115,6 +115,11 @@ public class GestionMouvement : MonoBehaviour
                 if (Input.GetKey("d")) //déplacement de coté vers la droite
                 {
                     personnage.velocity += personnage.transform.right * VITESSE_MARCHE_AIR * Time.deltaTime;
+                }
+
+                if (new Vector3(0, personnage.velocity.y, 0).magnitude > 75)
+                {
+                    personnage.velocity = (new Vector3(personnage.velocity.x, 0, personnage.velocity.z) + new Vector3(0, personnage.velocity.y, 0).normalized * 75);
                 }
             }
 
