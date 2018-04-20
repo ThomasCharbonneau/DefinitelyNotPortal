@@ -28,18 +28,26 @@ public class GestionFinDePartie : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Cube" || other.transform.tag == "Personnage")
+        if (other.transform.tag == "Personnage")
         {         
             FinDePartieScript.ancienneScène = SceneManager.GetActiveScene().name;
             if(int.Parse(FinDePartieScript.ancienneScène.Substring(6)) >= int.Parse(SauvegardeControlleur.ListeSettings[0]))
             {
-                SauvegardeControlleur.ListeSettings[0] = ((((int.Parse(SauvegardeControlleur.ListeSettings[0])) + 1).ToString()));
+                SauvegardeControlleur.ListeSettings[0] = ((int.Parse(FinDePartieScript.ancienneScène.Substring(6)) + 1).ToString());
                 SauvegardeControlleur.SaveSettings();
             }
             Time.timeScale = 0.0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            SceneManager.LoadScene("FinDePartie");
+            if(SceneManager.GetActiveScene().name == ("Niveau9"))
+            {
+                SceneManager.LoadScene("ScnFinDuJeu");
+            }
+            else
+            {
+                SceneManager.LoadScene("FinDePartie");
+            }
+            
         }
 
     }

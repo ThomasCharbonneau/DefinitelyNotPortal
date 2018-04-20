@@ -16,9 +16,9 @@ public class FinDePartieScript : MonoBehaviour {
 
         chiffreScene = ancienneScène.Substring(6);
         float.TryParse(chiffreScene, out chiffreAncienneScene);
-        if (chiffreAncienneScene > 20 || chiffreAncienneScene == 0) // remplacer 20 par le nombre max de niveau
+        if (chiffreAncienneScene == 9 || chiffreAncienneScene == 0) // remplacer 20 par le nombre max de niveau
         {
-            chiffreAncienneScene = 1;
+            SceneManager.LoadScene("ScnFinDuJeu");
         }
         else
         {
