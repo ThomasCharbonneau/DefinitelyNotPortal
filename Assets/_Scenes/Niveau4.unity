@@ -1678,8 +1678,8 @@ TextMesh:
   m_GameObject: {fileID: 1404047669}
   m_Text: "Ces boutons sont activ\xE9s par des objets \ncomme le cube. Vous pouvez
     interagir avec\nce dernier avec vos portails. De plus, la \ntouche \"e\" vous
-    permet de le prendre dans \nvos mains ,mais aussi le relacher et \nappuyer sur
-    la roulette vous permet de le \nlancer une certaines distances. "
+    permet de le prendre dans \nvos mains ou de le rel\xE2cher. Appuyer sur la \nroulette
+    vous permet de le lancer."
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

@@ -29,6 +29,7 @@ public class GestionMouvement : MonoBehaviour
     private Vector3 déplacementAvant;
 
     [SerializeField] Camera Caméra;
+    [SerializeField] AudioClip SonLancerObjet;
 
     // Use this for initialization
     void Start()
@@ -140,8 +141,8 @@ public class GestionMouvement : MonoBehaviour
                 if (TientObjet)
                 {
                     RelacherObjet();
-                    //N'était pas correct quand l'objet était relaché parcequ'il traversait un portail.
                     ObjetTenu.AddForce(Caméra.transform.forward * FORCE_RELACHEMENT);
+                    AudioSource.PlayClipAtPoint(SonLancerObjet, transform.position);
                 }
             }
 
