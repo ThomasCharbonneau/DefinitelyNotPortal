@@ -11,6 +11,9 @@ TagManager:
   - SF_Door
   - Personnage
   - Noeud
+  - Plancher
+  - ObstacleNoPortal
+  - ObstaclePortal
   layers:
   - Default
   - TransparentFX

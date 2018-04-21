@@ -13,6 +13,8 @@ public class GestionDrone : MonoBehaviour, Personnage
     [SerializeField] AudioClip SonExplosion;
     [SerializeField] AudioClip SonMarqueur;
 
+    public Vector3 PositionMarqueur;
+
     GameObject Joueur;
     GameObject gameObjectDrone;
 
@@ -51,7 +53,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     List<Vector2> ListePointsPathfinding = new List<Vector2>(); //La liste des points des noeuds à parcourir pour arriver à un point donné
 
-    public Vector3 MarqueurÀAtteindre;
+    //public Vector3 MarqueurÀAtteindre;
     bool NoeudsLesPlusProchesTrouvés;
     bool NoeudInitialLePlusProcheAtteint;
     GameObject NoeudInitial;
@@ -101,7 +103,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         //Pour faire des tests :
 
         Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
-        MarqueurÀAtteindre = new Vector3(-90, 0, 0);
+        //MarqueurÀAtteindre = new Vector3(-90, 0, 0);
         NoeudsLesPlusProchesTrouvés = false;
         NoeudInitialLePlusProcheAtteint = false;
 
@@ -347,7 +349,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         if(!NoeudsLesPlusProchesTrouvés)
         {
             NoeudInitial = TrouverNoeudPlusProche(transform.position);
-            NoeudFinal = TrouverNoeudPlusProche(MarqueurÀAtteindre);
+            NoeudFinal = TrouverNoeudPlusProche(PositionMarqueur);
             NoeudsLesPlusProchesTrouvés = true;
         }
 

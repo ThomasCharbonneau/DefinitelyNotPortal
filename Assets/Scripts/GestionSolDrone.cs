@@ -222,6 +222,8 @@ public class GestionSolDrone : MonoBehaviour
         //    }
         //}
 
+        Debug.Log("Count est de :" + ListeNoeuds.Count);
+
         RaycastHit hit;
         foreach (GameObject g in ListeNoeuds)
         {
@@ -230,7 +232,7 @@ public class GestionSolDrone : MonoBehaviour
 
             //if(hit.collider.GetComponent<GameObject>().name == "plafond")
             {
-                if (hit.collider.tag == "Mur")
+                if (hit.collider.tag == "ObstaclePortal" || hit.collider.tag == "ObstacleNoPortal" || hit.collider.tag == "Boutton")
                 {
                     g.GetComponent<ScriptNoeud>().SetDisponibilité(false);
 
@@ -241,10 +243,21 @@ public class GestionSolDrone : MonoBehaviour
                         nVoisin.GetComponent<ScriptNoeud>().SetDisponibilité(false);
                     }
 
-                    //Debug.Log(g.name + " : " + hit.collider.name);
+                    Debug.Log(g.name + " : " + hit.collider.name);
                 }
             }
         }
+
+        //Pour des tests:
+        foreach (GameObject g in ListeNoeuds)
+        {
+            if (!g.GetComponent<ScriptNoeud>().EstDisponible())
+            {
+                GameObject a = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                a.transform.position = g.transform.position;
+            }
+        }
+        //Deleter
     }
 
     /// <summary>
