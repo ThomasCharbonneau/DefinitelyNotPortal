@@ -81,6 +81,7 @@ public class GestionHUD : MonoBehaviour
         {
             VerifierMenu("Resumer");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Physics.gravity = new Vector3(0, -9.81f, 0);
         }
         if ("Resumer" == Choix)
         {
@@ -123,13 +124,14 @@ public class GestionHUD : MonoBehaviour
             Paused = false;
             Time.timeScale = 1.0f;
             SceneManager.LoadScene("ScnMenuPrincipal");
+            Physics.gravity = new Vector3(0, -9.81f, 0);
         }
         if ("ReloaderMort" == Choix)
         {
-            Debug.Log(("Jai passer par reloadermort"));        
+            Debug.Log(("Jai passer par reloadermort"));
             PnlMort.gameObject.SetActive(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
+            Physics.gravity = new Vector3(0, -9.81f, 0);
         }
     }
 

@@ -29,7 +29,7 @@ public class GestionFinDePartie : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Personnage")
-        {         
+        {
             FinDePartieScript.ancienneScène = SceneManager.GetActiveScene().name;
             if(int.Parse(FinDePartieScript.ancienneScène.Substring(6)) >= int.Parse(SauvegardeControlleur.ListeSettings[0]))
             {
@@ -47,7 +47,8 @@ public class GestionFinDePartie : MonoBehaviour {
             {
                 SceneManager.LoadScene("FinDePartie");
             }
-            
+
+            Physics.gravity = new Vector3(0, -9.81f, 0);
         }
 
     }
