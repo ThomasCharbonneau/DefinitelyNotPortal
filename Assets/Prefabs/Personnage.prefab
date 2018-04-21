@@ -2118,6 +2118,7 @@ MonoBehaviour:
   SonTirPortal: {fileID: 8300000, guid: 6587c960c0e74ce46a41ceb9482b6c23, type: 3}
   "SonD\xE9sactivationPortal": {fileID: 8300000, guid: b26f60b093f7a75429bdcfa9ad196497,
     type: 3}
+  SonSurfaceInvalide: {fileID: 8300000, guid: b65453a1809f5ef448de03b2905b3b93, type: 3}
   SonChangementMode: {fileID: 8300000, guid: 8f5bd10ffee3aaa4692fa05e8b87e0e7, type: 3}
   SonTirLaser: {fileID: 8300000, guid: f4b548df8fff68843b1181697bbf7ca3, type: 3}
   "Cam\xE9ra": {fileID: 20082536506674630}

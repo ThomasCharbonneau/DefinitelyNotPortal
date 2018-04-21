@@ -8,7 +8,7 @@ public class GestionPortalGun : MonoBehaviour
 {
     [SerializeField] AudioClip SonTirPortal;
     [SerializeField] AudioClip SonDésactivationPortal;
-    //[SerializeField] AudioClip SonSurfaceInvalide;
+    [SerializeField] AudioClip SonSurfaceInvalide;
     [SerializeField] AudioClip SonChangementMode; //Click qui indique le changement de mode du fusil
     [SerializeField] AudioClip SonTirLaser;
 
@@ -192,9 +192,13 @@ public class GestionPortalGun : MonoBehaviour
 
                 portail.transform.position = hit.point;
                 portail.transform.LookAt(hit.point + hit.normal);
-
-                TempsDepuisDernierTirPortails = 0;
             }
+            else
+            {
+                AudioSource.PlayClipAtPoint(SonSurfaceInvalide, transform.position);
+            }
+
+            TempsDepuisDernierTirPortails = 0;
         }
 
         //Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
