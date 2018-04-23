@@ -24,7 +24,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     GestionPathfinding gestionPathfinding;
     GestionSolDrone gestionSolDrone;
 
-    public ModeDrone Mode { get; private set; }
+    public ModeDrone Mode { get; set; }
 
     bool laserTiré; //Si un laser de ce drone est présentement dans l'environnement ou non
     float tempsDepuisTirLaser;
@@ -97,15 +97,15 @@ public class GestionDrone : MonoBehaviour, Personnage
         //transform.position = ListePointsPatrouille[IndicePositionPiste];
         PatrouilleEnSensHoraire = true;
 
-        //Mode = ModeDrone.PATROUILLE;
+        Mode = ModeDrone.PATROUILLE;
         DroneArrêté = false;
+        NoeudsLesPlusProchesTrouvés = false;
+        NoeudInitialLePlusProcheAtteint = false;
 
         //Pour faire des tests :
 
-        Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
-        //MarqueurÀAtteindre = new Vector3(-90, 0, 0);
-        NoeudsLesPlusProchesTrouvés = false;
-        NoeudInitialLePlusProcheAtteint = false;
+        //Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
+        ////MarqueurÀAtteindre = new Vector3(-90, 0, 0);
 
         //
 
@@ -114,14 +114,14 @@ public class GestionDrone : MonoBehaviour, Personnage
         tempsDepuisTirLaser = DÉLAI_RECHARGE_TIR_LASER;
     }
 
-    public void Resetter()
-    {
-        laserTiré = false;
+    //public void Resetter()
+    //{
+    //    laserTiré = false;
 
-        vie = VIE_INITIALE;
+    //    vie = VIE_INITIALE;
 
-        tempsDepuisTirLaser = DÉLAI_RECHARGE_TIR_LASER;
-    }
+    //    tempsDepuisTirLaser = DÉLAI_RECHARGE_TIR_LASER;
+    //}
 
     void TrouverPistesPatrouille()
     {
@@ -275,7 +275,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         {
             Debug.Log("Changement de sens de patrouille à : " + Time.fixedTime);
 
-            //Changer pour faire listePointsPatrouille.Reverse à la place
+            //Changer pour faire listePointsPatrouille.Reverse à la place?
             PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
         }
     }
@@ -521,9 +521,4 @@ public class GestionDrone : MonoBehaviour, Personnage
             }
         }
     }
-
-    //public DataPistePatrouille GetPistePatrouille()
-    //{
-    //    return dataPistePatrouille;
-    //}
 }

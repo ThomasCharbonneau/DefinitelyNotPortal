@@ -49,6 +49,6 @@ public class GestionBoutonDrone : MonoBehaviour
         if (other.tag == "Cube" || other.tag == ("Personnage"))
         {
             RespawnerDrone();
-        }       
+        }
     }
 }
