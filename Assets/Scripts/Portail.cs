@@ -56,15 +56,26 @@ public class Portail : MonoBehaviour
                 AudioSource.PlayClipAtPoint(SonTeleportation, portailOpposé.transform.position);
 
                 float vitesse = other.GetComponent<Rigidbody>().velocity.magnitude;
+            Vector3 normale = portailOpposé.transform.forward;
+            
+            Debug.Log(other.GetComponent<Rigidbody>().velocity);
+
+            float premièreVelocity = Mathf.Sqrt(Mathf.Pow(other.GetComponent<Rigidbody>().velocity.x, 2) + Mathf.Pow(other.GetComponent<Rigidbody>().velocity.y, 2) + Mathf.Pow(other.GetComponent<Rigidbody>().velocity.z, 2));
+            other.GetComponent<Rigidbody>().velocity = (normale * premièreVelocity - (portailOpposé.transform.forward * 10));
+           
 
 
-                Vector3 normale = portailOpposé.transform.forward;
-                other.GetComponent<Rigidbody>().velocity = normale;
 
-                other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10);
-                other.GetComponent<Rigidbody>().AddForce(normale * (vitesse / Time.fixedDeltaTime), ForceMode.Acceleration);
-                Debug.Log(vitesse);
-                Debug.Log("vitesse calculé : " + (normale * vitesse / Time.fixedDeltaTime));
+
+
+
+
+
+            other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10);
+            //other.GetComponent<Rigidbody>().AddForce(normale * (vitesse / Time.fixedDeltaTime), ForceMode.Acceleration);
+            //other.GetComponent<Rigidbody>().AddForce(normale * vitesse * premièreVelocity);
+                //Debug.Log(vitesse);
+                //Debug.Log("vitesse calculé : " + (normale * vitesse / Time.fixedDeltaTime));
 
                 angle = Vector3.Angle(other.transform.forward, portailOpposé.transform.forward);
 

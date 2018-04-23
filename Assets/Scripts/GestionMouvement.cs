@@ -120,6 +120,7 @@ public class GestionMouvement : MonoBehaviour
 
                 if (new Vector3(0, personnage.velocity.y, 0).magnitude > 75)
                 {
+                    Debug.Log("J'ai ralentis la vitesse");
                     personnage.velocity = (new Vector3(personnage.velocity.x, 0, personnage.velocity.z) + new Vector3(0, personnage.velocity.y, 0).normalized * 75);
                 }
             }
@@ -162,7 +163,7 @@ public class GestionMouvement : MonoBehaviour
         }
         else if (personnage.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
         {
-            personnage.velocity += (Vector3.up * Physics.gravity.y * Time.deltaTime);
+            personnage.velocity += (Vector3.up * Physics.gravity.y  *  Time.deltaTime);
         }
     }
 
