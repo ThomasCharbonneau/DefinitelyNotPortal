@@ -42,7 +42,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     const int DISTANCE_LASER_MAX = 50; //La distance maximale à laquelle un drone peut être pour tirer un laser
 
     const int HAUTEUR_NORMALE = 10; //La hauteur par défaut à laquelle le drone flotte
-    const float MAX_DISTANCE_DELTA = 0.25f;
+    const float MAX_DISTANCE_DELTA = 0.35f;
 
     const int NB_DEGRÉS_FOV = 90;
     const int DISTANCE_VISION_MAX = 50; //La distance maximale à laquelle le drone peut appercevoir le joueur
@@ -64,7 +64,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     const int DÉPLACEMENT_X = 0; //10;
     const int DÉPLACEMENT_Z = 0; //18;
 
-    const int VIE_INITIALE = 50;
+    public const int VIE_INITIALE = 50;
     int vie;
 
     const float TEMPS_ARRÊT_ATTAQUE = 7.5f;
@@ -86,16 +86,16 @@ public class GestionDrone : MonoBehaviour, Personnage
         //Au début, trouve la piste la moins couteuse en déplacement et s'y rend... Ignorer ligne suivante surement.
         //pistePatrouille = GameObject.Find("PistePatrouille").GetComponent<PistePatrouille>();
 
-        IndicePositionPiste = 0;
-        transform.position = ListePointsPatrouille[IndicePositionPiste];
-        PatrouilleEnSensHoraire = true;
-
         drone = GetComponent<Rigidbody>();
         gameObjectDrone = drone.gameObject;
         colliderDrone = GetComponent<Collider>();
         lineRenderer = GetComponent<LineRenderer>();
         gestionPathfinding = GetComponent<GestionPathfinding>();
         gestionSolDrone = GameObject.Find("SolDrone").GetComponent<GestionSolDrone>();
+
+        IndicePositionPiste = 0;
+        //transform.position = ListePointsPatrouille[IndicePositionPiste];
+        PatrouilleEnSensHoraire = true;
 
         //Mode = ModeDrone.PATROUILLE;
         DroneArrêté = false;
@@ -110,8 +110,13 @@ public class GestionDrone : MonoBehaviour, Personnage
         //
 
         laserTiré = false;
+        vie = VIE_INITIALE;
+        tempsDepuisTirLaser = DÉLAI_RECHARGE_TIR_LASER;
+    }
 
-        //AudioDrone = GetComponent<AudioSource>();
+    public void Resetter()
+    {
+        laserTiré = false;
 
         vie = VIE_INITIALE;
 
@@ -136,7 +141,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         if(Vie <= 0)
         {
             AudioSource.PlayClipAtPoint(SonExplosion, Joueur.transform.position);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
