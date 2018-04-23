@@ -232,7 +232,7 @@ public class GestionSolDrone : MonoBehaviour
 
             //if(hit.collider.GetComponent<GameObject>().name == "plafond")
             {
-                if (hit.collider.tag == "ObstaclePortal" || hit.collider.tag == "ObstacleNoPortal" || hit.collider.tag == "Boutton")
+                if (hit.collider.tag == "ObstaclePortal" || hit.collider.tag == "ObstacleNoPortal") //|| hit.collider.tag == "Boutton")
                 {
                     g.GetComponent<ScriptNoeud>().SetDisponibilité(false);
 
@@ -248,16 +248,16 @@ public class GestionSolDrone : MonoBehaviour
             }
         }
 
-        //Pour des tests:
-        foreach (GameObject g in ListeNoeuds)
-        {
-            if (!g.GetComponent<ScriptNoeud>().EstDisponible())
-            {
-                GameObject a = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                a.transform.position = g.transform.position;
-            }
-        }
-        //Deleter
+        ////Pour des tests:
+        //foreach (GameObject g in ListeNoeuds)
+        //{
+        //    if (!g.GetComponent<ScriptNoeud>().EstDisponible())
+        //    {
+        //        GameObject a = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        //        a.transform.position = g.transform.position;
+        //    }
+        //}
+        ////
     }
 
     /// <summary>
