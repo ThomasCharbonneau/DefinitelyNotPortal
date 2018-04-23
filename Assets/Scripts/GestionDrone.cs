@@ -375,6 +375,7 @@ public class GestionDrone : MonoBehaviour, Personnage
                 //Debug.Log("Parcours pathfinding : " + NoeudInitial + " à " + NoeudFinal);
 
                 List<Vector3> listePointsPathfinding3d = gestionPathfinding.TrouverCheminPlusCourt(NoeudInitial, NoeudFinal);
+                listePointsPathfinding3d.Add(PositionMarqueur);
 
                 //Debug.Log("Count ici : " + listePointsPathfinding3d.Count);
 
@@ -398,7 +399,8 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
         else
         {
-            if (new Vector2(transform.position.x, transform.position.z) != ListePointsPathfinding[IndicePositionPiste])
+            //if(!((transform.position.x == ListePointsPathfinding[IndicePositionPiste].x) && (transform.position.z == ListePointsPathfinding[IndicePositionPiste].y)))
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPathfinding[IndicePositionPiste]) > MAX_DISTANCE_DELTA)
             {
                 DéplacerVersPoint(ListePointsPathfinding[IndicePositionPiste]);
             }

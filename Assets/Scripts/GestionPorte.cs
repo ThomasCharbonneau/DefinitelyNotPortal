@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GestionPorte : MonoBehaviour {
-
+public class GestionPorte : MonoBehaviour
+{
     [SerializeField] GameObject Lampe;
     [SerializeField] GameObject Porte;
 
@@ -25,7 +25,7 @@ public class GestionPorte : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == ("Cube") || other.tag == ("Personnage"))
+        if (other.tag == ("Cube") || other.tag == ("Personnage") || other.tag == "Drone")
         {
             tempsFermer = AnimationPorte["close"].time;
             Lampe.GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0, 1, 0.0896f));
@@ -45,7 +45,7 @@ public class GestionPorte : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == ("Cube") || other.tag == ("Personnage"))
+        if (other.tag == ("Cube") || other.tag == ("Personnage") || other.tag == "Drone")
         {
             tempsOuvrir = AnimationPorte["open"].time;
             Lampe.GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(1,0,0));
