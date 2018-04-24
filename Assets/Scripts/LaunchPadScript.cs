@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaunchPadScript : MonoBehaviour {
+public class LaunchPadScript : MonoBehaviour
+{
     const float FORCE_Verticale_PAR_DEFAUT = 30f;
     const float FORCE_Horizontale_PAR_DEFAUT = 60f;
     public float ForceHorizontaleDefault_60;
@@ -123,5 +124,4 @@ public class LaunchPadScript : MonoBehaviour {
         LAUNCH_MODE = false;
         Debug.Log("Sort");
     }
-
 }

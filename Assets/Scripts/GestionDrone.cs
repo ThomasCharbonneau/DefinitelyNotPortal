@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum ModeDrone { PATROUILLE, ATTAQUE, RETOUR_VERS_PATROUILLE, DÉPLACEMENT_VERS_MARQUEUR }
+public enum ModeDrone { PATROUILLE, ATTAQUE, DÉPLACEMENT_VERS_PISTE_PATROUILLE, DÉPLACEMENT_VERS_MARQUEUR }
 
 public class GestionDrone : MonoBehaviour, Personnage
 {
@@ -24,7 +24,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     GestionPathfinding gestionPathfinding;
     GestionSolDrone gestionSolDrone;
 
-    public ModeDrone Mode { get; set; }
+    public ModeDrone Mode;
 
     bool laserTiré; //Si un laser de ce drone est présentement dans l'environnement ou non
     float tempsDepuisTirLaser;
@@ -72,6 +72,8 @@ public class GestionDrone : MonoBehaviour, Personnage
     float tempsDepuisArrêt;
     ModeDrone DernierMode;
 
+    bool PointDePisteLePlusPrèsTrouvé = false;
+
     // Use this for initialization
     void Start()
     {
@@ -97,7 +99,6 @@ public class GestionDrone : MonoBehaviour, Personnage
         //transform.position = ListePointsPatrouille[IndicePositionPiste];
         PatrouilleEnSensHoraire = true;
 
-        Mode = ModeDrone.PATROUILLE;
         DroneArrêté = false;
         NoeudsLesPlusProchesTrouvés = false;
         NoeudInitialLePlusProcheAtteint = false;
@@ -175,7 +176,7 @@ public class GestionDrone : MonoBehaviour, Personnage
                     {
                         if (!VérifierJoueurVisible())
                         {
-                            Mode = DernierMode;
+                            Mode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
                         }
                         else
                         {
@@ -189,6 +190,22 @@ public class GestionDrone : MonoBehaviour, Personnage
             case ModeDrone.DÉPLACEMENT_VERS_MARQUEUR:
 
                 GérerDéplacementVersMarqueur();
+
+                break;
+
+            case ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE:
+
+                if(!PointDePisteLePlusPrèsTrouvé)
+                {
+                    GérerDéplacementVersPistePatrouille();
+                    Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR; //Quoi faire ici? Ne continuera pas... Correct dans un sens?
+                }
+
+                //if (transform.position == PositionMarqueur)
+                //{
+                //    Mode = ModeDrone.PATROUILLE;
+                //    PointDePisteLePlusPrèsTrouvé = false;
+                //}
 
                 break;
         }
@@ -420,6 +437,38 @@ public class GestionDrone : MonoBehaviour, Personnage
                 AudioSource.PlayClipAtPoint(SonMarqueur, Joueur.transform.position);
             }
         }
+    }
+
+    /// <summary>
+    /// Trouve le point le plus près du drone dans l'une des pistes présentes et le détermine comme marqueur
+    /// </summary>
+    void GérerDéplacementVersPistePatrouille()
+    {
+        List<Vector2> listePointsPisteTraitée;
+        float plusPetiteDistance = float.MaxValue;
+        float distance;
+        Vector2 position2D = new Vector2(transform.position.x, transform.position.z);
+        Vector2 pointDePisteLePlusPrès = Vector3.zero;
+
+        for (int i = 0; i < ListePistesPatrouille.Count; i++)
+        {
+            listePointsPisteTraitée = ListePistesPatrouille[i].GetPointsDePatrouille();
+
+            for (int j = 0; j < listePointsPisteTraitée.Count; j++)
+            {
+                distance = Vector2.Distance(position2D, listePointsPisteTraitée[j]);
+
+                if(distance < plusPetiteDistance)
+                {
+                    plusPetiteDistance = distance;
+
+                    pointDePisteLePlusPrès = listePointsPisteTraitée[j];
+                }
+            }
+        }
+
+        PositionMarqueur = new Vector3(pointDePisteLePlusPrès.x, 0, pointDePisteLePlusPrès.y);
+        
     }
 
     /// <summary>
