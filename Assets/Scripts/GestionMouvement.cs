@@ -43,8 +43,49 @@ public class GestionMouvement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (TientObjet)
+        {
+            ObjetTenu.transform.position
+            = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, ValeurTenirObjet);
+        }
+    }
+
+    void RendreSautRéaliste()
+    {
+        if(Physics.gravity.y < 0)
+        {
+            if (personnage.velocity.y < 0)
+            {
+                personnage.velocity += (Vector3.up * Physics.gravity.y * (COEFFICIENT_CHUTE) * Time.deltaTime);
+            }
+            else if (personnage.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+            {
+                personnage.velocity += (Vector3.up * Physics.gravity.y * Time.deltaTime);
+            }
+        }
+        else
+        {
+            if (personnage.velocity.y > 0)
+            {
+                personnage.velocity += (Vector3.up * Physics.gravity.y * (COEFFICIENT_CHUTE) * Time.deltaTime);
+            }
+            else if (personnage.velocity.y < 0 && !Input.GetKey(KeyCode.Space))
+            {
+                personnage.velocity += (Vector3.up * Physics.gravity.y * Time.deltaTime);
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if ((personnage.velocity.y > 1) || (personnage.velocity.y < -1))
+        {
+            EstAuSol = false;
+        }
+
         RendreSautRéaliste();
-        if(!GestionCamera.PAUSE_CAMERA)
+        if (!GestionCamera.PAUSE_CAMERA)
         {
             if (EstAuSol)
             {
@@ -103,7 +144,7 @@ public class GestionMouvement : MonoBehaviour
                     personnage.velocity += personnage.transform.forward * VITESSE_MARCHE_AIR * Time.deltaTime;
                 }
 
-                    if (Input.GetKey("a")) //déplacement de coté vers la gauche
+                if (Input.GetKey("a")) //déplacement de coté vers la gauche
                 {
                     personnage.velocity += -personnage.transform.right * VITESSE_MARCHE_AIR * Time.deltaTime;
                 }
@@ -126,7 +167,7 @@ public class GestionMouvement : MonoBehaviour
             }
 
             if (Input.GetKeyDown("e")) //prendre un objet devant soi
-            {
+            {             
                 if (TientObjet)
                 {
                     RelacherObjet();
@@ -147,47 +188,9 @@ public class GestionMouvement : MonoBehaviour
                 }
             }
 
-            if (TientObjet)
-            {      
-                ObjetTenu.transform.position 
-                = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, ValeurTenirObjet);
-            }           
+           
         }
-    }
-
-    void RendreSautRéaliste()
-    {
-        if(Physics.gravity.y < 0)
-        {
-            if (personnage.velocity.y < 0)
-            {
-                personnage.velocity += (Vector3.up * Physics.gravity.y * (COEFFICIENT_CHUTE) * Time.deltaTime);
-            }
-            else if (personnage.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
-            {
-                personnage.velocity += (Vector3.up * Physics.gravity.y * Time.deltaTime);
-            }
-        }
-        else
-        {
-            if (personnage.velocity.y > 0)
-            {
-                personnage.velocity += (Vector3.up * Physics.gravity.y * (COEFFICIENT_CHUTE) * Time.deltaTime);
-            }
-            else if (personnage.velocity.y < 0 && !Input.GetKey(KeyCode.Space))
-            {
-                personnage.velocity += (Vector3.up * Physics.gravity.y * Time.deltaTime);
-            }
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       if ((personnage.velocity.y > 1) || (personnage.velocity.y < -1))
-        {
-            EstAuSol = false;
-        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -213,6 +216,7 @@ public class GestionMouvement : MonoBehaviour
                 ObjetTenu.transform.parent = Caméra.transform;
                 ObjetTenu.useGravity = false;
                 ObjetTenu.freezeRotation = true;
+                ObjetTenu.velocity = Vector3.zero;
 
                 TientObjet = true;
             }
@@ -227,6 +231,7 @@ public class GestionMouvement : MonoBehaviour
         ObjetTenu.useGravity = true;
 
         ObjetTenu.freezeRotation = false;
+        ObjetTenu.velocity = personnage.velocity;
     }
 
     protected void LateUpdate()
