@@ -157,13 +157,27 @@ public class GestionMouvement : MonoBehaviour
 
     void RendreSautRéaliste()
     {
-        if (personnage.velocity.y < 0)
+        if(Physics.gravity.y < 0)
         {
-            personnage.velocity += (Vector3.up * Physics.gravity.y * (COEFFICIENT_CHUTE) * Time.deltaTime);
+            if (personnage.velocity.y < 0)
+            {
+                personnage.velocity += (Vector3.up * Physics.gravity.y * (COEFFICIENT_CHUTE) * Time.deltaTime);
+            }
+            else if (personnage.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+            {
+                personnage.velocity += (Vector3.up * Physics.gravity.y * Time.deltaTime);
+            }
         }
-        else if (personnage.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        else
         {
-            personnage.velocity += (Vector3.up * Physics.gravity.y  *  Time.deltaTime);
+            if (personnage.velocity.y > 0)
+            {
+                personnage.velocity += (Vector3.up * Physics.gravity.y * (COEFFICIENT_CHUTE) * Time.deltaTime);
+            }
+            else if (personnage.velocity.y < 0 && !Input.GetKey(KeyCode.Space))
+            {
+                personnage.velocity += (Vector3.up * Physics.gravity.y * Time.deltaTime);
+            }
         }
     }
 
