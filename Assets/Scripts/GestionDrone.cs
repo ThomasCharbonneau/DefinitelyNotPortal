@@ -14,6 +14,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     [SerializeField] AudioClip SonMarqueur;
 
     public Vector3 PositionMarqueur;
+    public Vector3 PositionPointPlusProchePiste;
 
     GameObject Joueur;
     GameObject gameObjectDrone;
@@ -77,6 +78,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     // Use this for initialization
     void Start()
     {
+        DernierMode = Mode;
         Joueur = GameObject.Find("Personnage");
 
         TrouverPistesPatrouille();
@@ -138,6 +140,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(Mode);
 
         if(Vie <= 0)
         {
@@ -146,6 +149,14 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
     }
 
+    //    if(DernierMode != ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE)
+    //{
+    //    DernierMode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
+    //}
+    //else
+    //{
+    //    DernierMode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
+    //}
     private void FixedUpdate()
     {
         GérerHauteurAutomatique();
@@ -192,17 +203,24 @@ public class GestionDrone : MonoBehaviour, Personnage
             
             case ModeDrone.DÉPLACEMENT_VERS_MARQUEUR:
 
+                DernierMode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
                 GérerDétectionJoueur();
-                GérerDéplacementVersMarqueur();
+                GérerDéplacementVersPointPathfinding(PositionMarqueur);
 
                 break;
 
             case ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE:
 
                 GérerDétectionJoueur();
-                GérerDéplacementVersPistePatrouille();
-                IndicePositionPiste = 0;
-                Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR; //Quoi faire ici? Ne continuera pas... Correct dans un sens?
+
+                TrouverPointPlusProchePistePatrouille();
+
+                Debug.Log(PositionPointPlusProchePiste);
+
+                DernierMode = ModeDrone.PATROUILLE;
+                GérerDéplacementVersPointPathfinding(PositionPointPlusProchePiste);
+
+                //Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR; //Quoi faire ici? Ne continuera pas... Correct dans un sens?
 
                 //if(!PointDePisteLePlusPrèsTrouvé)
                 //{
@@ -298,13 +316,16 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (Mode == ModeDrone.PATROUILLE)
         {
-            Debug.Log("Changement de sens de patrouille à : " + Time.fixedTime);
+            Debug.Log("Changement de sens de patrouille");
 
             //Changer pour faire listePointsPatrouille.Reverse à la place?
             PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
         }
+
+        Mode = ModeDrone.ATTAQUE;
     }
 
     public void DéplacerVersPoint(Vector2 pointÀAtteindre)
@@ -376,13 +397,15 @@ public class GestionDrone : MonoBehaviour, Personnage
         tempsDepuisVérouillageCible += Time.deltaTime;
     }
 
-    void GérerDéplacementVersMarqueur()
+    void GérerDéplacementVersPointPathfinding(Vector3 pointÀAtteindre)
     {
         if(!NoeudsLesPlusProchesTrouvés)
         {
             NoeudInitial = TrouverNoeudPlusProche(transform.position);
-            NoeudFinal = TrouverNoeudPlusProche(PositionMarqueur);
+            NoeudFinal = TrouverNoeudPlusProche(pointÀAtteindre);
             NoeudsLesPlusProchesTrouvés = true;
+
+            IndicePositionPiste = 0;
         }
 
         //Debug.Log("Nom :" + TransformNoeudInitial.name + "X = " + TransformNoeudInitial.position.x + "et Z = " + TransformNoeudInitial.position.z);
@@ -401,13 +424,12 @@ public class GestionDrone : MonoBehaviour, Personnage
             }
             else
             {
-
                 NoeudInitialLePlusProcheAtteint = true;
 
                 //Debug.Log("Parcours pathfinding : " + NoeudInitial + " à " + NoeudFinal);
 
                 List<Vector3> listePointsPathfinding3d = gestionPathfinding.TrouverCheminPlusCourt(NoeudInitial, NoeudFinal);
-                listePointsPathfinding3d.Add(PositionMarqueur);
+                listePointsPathfinding3d.Add(pointÀAtteindre);
 
                 //Debug.Log("Count ici : " + listePointsPathfinding3d.Count);
 
@@ -431,6 +453,8 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
         else
         {
+            Debug.Log("Rendu ici");
+
             //if(!((transform.position.x == ListePointsPathfinding[IndicePositionPiste].x) && (transform.position.z == ListePointsPathfinding[IndicePositionPiste].y)))
             if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPathfinding[IndicePositionPiste]) > MAX_DISTANCE_DELTA)
             {
@@ -443,17 +467,22 @@ public class GestionDrone : MonoBehaviour, Personnage
 
             if(IndicePositionPiste == ListePointsPathfinding.Count)
             {
+                NoeudsLesPlusProchesTrouvés = false;
+                NoeudInitialLePlusProcheAtteint = false;
+
                 AudioSource.PlayClipAtPoint(SonMarqueur, Joueur.transform.position);
-                DernierMode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
+
                 Mode = ModeDrone.ATTAQUE;
+
+                ListePointsPathfinding.Clear();
             }
         }
     }
 
     /// <summary>
-    /// Trouve le point le plus près du drone dans l'une des pistes présentes et le détermine comme marqueur
+    /// Trouve le point le plus proche du drone dans l'une des pistes présentes et le détermine comme marqueur
     /// </summary>
-    void GérerDéplacementVersPistePatrouille()
+    void TrouverPointPlusProchePistePatrouille()
     {
         List<Vector2> listePointsPisteTraitée;
         float plusPetiteDistance = float.MaxValue;
@@ -478,7 +507,7 @@ public class GestionDrone : MonoBehaviour, Personnage
             }
         }
 
-        PositionMarqueur = new Vector3(pointDePisteLePlusPrès.x, 0, pointDePisteLePlusPrès.y);
+        PositionPointPlusProchePiste = new Vector3(pointDePisteLePlusPrès.x, 0, pointDePisteLePlusPrès.y);
         
     }
 
@@ -571,12 +600,17 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
         set
         {
-            if(value <= 0)
+            if (value <= 0)
             {
-                vie = 0;
+                    vie = 0;
             }
             else
             {
+                if (value < Vie && Mode != ModeDrone.ATTAQUE)
+                {
+                    DernierMode = Mode;
+                    Mode = ModeDrone.ATTAQUE;
+                }
                 vie = value;
             }
         }
