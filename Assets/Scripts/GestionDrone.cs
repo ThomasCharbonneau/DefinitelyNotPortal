@@ -153,6 +153,8 @@ public class GestionDrone : MonoBehaviour, Personnage
         switch (Mode)
         {
             case ModeDrone.PATROUILLE:
+
+                GérerDétectionJoueur();
                 Patrouiller();
 
                 break;
@@ -176,7 +178,8 @@ public class GestionDrone : MonoBehaviour, Personnage
                     {
                         if (!VérifierJoueurVisible())
                         {
-                            Mode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
+                            Mode = DernierMode;
+                            //Mode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
                         }
                         else
                         {
@@ -189,17 +192,23 @@ public class GestionDrone : MonoBehaviour, Personnage
             
             case ModeDrone.DÉPLACEMENT_VERS_MARQUEUR:
 
+                GérerDétectionJoueur();
                 GérerDéplacementVersMarqueur();
 
                 break;
 
             case ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE:
 
-                if(!PointDePisteLePlusPrèsTrouvé)
-                {
-                    GérerDéplacementVersPistePatrouille();
-                    Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR; //Quoi faire ici? Ne continuera pas... Correct dans un sens?
-                }
+                GérerDétectionJoueur();
+                GérerDéplacementVersPistePatrouille();
+                IndicePositionPiste = 0;
+                Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR; //Quoi faire ici? Ne continuera pas... Correct dans un sens?
+
+                //if(!PointDePisteLePlusPrèsTrouvé)
+                //{
+                //GérerDéplacementVersPistePatrouille();
+                //Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR; //Quoi faire ici? Ne continuera pas... Correct dans un sens?
+                //}
 
                 //if (transform.position == PositionMarqueur)
                 //{
@@ -247,6 +256,35 @@ public class GestionDrone : MonoBehaviour, Personnage
     /// </summary>
     void Patrouiller()
     {
+        if (new Vector2(transform.position.x, transform.position.z) != ListePointsPatrouille[IndicePositionPiste])
+        {
+            DéplacerVersPoint(ListePointsPatrouille[IndicePositionPiste]);
+        }
+        else
+        {
+            if (PatrouilleEnSensHoraire)
+            {
+                IndicePositionPiste--;
+
+                if (IndicePositionPiste < 0)
+                {
+                    IndicePositionPiste = ListePointsPatrouille.Count - 1;
+                }
+            }
+            else
+            {
+                IndicePositionPiste++;
+
+                if (IndicePositionPiste == ListePointsPatrouille.Count)
+                {
+                    IndicePositionPiste = 0;
+                }
+            }
+        }
+    }
+
+    void GérerDétectionJoueur()
+    {
         if (VérifierJoueurVisible()) //&& Mode == ModeDrone.PATROUILLE
         {
             AudioSource.PlayClipAtPoint(SonDétectionJoueur, transform.position);
@@ -255,34 +293,6 @@ public class GestionDrone : MonoBehaviour, Personnage
 
             Mode = ModeDrone.ATTAQUE;
             Debug.Log("Le joueur est détecté");
-        }
-        else
-        {
-            if (new Vector2(transform.position.x, transform.position.z) != ListePointsPatrouille[IndicePositionPiste])
-            {
-                DéplacerVersPoint(ListePointsPatrouille[IndicePositionPiste]);
-            }
-            else
-            {
-                if(PatrouilleEnSensHoraire)
-                {
-                    IndicePositionPiste--;
-
-                    if (IndicePositionPiste < 0)
-                    {
-                        IndicePositionPiste = ListePointsPatrouille.Count - 1;
-                    }
-                }
-                else
-                {
-                    IndicePositionPiste++;
-
-                    if (IndicePositionPiste == ListePointsPatrouille.Count)
-                    {
-                        IndicePositionPiste = 0;
-                    }
-                }
-            }
         }
     }
 
@@ -433,8 +443,9 @@ public class GestionDrone : MonoBehaviour, Personnage
 
             if(IndicePositionPiste == ListePointsPathfinding.Count)
             {
-                Mode = ModeDrone.ATTAQUE;
                 AudioSource.PlayClipAtPoint(SonMarqueur, Joueur.transform.position);
+                DernierMode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
+                Mode = ModeDrone.ATTAQUE;
             }
         }
     }
