@@ -190,12 +190,28 @@ public class GestionMouvement : MonoBehaviour
 
            
         }
+        if (EstAuSol)
+        {
+            Debug.Log("SOL");
+        }
+        else
+        {
+            Debug.Log("Airrrrrrrrr");
+        }
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton") || collision.gameObject.CompareTag("Plancher")) 
+    //    {
+    //        EstAuSol = true;
+    //    }
+    //}
+
+    private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton") || collision.gameObject.CompareTag("Plancher")) 
+        if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton") || collision.gameObject.CompareTag("Plancher"))
         {
             EstAuSol = true;
         }
