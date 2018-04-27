@@ -62,6 +62,7 @@ class PistePatrouille : MonoBehaviour
 
         while (!fichierLectureX.EndOfStream)
         {
+            Debug.Log("j" + j);
             string[] tableauLigneX = fichierLectureX.ReadLine().Split('\t');
             string[] tableauLigneY = fichierLectureY.ReadLine().Split('\t');
 
