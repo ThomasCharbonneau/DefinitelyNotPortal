@@ -43,7 +43,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     const int DISTANCE_LASER_MAX = 50; //La distance maximale à laquelle un drone peut être pour tirer un laser
 
     const int HAUTEUR_NORMALE = 10; //La hauteur par défaut à laquelle le drone flotte
-    const float MAX_DISTANCE_DELTA = 0.35f;
+    const float MAX_DISTANCE_DELTA = 0.3f;
 
     const int NB_DEGRÉS_FOV = 90;
     const int DISTANCE_VISION_MAX = 50; //La distance maximale à laquelle le drone peut appercevoir le joueur
@@ -73,7 +73,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     float tempsDepuisArrêt;
     ModeDrone DernierMode;
 
-    bool PointDePisteLePlusPrèsTrouvé = false;
+    bool PointPisteLePlusPrèsTrouvé = false;
 
     // Use this for initialization
     void Start()
@@ -140,7 +140,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Mode);
+        //Debug.Log(Mode);
 
         if(Vie <= 0)
         {
@@ -171,8 +171,6 @@ public class GestionDrone : MonoBehaviour, Personnage
                 break;
 
             case ModeDrone.ATTAQUE:
-
-                transform.forward = Vector3.RotateTowards(transform.forward, Joueur.transform.position - transform.position, 0.25f, 0.25f);
 
                 if(!DroneArrêté)
                 {
@@ -213,9 +211,11 @@ public class GestionDrone : MonoBehaviour, Personnage
 
                 GérerDétectionJoueur();
 
-                TrouverPointPlusProchePistePatrouille();
-
-                Debug.Log(PositionPointPlusProchePiste);
+                if(!PointPisteLePlusPrèsTrouvé)
+                {
+                    TrouverPointPlusProchePistePatrouille();
+                    Debug.Log("Point plus proche : " + PositionPointPlusProchePiste);
+                }
 
                 DernierMode = ModeDrone.PATROUILLE;
                 GérerDéplacementVersPointPathfinding(PositionPointPlusProchePiste);
@@ -274,6 +274,11 @@ public class GestionDrone : MonoBehaviour, Personnage
     /// </summary>
     void Patrouiller()
     {
+        Debug.Log("PP Count" + ListePointsPatrouille.Count);
+        Debug.Log("IP" + IndicePositionPiste);
+
+        //if (!((transform.position.x == ListePointsPatrouille[IndicePositionPiste].x) && (transform.position.z == ListePointsPatrouille[IndicePositionPiste].y)))
+        //if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPathfinding[IndicePositionPiste]) < MAX_DISTANCE_DELTA)
         if (new Vector2(transform.position.x, transform.position.z) != ListePointsPatrouille[IndicePositionPiste])
         {
             DéplacerVersPoint(ListePointsPatrouille[IndicePositionPiste]);
@@ -316,7 +321,6 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     private void OnCollisionEnter(Collision collision)
     {
-
         if (Mode == ModeDrone.PATROUILLE)
         {
             Debug.Log("Changement de sens de patrouille");
@@ -366,6 +370,8 @@ public class GestionDrone : MonoBehaviour, Personnage
     {
         if (Vector3.Distance(transform.position, Joueur.transform.position) <= DISTANCE_LASER_MAX)
         {
+            transform.forward = Vector3.RotateTowards(transform.forward, Joueur.transform.position - transform.position, MAX_DISTANCE_DELTA, MAX_DISTANCE_DELTA);
+
             if (tempsDepuisTirLaser >= DÉLAI_RECHARGE_TIR_LASER)
             {
                 if (!cibleVérouillée)
@@ -404,8 +410,6 @@ public class GestionDrone : MonoBehaviour, Personnage
             NoeudInitial = TrouverNoeudPlusProche(transform.position);
             NoeudFinal = TrouverNoeudPlusProche(pointÀAtteindre);
             NoeudsLesPlusProchesTrouvés = true;
-
-            IndicePositionPiste = 0;
         }
 
         //Debug.Log("Nom :" + TransformNoeudInitial.name + "X = " + TransformNoeudInitial.position.x + "et Z = " + TransformNoeudInitial.position.z);
@@ -469,6 +473,9 @@ public class GestionDrone : MonoBehaviour, Personnage
             {
                 NoeudsLesPlusProchesTrouvés = false;
                 NoeudInitialLePlusProcheAtteint = false;
+
+                PointPisteLePlusPrèsTrouvé = false;
+                IndicePositionPiste = 0;
 
                 AudioSource.PlayClipAtPoint(SonMarqueur, Joueur.transform.position);
 
@@ -609,6 +616,8 @@ public class GestionDrone : MonoBehaviour, Personnage
                 if (value < Vie && Mode != ModeDrone.ATTAQUE)
                 {
                     DernierMode = Mode;
+
+                    transform.LookAt(Joueur.transform.position);
                     Mode = ModeDrone.ATTAQUE;
                 }
                 vie = value;

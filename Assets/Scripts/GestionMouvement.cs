@@ -187,18 +187,15 @@ public class GestionMouvement : MonoBehaviour
                     AudioSource.PlayClipAtPoint(SonLancerObjet, transform.position);
                 }
             }
-
-           
         }
-        if (EstAuSol)
-        {
-            Debug.Log("SOL");
-        }
-        else
-        {
-            Debug.Log("Airrrrrrrrr");
-        }
-        
+        //if (EstAuSol)
+        //{
+        //    Debug.Log("SOL");
+        //}
+        //else
+        //{
+        //    Debug.Log("Airrrrrrrrr");
+        //}
     }
 
     //private void OnCollisionEnter(Collision collision)
