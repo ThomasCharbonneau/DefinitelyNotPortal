@@ -274,12 +274,14 @@ public class GestionDrone : MonoBehaviour, Personnage
     /// </summary>
     void Patrouiller()
     {
-        Debug.Log("PP Count" + ListePointsPatrouille.Count);
-        Debug.Log("IP" + IndicePositionPiste);
+        //Debug.Log("IP" + IndicePositionPiste);
+        //Debug.Log("IP206 = " + ListePointsPatrouille[206]);
 
+        //Debug.Log(Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPathfinding[IndicePositionPiste]));
+
+        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPatrouille[IndicePositionPiste]) > MAX_DISTANCE_DELTA)
         //if (!((transform.position.x == ListePointsPatrouille[IndicePositionPiste].x) && (transform.position.z == ListePointsPatrouille[IndicePositionPiste].y)))
-        //if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPathfinding[IndicePositionPiste]) < MAX_DISTANCE_DELTA)
-        if (new Vector2(transform.position.x, transform.position.z) != ListePointsPatrouille[IndicePositionPiste])
+        //if (new Vector2(transform.position.x, transform.position.z) != ListePointsPatrouille[IndicePositionPiste])
         {
             DéplacerVersPoint(ListePointsPatrouille[IndicePositionPiste]);
         }
@@ -289,7 +291,7 @@ public class GestionDrone : MonoBehaviour, Personnage
             {
                 IndicePositionPiste--;
 
-                if (IndicePositionPiste < 0)
+                if (IndicePositionPiste <= 0)
                 {
                     IndicePositionPiste = ListePointsPatrouille.Count - 1;
                 }
@@ -338,6 +340,8 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         //Changer hauteur normale trouver un moyen de déplacer sans hauteur.
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, HAUTEUR_NORMALE, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
+        //Vector2 position2d = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.z), pointÀAtteindre, MAX_DISTANCE_DELTA);
+        //transform.position = new Vector3(position2d.x, HAUTEUR_NORMALE, position2d.y);
         //transform.position = Vector2.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, 0, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
     }
 
