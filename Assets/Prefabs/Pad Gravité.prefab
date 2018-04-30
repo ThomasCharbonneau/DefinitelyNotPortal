@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643815fad8074374099c2223113a2319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  "SonGravit\xE9": {fileID: 8300000, guid: ef3f7321293ed4927ae042b0369b1271, type: 3}
 --- !u!114 &114651019968840724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,3 +234,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643815fad8074374099c2223113a2319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  "SonGravit\xE9": {fileID: 8300000, guid: ef3f7321293ed4927ae042b0369b1271, type: 3}
