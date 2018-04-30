@@ -14,7 +14,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     [SerializeField] AudioClip SonMarqueur;
 
     public Vector3 PositionMarqueur;
-    public Vector3 PositionPointPlusProchePiste;
+    Vector3 PositionPointPlusProchePiste;
 
     GameObject Joueur;
     GameObject gameObjectDrone;
@@ -26,6 +26,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     GestionSolDrone gestionSolDrone;
 
     public ModeDrone Mode;
+    [SerializeField] ModeDrone ModeInitial;
 
     bool laserTiré; //Si un laser de ce drone est présentement dans l'environnement ou non
     float tempsDepuisTirLaser;
@@ -43,7 +44,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     const int DISTANCE_LASER_MAX = 50; //La distance maximale à laquelle un drone peut être pour tirer un laser
 
     const int HAUTEUR_NORMALE = 10; //La hauteur par défaut à laquelle le drone flotte
-    const float MAX_DISTANCE_DELTA = 0.3f;
+    const float MAX_DISTANCE_DELTA = 0.45f;
 
     const int NB_DEGRÉS_FOV = 90;
     const int DISTANCE_VISION_MAX = 50; //La distance maximale à laquelle le drone peut appercevoir le joueur
@@ -53,6 +54,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     int IndicePositionPiste;
 
     List<Vector2> ListePointsPathfinding = new List<Vector2>(); //La liste des points des noeuds à parcourir pour arriver à un point donné
+    int IndicePositionPathfinding;
 
     //public Vector3 MarqueurÀAtteindre;
     bool NoeudsLesPlusProchesTrouvés;
@@ -60,7 +62,8 @@ public class GestionDrone : MonoBehaviour, Personnage
     GameObject NoeudInitial;
     GameObject NoeudFinal;
 
-    bool PatrouilleEnSensHoraire; //Vrai si le drone patrouille en sens horaire, faux si il patrouille en sens anti-horaire
+    public bool PatrouilleEnSensHoraire; //Vrai si le drone patrouille en sens horaire, faux si il patrouille en sens anti-horaire
+    [SerializeField] bool PatrouilleEnSensHoraireInitiallement;
 
     const int DÉPLACEMENT_X = 0; //10;
     const int DÉPLACEMENT_Z = 0; //18;
@@ -78,7 +81,6 @@ public class GestionDrone : MonoBehaviour, Personnage
     // Use this for initialization
     void Start()
     {
-        DernierMode = Mode;
         Joueur = GameObject.Find("Personnage");
 
         TrouverPistesPatrouille();
@@ -97,13 +99,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         gestionPathfinding = GetComponent<GestionPathfinding>();
         gestionSolDrone = GameObject.Find("SolDrone").GetComponent<GestionSolDrone>();
 
-        IndicePositionPiste = 0;
-        //transform.position = ListePointsPatrouille[IndicePositionPiste];
-        PatrouilleEnSensHoraire = true;
-
-        DroneArrêté = false;
-        NoeudsLesPlusProchesTrouvés = false;
-        NoeudInitialLePlusProcheAtteint = false;
+        Resetter();
 
         //Pour faire des tests :
 
@@ -111,20 +107,30 @@ public class GestionDrone : MonoBehaviour, Personnage
         ////MarqueurÀAtteindre = new Vector3(-90, 0, 0);
 
         //
+    }
+
+    /// <summary>
+    /// Fonction qui fait revenir le drone à ses valeurs initiales
+    /// </summary>
+    public void Resetter()
+    {
+        PatrouilleEnSensHoraire = PatrouilleEnSensHoraireInitiallement;
+        Mode = ModeInitial;
+
+        DernierMode = Mode;
+
+        IndicePositionPiste = 0;
+        IndicePositionPathfinding = 0;
+        //transform.position = ListePointsPatrouille[IndicePositionPiste];
+
+        DroneArrêté = false;
+        NoeudsLesPlusProchesTrouvés = false;
+        NoeudInitialLePlusProcheAtteint = false;
 
         laserTiré = false;
         vie = VIE_INITIALE;
         tempsDepuisTirLaser = DÉLAI_RECHARGE_TIR_LASER;
     }
-
-    //public void Resetter()
-    //{
-    //    laserTiré = false;
-
-    //    vie = VIE_INITIALE;
-
-    //    tempsDepuisTirLaser = DÉLAI_RECHARGE_TIR_LASER;
-    //}
 
     void TrouverPistesPatrouille()
     {
@@ -321,7 +327,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (Mode == ModeDrone.PATROUILLE)
         {
@@ -330,8 +336,11 @@ public class GestionDrone : MonoBehaviour, Personnage
             //Changer pour faire listePointsPatrouille.Reverse à la place?
             PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
         }
+    }
 
-        Mode = ModeDrone.ATTAQUE;
+    void OnCollisionEnter(Collision collision)
+    {
+
     }
 
     public void DéplacerVersPoint(Vector2 pointÀAtteindre)
@@ -461,25 +470,23 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
         else
         {
-            Debug.Log("Rendu ici");
-
             //if(!((transform.position.x == ListePointsPathfinding[IndicePositionPiste].x) && (transform.position.z == ListePointsPathfinding[IndicePositionPiste].y)))
-            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPathfinding[IndicePositionPiste]) > MAX_DISTANCE_DELTA)
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPathfinding[IndicePositionPathfinding]) > MAX_DISTANCE_DELTA)
             {
-                DéplacerVersPoint(ListePointsPathfinding[IndicePositionPiste]);
+                DéplacerVersPoint(ListePointsPathfinding[IndicePositionPathfinding]);
             }
             else
             {
-                IndicePositionPiste++;
+                IndicePositionPathfinding++;
             }
 
-            if(IndicePositionPiste == ListePointsPathfinding.Count)
+            if(IndicePositionPathfinding == ListePointsPathfinding.Count)
             {
                 NoeudsLesPlusProchesTrouvés = false;
                 NoeudInitialLePlusProcheAtteint = false;
 
                 PointPisteLePlusPrèsTrouvé = false;
-                IndicePositionPiste = 0;
+                IndicePositionPathfinding = 0;
 
                 AudioSource.PlayClipAtPoint(SonMarqueur, Joueur.transform.position);
 
@@ -514,6 +521,8 @@ public class GestionDrone : MonoBehaviour, Personnage
                     plusPetiteDistance = distance;
 
                     pointDePisteLePlusPrès = listePointsPisteTraitée[j];
+
+                    IndicePositionPiste = j;
                 }
             }
         }

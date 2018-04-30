@@ -19,9 +19,9 @@ public class GestionBoutonPathfinding : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Cube" || other.tag == ("Personnage"))
+        ObjetDrone = GameObject.Find("Drone");
+        if ((other.tag == "Cube" || other.tag == ("Personnage")) && ObjetDrone != null)
         {
-            ObjetDrone = GameObject.Find("Drone");
             ObjetDrone.GetComponent<GestionDrone>().Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
         }
     }

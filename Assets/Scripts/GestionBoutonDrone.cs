@@ -6,6 +6,8 @@ public class GestionBoutonDrone : MonoBehaviour
 {
     [SerializeField] GameObject ObjetDrone;
 
+    GestionDrone ScriptGestionDrone;
+
     //GameObject DroneInstancié;
 
 	// Use this for initialization
@@ -20,8 +22,11 @@ public class GestionBoutonDrone : MonoBehaviour
 
         if(!ObjetDrone.activeSelf)
         {
-            ObjetDrone.GetComponent<GestionDrone>().Vie = GestionDrone.VIE_INITIALE;
+            ScriptGestionDrone = ObjetDrone.GetComponent<GestionDrone>();
+
+            //ScriptGestionDrone.Vie = GestionDrone.VIE_INITIALE;
             ObjetDrone.SetActive(true);
+            ScriptGestionDrone.Resetter();
             ObjetDrone.transform.position = new Vector3(0, 100, 0);
         }
 
