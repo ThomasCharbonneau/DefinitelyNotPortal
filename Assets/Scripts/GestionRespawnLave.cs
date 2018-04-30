@@ -16,7 +16,7 @@ public class GestionRespawnLave : MonoBehaviour {
     Quaternion rotationCube2;
     Quaternion rotationCube3;
     Quaternion rotationPersonnage;
-    Vector3 spawnPointPersonnage;
+    public static Vector3 spawnPointPersonnage;
 
     GestionVieJoueur scriptGestionVieJoueur;
     GestionMouvement scriptGestionMouvement;

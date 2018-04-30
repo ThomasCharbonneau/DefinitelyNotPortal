@@ -7,6 +7,7 @@ public class ResetZoneScript : MonoBehaviour
     [SerializeField] GameObject portalBleu;
     [SerializeField] GameObject portalOrange;
     [SerializeField] AudioClip SonDésactivationPortal;
+    [SerializeField] GameObject SavePoint;
 
     // Use this for initialization
 
@@ -16,6 +17,7 @@ public class ResetZoneScript : MonoBehaviour
         {
             portalBleu.SetActive(false);
             portalOrange.SetActive(false);
+            GestionRespawnLave.spawnPointPersonnage = SavePoint.transform.position;
 
             AudioSource.PlayClipAtPoint(SonDésactivationPortal, transform.position);
         }
