@@ -370,6 +370,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 102001399631779490, guid: 1c9d6648ff442ff43b1bddd98bc036ea,
+        type: 2}
+      propertyPath: m_Text
+      value: "Astuce : Parfois,vous ne serez pas \ncapable de mettre des portails
+        sur certaines \nsurfaces\nDe plus, lorsque vous rentrez dans un \nportail,
+        votre vitesse sera pr\xE9serv\xE9e et \nvous sera redistribu\xE9e lors de
+        votre sortie\npar l'autre portail\n"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c9d6648ff442ff43b1bddd98bc036ea, type: 2}
   m_IsPrefabParent: 0
