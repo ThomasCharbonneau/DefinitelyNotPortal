@@ -189,16 +189,7 @@ public class GestionMouvement : MonoBehaviour
             }
 
            
-        }
-        if (EstAuSol)
-        {
-            Debug.Log("SOL");
-        }
-        else
-        {
-            Debug.Log("Airrrrrrrrr");
-        }
-        
+        }        
     }
 
     //private void OnCollisionEnter(Collision collision)
