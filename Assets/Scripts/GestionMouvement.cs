@@ -26,19 +26,27 @@ public class GestionMouvement : MonoBehaviour
 
     Rigidbody personnage;
 
+    AudioSource sonSourceMarcher;
+
     private Vector3 déplacementAvant;
 
     [SerializeField] Camera Caméra;
     [SerializeField] AudioClip SonLancerObjet;
+    [SerializeField] AudioClip SonSaut;
+    [SerializeField] AudioClip SonLanding;
+
 
     // Use this for initialization
     void Start()
     {
+        
        // Physics.gravity = new Vector3(0f,-19.0f,0f);
         EstAuSol = true;
         TientObjet = false;
         personnage = GetComponent<Rigidbody>();
         ValeurTenirObjet = 1f;
+        sonSourceMarcher = GetComponent<AudioSource>();
+
     }
 
     void FixedUpdate()
@@ -47,6 +55,15 @@ public class GestionMouvement : MonoBehaviour
         {
             ObjetTenu.transform.position
             = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, ValeurTenirObjet);
+        }
+        if (!Input.GetKey("w") && !Input.GetKey("s") && !Input.GetKey("a") && !Input.GetKey("d"))
+        {
+            //sonSourceMarcher.Stop();
+            if (sonSourceMarcher.volume > 0)
+            {
+                sonSourceMarcher.volume -= 0.1f;
+            }
+            
         }
     }
 
@@ -80,7 +97,7 @@ public class GestionMouvement : MonoBehaviour
     void Update()
     {
         if ((personnage.velocity.y > 1) || (personnage.velocity.y < -1))
-        {
+        {        
             EstAuSol = false;
         }
 
@@ -91,14 +108,20 @@ public class GestionMouvement : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.Space))
                 {
-
+                    
+                    AudioSource.PlayClipAtPoint(SonSaut, personnage.transform.position);
                     personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
                 }
 
                 if (Input.GetKey("w")) //déplacement vers l'avant
                 {
                     déplacementAvant = personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
-
+                    
+                    if(!sonSourceMarcher.isPlaying)
+                    {
+                        sonSourceMarcher.volume = 10f;
+                        sonSourceMarcher.Play();
+                    }                                   
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         VitesseHorizontaleMax = VITESSE_SPRINT_MAX;
@@ -115,16 +138,31 @@ public class GestionMouvement : MonoBehaviour
                 if (Input.GetKey("a")) //déplacement de coté vers la gauche
                 {
                     personnage.velocity += -personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+                    if (!sonSourceMarcher.isPlaying)
+                    {
+                        sonSourceMarcher.volume = 10f;
+                        sonSourceMarcher.Play();
+                    }
                 }
 
                 if (Input.GetKey("s")) //déplacement vers l'arrière
                 {
                     personnage.velocity += -personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
+                    if (!sonSourceMarcher.isPlaying)
+                    {
+                        sonSourceMarcher.volume = 10f;
+                        sonSourceMarcher.Play();
+                    }
                 }
 
                 if (Input.GetKey("d")) //déplacement de coté vers la droite
                 {
                     personnage.velocity += personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
+                    if (!sonSourceMarcher.isPlaying)
+                    {
+                        sonSourceMarcher.volume = 10f;
+                        sonSourceMarcher.Play();
+                    }
                 }
 
                 //
@@ -139,9 +177,16 @@ public class GestionMouvement : MonoBehaviour
             }
             else
             {
+                if (sonSourceMarcher)
+                {
+                    sonSourceMarcher.Stop();
+                }               
                 if (Input.GetKey("w")) //déplacement vers l'avant
                 {
                     personnage.velocity += personnage.transform.forward * VITESSE_MARCHE_AIR * Time.deltaTime;
+                   
+                   
+
                 }
 
                 if (Input.GetKey("a")) //déplacement de coté vers la gauche
@@ -187,9 +232,21 @@ public class GestionMouvement : MonoBehaviour
                     AudioSource.PlayClipAtPoint(SonLancerObjet, transform.position);
                 }
             }
+<<<<<<< HEAD
 
            
         }        
+=======
+        }
+        //if (EstAuSol)
+        //{
+        //    Debug.Log("SOL");
+        //}
+        //else
+        //{
+        //    Debug.Log("Airrrrrrrrr");
+        //}
+>>>>>>> 76348c29374cf1dd3e6aaf543ec7b8a1aa76f3d7
     }
 
     //private void OnCollisionEnter(Collision collision)
@@ -202,8 +259,8 @@ public class GestionMouvement : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton") || collision.gameObject.CompareTag("Plancher"))
-        {
+        if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton") || collision.gameObject.CompareTag("Plancher") && (personnage.velocity.y < 1) || (personnage.velocity.y > -1))
+        {           
             EstAuSol = true;
         }
     }

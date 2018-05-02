@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 114027868645080130}
   - component: {fileID: 23789782162576164}
   - component: {fileID: 114840169851972590}
+  - component: {fileID: 82744075138070488}
   m_Layer: 0
   m_Name: Personnage
   m_TagString: Personnage
@@ -804,14 +805,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1264821272808600}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: -95}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -448, y: -138.1, z: 122.8}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4529829475911328}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4817121430128206
 Transform:
   m_ObjectHideFlags: 1
@@ -2081,6 +2082,86 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680788620506068}
   m_Enabled: 1
+--- !u!82 &82744075138070488
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264821272808600}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fd0e94bc3a44620449c067d08868af83, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!92 &92764125647628040
 Behaviour:
   m_ObjectHideFlags: 1
@@ -2103,7 +2184,9 @@ MonoBehaviour:
   TientObjet: 0
   ValeurTenirObjet: 0
   "Cam\xE9ra": {fileID: 20082536506674630}
-  SonLancerObjet: {fileID: 8300000, guid: fb6785314d333c9408c10337bee33a7b, type: 3}
+  SonLancerObjet: {fileID: 0}
+  SonSaut: {fileID: 8300000, guid: 3a6f1c7fea4801f4c9f9252e0d74a860, type: 3}
+  SonLanding: {fileID: 8300000, guid: d3c1d041e5722b8438e8927b42cab365, type: 3}
 --- !u!114 &114351959307232994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2118,7 +2201,7 @@ MonoBehaviour:
   SonTirPortal: {fileID: 8300000, guid: 6587c960c0e74ce46a41ceb9482b6c23, type: 3}
   "SonD\xE9sactivationPortal": {fileID: 8300000, guid: b26f60b093f7a75429bdcfa9ad196497,
     type: 3}
-  SonSurfaceInvalide: {fileID: 8300000, guid: b65453a1809f5ef448de03b2905b3b93, type: 3}
+  SonSurfaceInvalide: {fileID: 0}
   SonChangementMode: {fileID: 8300000, guid: 8f5bd10ffee3aaa4692fa05e8b87e0e7, type: 3}
   SonTirLaser: {fileID: 8300000, guid: f4b548df8fff68843b1181697bbf7ca3, type: 3}
   "Cam\xE9ra": {fileID: 20082536506674630}

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GestionBouton : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField] AudioClip SonGravité;
+
+    // Use this for initialization
+    void Start () {
        
 		
 	}
@@ -23,7 +25,8 @@ public class GestionBouton : MonoBehaviour {
     {
         if (other.tag == "Cube" || other.tag == ("Personnage"))
         {
-            InverserGravité();                            
+            InverserGravité();
+            AudioSource.PlayClipAtPoint(SonGravité, other.transform.position, 1000000f);
         }       
     }
 }
