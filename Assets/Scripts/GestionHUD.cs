@@ -10,6 +10,7 @@ public class GestionHUD : MonoBehaviour
     GameObject PnlOptions;
     GameObject PnlBoutons;
     GameObject PnlCrossair;
+    GameObject PnlTexte;
     
     public Canvas CanvasControlleur;
     GestionSauvegarde SauvegardeControlleur;
@@ -33,7 +34,8 @@ public class GestionHUD : MonoBehaviour
         PnlMenu = GameObject.Find("PnlMenu");
         PnlOptions = GameObject.Find("PnlOptions");
         PnlBoutons = GameObject.Find("PnlBoutons");
-        PnlCrossair = GameObject.Find("PnlCrossair");      
+        PnlCrossair = GameObject.Find("PnlCrossair");
+        PnlTexte = GameObject.Find("PnlTexteDébut");
 
 
         BtnResumer = GameObject.Find("BtnResumer").GetComponent<Button>();
@@ -109,6 +111,7 @@ public class GestionHUD : MonoBehaviour
             Time.timeScale = 0.0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            PnlTexte.SetActive(false);
             PnlCrossair.gameObject.SetActive(false);
             PnlMenu.gameObject.SetActive(true);
             BtnRetour.gameObject.SetActive(false);

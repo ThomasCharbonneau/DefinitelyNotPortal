@@ -1,14 +1,14 @@
-Niveau 1 - Tutorial portail - 
-Niveau 2 - Tutorial gravité - 
-Niveau 3 - Tutorial jump pads - 
-Niveau 4 - Tutorial garde la vitesse -
-Niveau 5 - Niveau Zach Gravité inversé - Facile -	
+Niveau 1 - Tutorial portail - À quoi servent ces portails?	
+Niveau 2 - Tutorial gravité - J'ai le sang qui me monte à la tête...
+Niveau 3 - Tutorial jump pads - Vers l'infini et plus loin encore!
+Niveau 4 - Tutorial garde la vitesse - Il faut tomber pour pouvoir se relever
+Niveau 5 - Niveau Zach Gravité inversé - Facile - 2 portes : 2 gravités différentes	
 Niveau 6 - Armando 2 - Facile -
-Niveau 7 - inversion de gravité sans arret - moyen -	
+Niveau 7 - inversion de gravité sans arret - moyen - Sans dessus dessous	
 Niveau 8 - niveau zach drone 2 -moyen - 
-Niveau 9 - niveau armando 1 - moyen -	
+Niveau 9 - niveau armando 1 - moyen -	Courir vers la victoire un saut à la fois
 Niveau 10 - niveau zach drone 1 - difficile -
-Niveau 11 - labyrinthe - difficile -
-Niveau 12 - 3 cubes avec jumps pads (thomas) - difficile -
+Niveau 11 - labyrinthe - difficile -Un labyrinthe sans fin?
+Niveau 12 - 3 cubes avec jumps pads (thomas) - difficile - Les trois petits cubes
 
 
