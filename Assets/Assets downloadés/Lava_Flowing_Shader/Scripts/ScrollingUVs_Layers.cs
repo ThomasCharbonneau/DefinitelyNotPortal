@@ -12,16 +12,15 @@ public class ScrollingUVs_Layers : MonoBehaviour
 	void LateUpdate() 
 	{
 		uvOffset += ( uvAnimationRate * Time.deltaTime );
-<<<<<<< HEAD
+
 		//if( GetComponent<Renderer>().enabled )
 		//{
 		//	GetComponent<Renderer>().sharedMaterial.SetTextureOffset( textureName, uvOffset );
 		//}
-=======
+
 		if( GetComponent<Renderer>().enabled )
 		{
 			//GetComponent<Renderer>().sharedMaterial.SetTextureOffset( textureName, uvOffset );
 		}
->>>>>>> 76348c29374cf1dd3e6aaf543ec7b8a1aa76f3d7
 	}
 }

@@ -232,12 +232,10 @@ public class GestionMouvement : MonoBehaviour
                     AudioSource.PlayClipAtPoint(SonLancerObjet, transform.position);
                 }
             }
-<<<<<<< HEAD
 
            
         }        
-=======
-        }
+        
         //if (EstAuSol)
         //{
         //    Debug.Log("SOL");
@@ -246,7 +244,7 @@ public class GestionMouvement : MonoBehaviour
         //{
         //    Debug.Log("Airrrrrrrrr");
         //}
->>>>>>> 76348c29374cf1dd3e6aaf543ec7b8a1aa76f3d7
+
     }
 
     //private void OnCollisionEnter(Collision collision)
