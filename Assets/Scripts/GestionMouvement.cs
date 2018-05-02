@@ -108,7 +108,6 @@ public class GestionMouvement : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.Space))
                 {
-                    
                     AudioSource.PlayClipAtPoint(SonSaut, personnage.transform.position);
                     personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
                 }
@@ -131,7 +130,6 @@ public class GestionMouvement : MonoBehaviour
                     {
                         VitesseHorizontaleMax = VITESSE_MARCHE_MAX;
                     }
-
                     personnage.velocity += déplacementAvant;
                 }
 
@@ -144,7 +142,6 @@ public class GestionMouvement : MonoBehaviour
                         sonSourceMarcher.Play();
                     }
                 }
-
                 if (Input.GetKey("s")) //déplacement vers l'arrière
                 {
                     personnage.velocity += -personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
@@ -154,7 +151,6 @@ public class GestionMouvement : MonoBehaviour
                         sonSourceMarcher.Play();
                     }
                 }
-
                 if (Input.GetKey("d")) //déplacement de coté vers la droite
                 {
                     personnage.velocity += personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
@@ -164,16 +160,11 @@ public class GestionMouvement : MonoBehaviour
                         sonSourceMarcher.Play();
                     }
                 }
-
-                //
-
                 vitesseHorizontale = (new Vector3(personnage.velocity.x, 0, personnage.velocity.z));
                 if (vitesseHorizontale.magnitude > VitesseHorizontaleMax)
                 {
                     personnage.velocity = new Vector3(0, personnage.velocity.y, 0) + vitesseHorizontale.normalized * VitesseHorizontaleMax;
                 }
-
-
             }
             else
             {
@@ -257,7 +248,7 @@ public class GestionMouvement : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton") || collision.gameObject.CompareTag("Plancher") && (personnage.velocity.y < 1) || (personnage.velocity.y > -1))
+        if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton") || collision.gameObject.CompareTag("Plancher"))
         {           
             EstAuSol = true;
         }

@@ -1,0 +1,14 @@
+Niveau 1 - Tutorial portail - 
+Niveau 2 - Tutorial gravité - 
+Niveau 3 - Tutorial jump pads - 
+Niveau 4 - Tutorial garde la vitesse -
+Niveau 5 - Niveau Zach Gravité inversé - Facile -	
+Niveau 6 - Armando 2 - Facile -
+Niveau 7 - inversion de gravité sans arret - moyen -	
+Niveau 8 - niveau zach drone 2 -moyen - 
+Niveau 9 - niveau armando 1 - moyen -	
+Niveau 10 - niveau zach drone 1 - difficile -
+Niveau 11 - labyrinthe - difficile -
+Niveau 12 - 3 cubes avec jumps pads (thomas) - difficile -
+
+
