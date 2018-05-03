@@ -18,6 +18,7 @@ public class GestionMouvement : MonoBehaviour
     int VitesseHorizontaleMax;
     Vector3 vitesseHorizontale;
 
+    public bool personnageAvance;
     public bool EstAuSol;
     public bool TientObjet; //Si le personnage a un objet ou non dans ses mains
     public float ValeurTenirObjet;
@@ -27,7 +28,8 @@ public class GestionMouvement : MonoBehaviour
     Rigidbody personnage;
 
     AudioSource sonSourceMarcher;
-
+    AudioSource sonSourceCourir;
+    AudioSource[] tableauSourceAudio;
     private Vector3 déplacementAvant;
 
     [SerializeField] Camera Caméra;
@@ -39,13 +41,15 @@ public class GestionMouvement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+        personnageAvance = false;
        // Physics.gravity = new Vector3(0f,-19.0f,0f);
         EstAuSol = true;
         TientObjet = false;
         personnage = GetComponent<Rigidbody>();
         ValeurTenirObjet = 1f;
-        sonSourceMarcher = GetComponent<AudioSource>();
+        tableauSourceAudio = GetComponents<AudioSource>();
+        sonSourceMarcher = tableauSourceAudio[0];
+        sonSourceCourir = tableauSourceAudio[1];
 
     }
 
@@ -63,7 +67,29 @@ public class GestionMouvement : MonoBehaviour
             {
                 sonSourceMarcher.volume -= 0.1f;
             }
-            
+            personnageAvance = false;
+            if (sonSourceCourir.volume > 0)
+            {
+                sonSourceCourir.volume -= 0.1f;
+            }
+
+        }
+        if (personnageAvance)
+        {
+            if (personnage.velocity.magnitude >= 25.5 && !sonSourceCourir.isPlaying)
+            {
+                sonSourceCourir.volume = 0.25f;
+                sonSourceMarcher.Stop();
+                sonSourceCourir.Play();
+            }
+
+            if (personnage.velocity.magnitude < 25.5 && !sonSourceMarcher.isPlaying)
+            {
+                sonSourceMarcher.volume = 0.25f;
+                sonSourceCourir.Stop();
+                sonSourceMarcher.Play();
+                
+            }
         }
     }
 
@@ -115,12 +141,7 @@ public class GestionMouvement : MonoBehaviour
                 if (Input.GetKey("w")) //déplacement vers l'avant
                 {
                     déplacementAvant = personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
-                    
-                    if(!sonSourceMarcher.isPlaying)
-                    {
-                        sonSourceMarcher.volume = 10f;
-                        sonSourceMarcher.Play();
-                    }                                   
+                    personnageAvance = true;              
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
                         VitesseHorizontaleMax = VITESSE_SPRINT_MAX;
@@ -136,29 +157,17 @@ public class GestionMouvement : MonoBehaviour
                 if (Input.GetKey("a")) //déplacement de coté vers la gauche
                 {
                     personnage.velocity += -personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
-                    if (!sonSourceMarcher.isPlaying)
-                    {
-                        sonSourceMarcher.volume = 10f;
-                        sonSourceMarcher.Play();
-                    }
+                    personnageAvance = true;
                 }
                 if (Input.GetKey("s")) //déplacement vers l'arrière
                 {
                     personnage.velocity += -personnage.transform.forward * FORCE_DÉPLACEMENT * Time.deltaTime;
-                    if (!sonSourceMarcher.isPlaying)
-                    {
-                        sonSourceMarcher.volume = 10f;
-                        sonSourceMarcher.Play();
-                    }
+                    personnageAvance = true;
                 }
                 if (Input.GetKey("d")) //déplacement de coté vers la droite
                 {
                     personnage.velocity += personnage.transform.right * FORCE_DÉPLACEMENT * Time.deltaTime;
-                    if (!sonSourceMarcher.isPlaying)
-                    {
-                        sonSourceMarcher.volume = 10f;
-                        sonSourceMarcher.Play();
-                    }
+                    personnageAvance = true;
                 }
                 vitesseHorizontale = (new Vector3(personnage.velocity.x, 0, personnage.velocity.z));
                 if (vitesseHorizontale.magnitude > VitesseHorizontaleMax)
@@ -168,23 +177,20 @@ public class GestionMouvement : MonoBehaviour
             }
             else
             {
-                if (sonSourceMarcher)
+                if (sonSourceMarcher || sonSourceCourir)
                 {
                     sonSourceMarcher.Stop();
+                    sonSourceCourir.Stop();
+                    personnageAvance = false;
                 }               
                 if (Input.GetKey("w")) //déplacement vers l'avant
                 {
-                    personnage.velocity += personnage.transform.forward * VITESSE_MARCHE_AIR * Time.deltaTime;
-                   
-                   
-
+                    personnage.velocity += personnage.transform.forward * VITESSE_MARCHE_AIR * Time.deltaTime;                                   
                 }
-
                 if (Input.GetKey("a")) //déplacement de coté vers la gauche
                 {
                     personnage.velocity += -personnage.transform.right * VITESSE_MARCHE_AIR * Time.deltaTime;
                 }
-
                 if (Input.GetKey("s")) //déplacement vers l'arrière
                 {
                     personnage.velocity += -personnage.transform.forward * VITESSE_MARCHE_AIR * Time.deltaTime;

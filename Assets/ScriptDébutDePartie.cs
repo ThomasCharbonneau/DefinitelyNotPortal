@@ -17,8 +17,7 @@ public class ScriptDébutDePartie : MonoBehaviour {
         tempsAuDébut = Time.time;
         txtNom = GetComponent<Text>();
         panelTexte = GameObject.Find("PnlTexteDébut");
-    }
-	
+    }	
 	// Update is called once per frame
 	void Update () {
         if ((Time.time - tempsAuDébut) > 2 && !déjaFadeOut)
@@ -27,13 +26,9 @@ public class ScriptDébutDePartie : MonoBehaviour {
             déjaFadeOut = true;
             tempsAuDébut = Time.time;
         }
-
         if ((Time.time - tempsAuDébut) > 1 && déjaFadeOut)
         {
-            Debug.Log("JAi PASSER OCIIc");
             panelTexte.SetActive(false);
-        }
-        
-
+        }       
     }
 }
