@@ -89,6 +89,8 @@ public class GestionRespawnLave : MonoBehaviour {
                     scriptGestionMouvement.RelacherObjet();
                 }              
                 Physics.gravity = new Vector3(0f, -9.8f, 0f);
+                other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                other.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
                 other.transform.position = spawnPointPersonnage;
                 other.transform.rotation = rotationPersonnage;
             }    
