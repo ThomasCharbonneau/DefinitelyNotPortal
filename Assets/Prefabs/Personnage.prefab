@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 23789782162576164}
   - component: {fileID: 114840169851972590}
   - component: {fileID: 82744075138070488}
+  - component: {fileID: 82782496585340034}
   m_Layer: 0
   m_Name: Personnage
   m_TagString: Personnage
@@ -805,8 +806,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1264821272808600}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -448, y: -138.1, z: 122.8}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 39.6, y: 6.1, z: 4.51}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4529829475911328}
@@ -2162,6 +2163,86 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &82782496585340034
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264821272808600}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 31c76c511f68d5741b6f1d3fa20deeb2, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!92 &92764125647628040
 Behaviour:
   m_ObjectHideFlags: 1
@@ -2180,6 +2261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0accc7b85b9e9f84aad3eaf477d912fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  personnageAvance: 0
   EstAuSol: 0
   TientObjet: 0
   ValeurTenirObjet: 0
@@ -2201,7 +2283,7 @@ MonoBehaviour:
   SonTirPortal: {fileID: 8300000, guid: 6587c960c0e74ce46a41ceb9482b6c23, type: 3}
   "SonD\xE9sactivationPortal": {fileID: 8300000, guid: b26f60b093f7a75429bdcfa9ad196497,
     type: 3}
-  SonSurfaceInvalide: {fileID: 0}
+  SonSurfaceInvalide: {fileID: 8300000, guid: b65453a1809f5ef448de03b2905b3b93, type: 3}
   SonChangementMode: {fileID: 8300000, guid: 8f5bd10ffee3aaa4692fa05e8b87e0e7, type: 3}
   SonTirLaser: {fileID: 8300000, guid: f4b548df8fff68843b1181697bbf7ca3, type: 3}
   "Cam\xE9ra": {fileID: 20082536506674630}
