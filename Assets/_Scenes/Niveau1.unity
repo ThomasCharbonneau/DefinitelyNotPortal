@@ -1097,6 +1097,16 @@ Prefab:
       propertyPath: portalOrange
       value: 
       objectReference: {fileID: 336462313}
+    - target: {fileID: 82744075138070488, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d19a52d852256d43b2c5d7f47005b0a, type: 3}
+    - target: {fileID: 82782496585340034, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 11e70e434df3b3049b8209a9152908a7, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0
