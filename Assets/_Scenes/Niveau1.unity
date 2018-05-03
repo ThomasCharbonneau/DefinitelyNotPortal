@@ -750,12 +750,12 @@ Prefab:
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000022888093
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -2.4999924
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
@@ -801,6 +801,22 @@ Prefab:
         type: 2}
       propertyPath: m_Text
       value: "NIVEAU 1\n\t\n\xC0 quoi servent ces portails?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114875596696006834, guid: 8d9463ca772733f49b56a87f49354636,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 27969c542eed5a0449fd20734221edce,
+        type: 3}
+    - target: {fileID: 224903420538779182, guid: 8d9463ca772733f49b56a87f49354636,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224903420538779182, guid: 8d9463ca772733f49b56a87f49354636,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d9463ca772733f49b56a87f49354636, type: 2}
@@ -1097,6 +1113,16 @@ Prefab:
       propertyPath: portalOrange
       value: 
       objectReference: {fileID: 336462313}
+    - target: {fileID: 82744075138070488, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82782496585340034, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0
@@ -1521,7 +1547,7 @@ Transform:
   m_GameObject: {fileID: 2051638938}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 88.26653, y: 23.523403, z: 134.4}
-  m_LocalScale: {x: 100, y: 50, z: 72.777885}
+  m_LocalScale: {x: 105, y: 50, z: 72.777885}
   m_Children: []
   m_Father: {fileID: 487520399}
   m_RootOrder: 1

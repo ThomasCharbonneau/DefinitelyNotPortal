@@ -4260,22 +4260,22 @@ Prefab:
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -256.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -141.06978
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: -800
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -450.27322
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
@@ -4325,19 +4325,20 @@ Prefab:
     - target: {fileID: 114875596696006834, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_Text
-      value: 'Niveau 6
+      value: 'Niveau 7
 
-        Perdu Dans l''espace'
+
+        Perdu dans l''espace'
       objectReference: {fileID: 0}
     - target: {fileID: 114875596696006834, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_FontData.m_Alignment
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114875596696006834, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_FontData.m_FontSize
-      value: 44
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 114875596696006834, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
@@ -4347,8 +4348,19 @@ Prefab:
     - target: {fileID: 224903420538779182, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 231
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224903420538779182, guid: 8d9463ca772733f49b56a87f49354636,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114875596696006834, guid: 8d9463ca772733f49b56a87f49354636,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 27969c542eed5a0449fd20734221edce,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d9463ca772733f49b56a87f49354636, type: 2}
   m_IsPrefabParent: 0

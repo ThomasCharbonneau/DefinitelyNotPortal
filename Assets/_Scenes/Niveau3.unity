@@ -1238,12 +1238,12 @@ Prefab:
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 30.284454
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 16.084335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224776831323510120, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
@@ -1293,12 +1293,12 @@ Prefab:
     - target: {fileID: 224903420538779182, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -29.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224903420538779182, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00000049136
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114875596696006834, guid: 8d9463ca772733f49b56a87f49354636,
         type: 2}
@@ -1310,6 +1310,12 @@ Prefab:
       propertyPath: m_SizeDelta.x
       value: 800
       objectReference: {fileID: 0}
+    - target: {fileID: 114875596696006834, guid: 8d9463ca772733f49b56a87f49354636,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 27969c542eed5a0449fd20734221edce,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d9463ca772733f49b56a87f49354636, type: 2}
   m_IsPrefabParent: 0
@@ -1407,8 +1413,8 @@ Prefab:
         type: 2}
       propertyPath: m_Text
       value: "Astuce : Ces boutons vous permettent de \nvous propulser dans la direction
-        que vous \nfaites face. Le bouton orange est \nimm\xE9diat tandis que le bleu
-        \xE0 un d\xE9lais \nde 3 secondes. "
+        \xE0 laquelle \nvous faites face. Le bouton orange est \nimm\xE9diat tandis
+        que le bleu \xE0 un d\xE9lais \nde 3 secondes. "
       objectReference: {fileID: 0}
     - target: {fileID: 224282479663597484, guid: 1c9d6648ff442ff43b1bddd98bc036ea,
         type: 2}
