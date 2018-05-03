@@ -21,6 +21,7 @@ public class GestionMusiqueAmbiance : MonoBehaviour {
         {
             chiffreAléatoire = Random.Range(0, NOMBRE_MAX_CHANSONS + 1);
             tableauMusique[chiffreAléatoire].Play();
+            Debug.Log("Xd");
         }
         if (tableauMusique[0].volume < 0.1f)
         {
