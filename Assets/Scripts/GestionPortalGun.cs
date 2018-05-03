@@ -87,7 +87,7 @@ public class GestionPortalGun : MonoBehaviour
             }
 
             //Arranger audio, joue tout le temps
-            AudioSource.PlayClipAtPoint(SonChangementMode, transform.position);
+            AudioSource.PlayClipAtPoint(SonChangementMode, Caméra.transform.position);
         }
 
         TempsDepuisDernierTirPortails += Time.deltaTime;
@@ -116,7 +116,7 @@ public class GestionPortalGun : MonoBehaviour
                         if (!(ChargeLaser <= (float)CHARGE_LASER_MAX / 4) && Input.GetMouseButtonDown(0))
                         {
                             lineRenderer.enabled = true;
-                            AudioSource.PlayClipAtPoint(SonTirLaser, transform.position);
+                            AudioSource.PlayClipAtPoint(SonTirLaser, Caméra.transform.position);
                         }
 
                         if (!laserTiré)
@@ -152,7 +152,7 @@ public class GestionPortalGun : MonoBehaviour
             portalBleu.SetActive(false);
             portalOrange.SetActive(false);
 
-            AudioSource.PlayClipAtPoint(SonDésactivationPortal, transform.position);
+            AudioSource.PlayClipAtPoint(SonDésactivationPortal, Caméra.transform.position);
         }
     }
 
@@ -187,7 +187,7 @@ public class GestionPortalGun : MonoBehaviour
             //{
             if (hit.collider.CompareTag("Sol") || hit.collider.CompareTag("Mur")) //Il faudrait trouver un moyen de simplifier avant d'avoir trop de tags
             {
-                AudioSource.PlayClipAtPoint(SonTirPortal, transform.position);
+                AudioSource.PlayClipAtPoint(SonTirPortal, Caméra.transform.position);
                 portail.SetActive(true);
 
                 portail.transform.position = hit.point;
@@ -195,7 +195,7 @@ public class GestionPortalGun : MonoBehaviour
             }
             else
             {
-                AudioSource.PlayClipAtPoint(SonSurfaceInvalide, transform.position);
+                AudioSource.PlayClipAtPoint(SonSurfaceInvalide, Caméra.transform.position);
             }
 
             TempsDepuisDernierTirPortails = 0;
