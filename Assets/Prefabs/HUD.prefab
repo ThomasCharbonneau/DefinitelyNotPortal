@@ -1417,7 +1417,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 27969c542eed5a0449fd20734221edce, type: 3}
-    m_FontSize: 1
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -1428,7 +1428,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "A            \t\t ="
+  m_Text: "A            \t  ="
 --- !u!114 &114046148657305574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1960,7 +1960,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 27969c542eed5a0449fd20734221edce, type: 3}
-    m_FontSize: 1
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -1971,7 +1971,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: D                   =
+  m_Text: D                =
 --- !u!114 &114251537827716682
 MonoBehaviour:
   m_ObjectHideFlags: 1
