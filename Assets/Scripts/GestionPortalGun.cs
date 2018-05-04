@@ -149,11 +149,16 @@ public class GestionPortalGun : MonoBehaviour
 
         if ((portalBleu.activeSelf || portalOrange.activeSelf) && Input.GetKeyDown("r"))
         {
-            portalBleu.SetActive(false);
-            portalOrange.SetActive(false);
-
-            AudioSource.PlayClipAtPoint(SonDésactivationPortal, Caméra.transform.position);
+            DésactiverPortails();
         }
+    }
+
+    public void DésactiverPortails()
+    {
+        portalBleu.SetActive(false);
+        portalOrange.SetActive(false);
+
+        AudioSource.PlayClipAtPoint(SonDésactivationPortal, Caméra.transform.position);
     }
 
     void TirerPortail(GameObject portail)

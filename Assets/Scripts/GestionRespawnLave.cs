@@ -96,10 +96,14 @@ public class GestionRespawnLave : MonoBehaviour {
                 Physics.gravity = new Vector3(0f, -9.8f, 0f);
                 other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
                 other.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
-                portailOrange.SetActive(false);
-                portailBleu.SetActive(false);
+
                 other.transform.position = spawnPointPersonnage;
                 other.transform.rotation = rotationPersonnage;
+
+                Personnage.GetComponentInChildren<GestionPortalGun>().DésactiverPortails();
+
+                //portailOrange.SetActive(false);
+                //portailBleu.SetActive(false);
             }    
         }
     }
