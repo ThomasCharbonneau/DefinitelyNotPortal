@@ -1,3 +1,3 @@
-Niveau Sauvegarder =3
+Niveau Sauvegarder =5
 Sensibilité =5
 Son =5

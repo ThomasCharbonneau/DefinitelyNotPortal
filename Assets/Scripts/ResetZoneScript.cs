@@ -13,11 +13,11 @@ public class ResetZoneScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        GestionRespawnLave.spawnPointPersonnage = SavePoint.transform.position;
         if (portalBleu.activeSelf || portalOrange.activeSelf)
         {
             portalBleu.SetActive(false);
             portalOrange.SetActive(false);
-            GestionRespawnLave.spawnPointPersonnage = SavePoint.transform.position;
 
             AudioSource.PlayClipAtPoint(SonDésactivationPortal, transform.position);
         }
