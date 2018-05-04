@@ -21,6 +21,9 @@ public class GestionRespawnLave : MonoBehaviour {
     GestionVieJoueur scriptGestionVieJoueur;
     GestionMouvement scriptGestionMouvement;
 
+    GameObject portailBleu;
+    GameObject portailOrange;
+
 
 
 
@@ -28,6 +31,8 @@ public class GestionRespawnLave : MonoBehaviour {
     void Start () {
         scriptGestionVieJoueur = Personnage.GetComponent<GestionVieJoueur>();
         scriptGestionMouvement = Personnage.GetComponent<GestionMouvement>();
+        portailBleu = GameObject.Find("PortailBleu");
+        portailOrange = GameObject.Find("PortailOrange");
         if (cube1 != null)
         {
             spawnPointCube1 = cube1.transform.position;
@@ -91,6 +96,8 @@ public class GestionRespawnLave : MonoBehaviour {
                 Physics.gravity = new Vector3(0f, -9.8f, 0f);
                 other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
                 other.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
+                portailOrange.SetActive(false);
+                portailBleu.SetActive(false);
                 other.transform.position = spawnPointPersonnage;
                 other.transform.rotation = rotationPersonnage;
             }    

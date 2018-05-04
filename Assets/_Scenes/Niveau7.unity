@@ -3990,11 +3990,14 @@ Prefab:
       propertyPath: Personnage
       value: 
       objectReference: {fileID: 703341699}
+<<<<<<< HEAD
     - target: {fileID: 114232568405022650, guid: 08822b538d8648e44bcab87ca37e1db5,
         type: 2}
       propertyPath: ForceHorizontaleDefault_60
       value: 100
       objectReference: {fileID: 0}
+=======
+>>>>>>> 38605741a14d3f8fc3f13e1d38e97e3dea130336
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08822b538d8648e44bcab87ca37e1db5, type: 2}
   m_IsPrefabParent: 0
