@@ -978,57 +978,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4222200490868700, guid: cbaaa213988e32045b5add65d8e7308e,
     type: 2}
   m_PrefabInternal: {fileID: 313807054}
---- !u!1001 &329838772
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4308803201077330, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -50
-      objectReference: {fileID: 0}
-    - target: {fileID: 4308803201077330, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4308803201077330, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 4308803201077330, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4308803201077330, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4308803201077330, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4308803201077330, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4308803201077330, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114612820184171152, guid: 8710be3359cbeeb419b440a2a17bc8ff,
-        type: 2}
-      propertyPath: ModeInitial
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1368755843999928, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
-      propertyPath: m_Name
-      value: Drone (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
-  m_IsPrefabParent: 0
 --- !u!4 &342744682 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4820782104207760, guid: 1b97b9cf1099d684ebd3cd1c1e9381a9,
@@ -1544,6 +1493,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1028549277544560, guid: 9962342675454e34f9059370697af190, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224312659839873798, guid: 9962342675454e34f9059370697af190,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224238335962023014, guid: 9962342675454e34f9059370697af190,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224175661467850678, guid: 9962342675454e34f9059370697af190,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224765876674353514, guid: 9962342675454e34f9059370697af190,
+        type: 2}
+      propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2524,7 +2493,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4308803201077330, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 150
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 4308803201077330, guid: 8710be3359cbeeb419b440a2a17bc8ff, type: 2}
       propertyPath: m_LocalRotation.x
@@ -4761,18 +4730,18 @@ Prefab:
     - target: {fileID: 114454119237261354, guid: 442440757a3f49e4fa2acf276b5e19dd,
         type: 2}
       propertyPath: NomFichierSplineX
-      value: SplineX1.txt
+      value: SplineX10.txt
       objectReference: {fileID: 0}
     - target: {fileID: 114454119237261354, guid: 442440757a3f49e4fa2acf276b5e19dd,
         type: 2}
       propertyPath: NomFichierSplineY
-      value: SplineY1.txt
+      value: SplineY10.txt
       objectReference: {fileID: 0}
     - target: {fileID: 114454119237261354, guid: 442440757a3f49e4fa2acf276b5e19dd,
         type: 2}
       propertyPath: TxtPointsBruts
       value: 
-      objectReference: {fileID: 4900000, guid: 0db64e3de867a1e40b90f050d6bbc010, type: 3}
+      objectReference: {fileID: 4900000, guid: 5047ee669050eb3439bb8802a1224d48, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 442440757a3f49e4fa2acf276b5e19dd, type: 2}
   m_IsPrefabParent: 0
