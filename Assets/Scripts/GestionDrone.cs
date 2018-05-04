@@ -329,18 +329,13 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Mode == ModeDrone.PATROUILLE)
+        if (Mode == ModeDrone.PATROUILLE && other.gameObject.tag != "Boutton")
         {
             Debug.Log("Changement de sens de patrouille");
 
             //Changer pour faire listePointsPatrouille.Reverse à la place?
             PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
         }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-
     }
 
     public void DéplacerVersPoint(Vector2 pointÀAtteindre)
