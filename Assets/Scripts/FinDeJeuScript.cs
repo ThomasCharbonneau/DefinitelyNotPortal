@@ -17,13 +17,11 @@ public class FinDeJeuScript : MonoBehaviour {
 
     public void LoaderMenuPrincipal()
     {
-        Debug.Log("Jai ouvert le menu");
         UnityEngine.SceneManagement.SceneManager.LoadScene("ScnMenuPrincipal");      
     }
 
     public void FermerApplication()
     {
-        Debug.Log("Jai fermer le jeu");
         Application.Quit();
     }
         
