@@ -3587,6 +3587,11 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 114232568405022650, guid: 08822b538d8648e44bcab87ca37e1db5,
+        type: 2}
+      propertyPath: Personnage
+      value: 
+      objectReference: {fileID: 703341699}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08822b538d8648e44bcab87ca37e1db5, type: 2}
   m_IsPrefabParent: 0
@@ -3780,6 +3785,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1028549277544560, guid: 9962342675454e34f9059370697af190, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224312659839873798, guid: 9962342675454e34f9059370697af190,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224238335962023014, guid: 9962342675454e34f9059370697af190,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224175661467850678, guid: 9962342675454e34f9059370697af190,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224765876674353514, guid: 9962342675454e34f9059370697af190,
+        type: 2}
+      propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
