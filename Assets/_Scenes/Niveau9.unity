@@ -391,6 +391,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4970648334362542, guid: efb28f09b5e11d44fbe6c586cd2efa70,
     type: 2}
   m_PrefabInternal: {fileID: 1041874167}
+--- !u!1 &48031370 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1572463704394696, guid: 5f1aa82372c3daf48888981d9643bfce,
+    type: 2}
+  m_PrefabInternal: {fileID: 1939625244}
 --- !u!4 &50591342 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4970648334362542, guid: efb28f09b5e11d44fbe6c586cd2efa70,
@@ -3106,6 +3111,16 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 278.45987
       objectReference: {fileID: 0}
+    - target: {fileID: 114849632007152088, guid: d2debcb3c417b07419457484a835eb7d,
+        type: 2}
+      propertyPath: cube1
+      value: 
+      objectReference: {fileID: 48031370}
+    - target: {fileID: 114849632007152088, guid: d2debcb3c417b07419457484a835eb7d,
+        type: 2}
+      propertyPath: Personnage
+      value: 
+      objectReference: {fileID: 703341693}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2debcb3c417b07419457484a835eb7d, type: 2}
   m_IsPrefabParent: 0
