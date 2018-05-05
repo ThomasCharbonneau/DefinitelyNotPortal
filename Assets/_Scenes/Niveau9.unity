@@ -5054,6 +5054,11 @@ Prefab:
       propertyPath: m_Name
       value: PortailBleu
       objectReference: {fileID: 0}
+    - target: {fileID: 65893707237051294, guid: 7a316920836eeee4cb86068cf96e0883,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a316920836eeee4cb86068cf96e0883, type: 2}
   m_IsPrefabParent: 0
@@ -9079,6 +9084,11 @@ Prefab:
     - target: {fileID: 1627076169455598, guid: 2e95045766a9d3847a27d98a8b0954fb, type: 2}
       propertyPath: m_Name
       value: PortailOrange
+      objectReference: {fileID: 0}
+    - target: {fileID: 65349572928169014, guid: 2e95045766a9d3847a27d98a8b0954fb,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e95045766a9d3847a27d98a8b0954fb, type: 2}

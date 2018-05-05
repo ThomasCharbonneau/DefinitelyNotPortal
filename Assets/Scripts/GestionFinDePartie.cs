@@ -39,7 +39,7 @@ public class GestionFinDePartie : MonoBehaviour {
             Time.timeScale = 0.0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            if(SceneManager.GetActiveScene().name == ("Niveau9"))
+            if(SceneManager.GetActiveScene().name == ("Niveau12"))
             {
                 SceneManager.LoadScene("ScnFinDuJeu");
             }
