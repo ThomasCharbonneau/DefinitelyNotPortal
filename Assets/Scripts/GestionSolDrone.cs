@@ -232,7 +232,7 @@ public class GestionSolDrone : MonoBehaviour
 
             //if(hit.collider.GetComponent<GameObject>().name == "plafond")
             {
-                if (hit.collider.tag == "ObstaclePortal" || hit.collider.tag == "ObstacleNoPortal") //|| hit.collider.tag == "Boutton")
+                if (hit.collider.tag == "ObstaclePortal" || hit.collider.tag == "ObstacleNoPortal")// || hit.collider.name == "frame_col") //|| hit.collider.tag == "Boutton")
                 {
                     g.GetComponent<ScriptNoeud>().SetDisponibilité(false);
 

@@ -44,7 +44,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     const int DISTANCE_LASER_MAX = 50; //La distance maximale à laquelle un drone peut être pour tirer un laser
 
     const int HAUTEUR_NORMALE = 10; //La hauteur par défaut à laquelle le drone flotte
-    const float MAX_DISTANCE_DELTA = 0.45f;
+    const float MAX_DISTANCE_DELTA = 0.35f;
 
     const int NB_DEGRÉS_FOV = 90;
     const int DISTANCE_VISION_MAX = 50; //La distance maximale à laquelle le drone peut appercevoir le joueur
@@ -194,6 +194,7 @@ public class GestionDrone : MonoBehaviour, Personnage
                         if (!VérifierJoueurVisible())
                         {
                             Mode = DernierMode;
+                            DroneArrêté = false;
                             //Mode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
                         }
                         else
@@ -220,7 +221,7 @@ public class GestionDrone : MonoBehaviour, Personnage
                 if(!PointPisteLePlusPrèsTrouvé)
                 {
                     TrouverPointPlusProchePistePatrouille();
-                    Debug.Log("Point plus proche : " + PositionPointPlusProchePiste);
+                    //Debug.Log("Point plus proche : " + PositionPointPlusProchePiste);
                 }
 
                 DernierMode = ModeDrone.PATROUILLE;
@@ -336,14 +337,29 @@ public class GestionDrone : MonoBehaviour, Personnage
             //Changer pour faire listePointsPatrouille.Reverse à la place?
             PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
         }
+
+        if(Mode == ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE && other.tag == "SF_Door")
+        {
+            DroneArrêté = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (Mode == ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE && other.tag == "SF_Door")
+        {
+            DroneArrêté = false;
+        }
     }
 
     public void DéplacerVersPoint(Vector2 pointÀAtteindre)
     {
         transform.LookAt(new Vector3(pointÀAtteindre.x, transform.position.y, pointÀAtteindre.y));
 
-        //Changer hauteur normale trouver un moyen de déplacer sans hauteur.
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, HAUTEUR_NORMALE, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
+        if(!DroneArrêté)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, HAUTEUR_NORMALE, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
+        }
         //Vector2 position2d = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.z), pointÀAtteindre, MAX_DISTANCE_DELTA);
         //transform.position = new Vector3(position2d.x, HAUTEUR_NORMALE, position2d.y);
         //transform.position = Vector2.MoveTowards(transform.position, new Vector3(pointÀAtteindre.x, 0, pointÀAtteindre.y), MAX_DISTANCE_DELTA);
@@ -424,14 +440,11 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         if (!NoeudInitialLePlusProcheAtteint)
         {
-            //Debug.Log(TransformNoeudInitial.position + TransformNoeudInitial.name);
-
             //if ((transform.position.x != TransformNoeudInitial.position.x) && (transform.position.z != TransformNoeudInitial.position.z))
             if (!((transform.position.x == NoeudInitial.transform.position.x) && (transform.position.z == NoeudInitial.transform.position.z)))
             {
                 //Debug.Log("X : " + TransformNoeudInitial.position.x + "et Z : " + TransformNoeudInitial.position.z);
 
-                //Pourrait améliorer écriture
                 DéplacerVersPoint(new Vector2(NoeudInitial.transform.position.x, NoeudInitial.transform.position.z));
             }
             else
