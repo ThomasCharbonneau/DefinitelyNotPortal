@@ -7,14 +7,16 @@ public class GestionBoutonDrone : MonoBehaviour
     [SerializeField] GameObject ObjetDrone;
 
     GestionDrone ScriptGestionDrone;
+    Vector3 positionInitialeDrone;
 
     //GameObject DroneInstancié;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
+        positionInitialeDrone = ObjetDrone.transform.position;
         //DroneInstancié = GameObject.Find("Drone");
-	}
+    }
 	
     public void RespawnerDrone()
     {
@@ -27,7 +29,7 @@ public class GestionBoutonDrone : MonoBehaviour
             //ScriptGestionDrone.Vie = GestionDrone.VIE_INITIALE;
             ObjetDrone.SetActive(true);
             ScriptGestionDrone.Resetter();
-            ObjetDrone.transform.position = new Vector3(0, 100, 0);
+            ObjetDrone.transform.position = positionInitialeDrone + new Vector3(0, 100, 0);
         }
 
         //if(GameObject.Find("Drone") == null)

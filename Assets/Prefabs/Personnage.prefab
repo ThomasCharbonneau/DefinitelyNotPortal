@@ -807,7 +807,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1264821272808600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 38.4, y: -2.4, z: -16.5}
+  m_LocalPosition: {x: 0, y: 10, z: -95}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4529829475911328}
@@ -2266,7 +2266,7 @@ MonoBehaviour:
   TientObjet: 0
   ValeurTenirObjet: 0
   "Cam\xE9ra": {fileID: 20082536506674630}
-  SonLancerObjet: {fileID: 0}
+  SonLancerObjet: {fileID: 8300000, guid: 1b91c82d4ddc0af4392a4479e8a287a4, type: 3}
   SonSaut: {fileID: 8300000, guid: 3a6f1c7fea4801f4c9f9252e0d74a860, type: 3}
   SonLanding: {fileID: 8300000, guid: d3c1d041e5722b8438e8927b42cab365, type: 3}
 --- !u!114 &114351959307232994

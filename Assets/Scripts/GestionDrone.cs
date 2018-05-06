@@ -381,9 +381,12 @@ public class GestionDrone : MonoBehaviour, Personnage
             Ray ray = new Ray(transform.position, Joueur.transform.position - transform.position);
             Physics.Raycast(ray, out hit);
 
-            if (hit.rigidbody.gameObject == Joueur)
+            if(hit.rigidbody != null)
             {
-                voitJoueur = true;
+                if (hit.rigidbody.gameObject == Joueur)
+                {
+                    voitJoueur = true;
+                }
             }
         }
 
