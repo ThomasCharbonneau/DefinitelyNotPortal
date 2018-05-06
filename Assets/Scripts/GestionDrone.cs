@@ -44,7 +44,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     const int DISTANCE_LASER_MAX = 50; //La distance maximale à laquelle un drone peut être pour tirer un laser
 
     const int HAUTEUR_NORMALE = 10; //La hauteur par défaut à laquelle le drone flotte
-    const float MAX_DISTANCE_DELTA = 0.35f;
+    const float MAX_DISTANCE_DELTA = 0.5f;
 
     const int NB_DEGRÉS_FOV = 90;
     const int DISTANCE_VISION_MAX = 50; //La distance maximale à laquelle le drone peut appercevoir le joueur
@@ -587,13 +587,14 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(0, origineLaser);
-        lineRenderer.startWidth = DIAMÈTRE_LASER;
-        lineRenderer.endWidth = DIAMÈTRE_LASER;
-        lineRenderer.SetPosition(1, positionCible);
 
         RaycastHit hit;
-        Ray ray = new Ray(lineRenderer.GetPosition(0), lineRenderer.GetPosition(1) - lineRenderer.GetPosition(0));
+        Ray ray = new Ray(origineLaser, Joueur.transform.position - origineLaser);
         Physics.Raycast(ray, out hit);
+
+        lineRenderer.startWidth = DIAMÈTRE_LASER;
+        lineRenderer.endWidth = DIAMÈTRE_LASER;
+        lineRenderer.SetPosition(1, hit.point);
 
         if(hit.rigidbody != null)
         {
