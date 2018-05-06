@@ -235,7 +235,7 @@ public class GestionPortalGun : MonoBehaviour
 
         if (hit.rigidbody != null)
         {
-            if (hit.rigidbody.gameObject.name == "Drone")
+            if (hit.rigidbody.gameObject.tag == "Drone")
             {
                 hit.rigidbody.gameObject.GetComponent<GestionDrone>().Vie -= 1;
             }

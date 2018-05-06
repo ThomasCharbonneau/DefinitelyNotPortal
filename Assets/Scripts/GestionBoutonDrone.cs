@@ -29,7 +29,7 @@ public class GestionBoutonDrone : MonoBehaviour
             //ScriptGestionDrone.Vie = GestionDrone.VIE_INITIALE;
             ObjetDrone.SetActive(true);
             ScriptGestionDrone.Resetter();
-            ObjetDrone.transform.position = positionInitialeDrone + new Vector3(0, 100, 0);
+            ObjetDrone.transform.position = positionInitialeDrone + new Vector3(0, -20, 0);
         }
 
         //if(GameObject.Find("Drone") == null)

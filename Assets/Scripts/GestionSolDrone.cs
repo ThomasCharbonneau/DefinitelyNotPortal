@@ -249,15 +249,15 @@ public class GestionSolDrone : MonoBehaviour
         }
 
         ////Pour des tests:
-        foreach (GameObject g in ListeNoeuds)
-        {
-            if (!g.GetComponent<ScriptNoeud>().EstDisponible())
-            {
-                GameObject a = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                a.GetComponent<Renderer>().material.color = Color.red;
-                a.transform.position = g.transform.position;
-            }
-        }
+        //foreach (GameObject g in ListeNoeuds)
+        //{
+        //    if (!g.GetComponent<ScriptNoeud>().EstDisponible())
+        //    {
+        //        GameObject a = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        //        a.GetComponent<Renderer>().material.color = Color.red;
+        //        a.transform.position = g.transform.position;
+        //    }
+        //}
         ////
     }
 

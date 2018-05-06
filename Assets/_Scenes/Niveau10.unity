@@ -462,7 +462,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4970648334362542, guid: efb28f09b5e11d44fbe6c586cd2efa70, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 100
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 4970648334362542, guid: efb28f09b5e11d44fbe6c586cd2efa70, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1236,7 +1236,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4970648334362542, guid: efb28f09b5e11d44fbe6c586cd2efa70, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 100
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 4970648334362542, guid: efb28f09b5e11d44fbe6c586cd2efa70, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2809,7 +2809,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4991923165376798, guid: 701a13900dbdf044c9d72e37c8343474, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 100
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 1298140783160236, guid: 701a13900dbdf044c9d72e37c8343474, type: 2}
       propertyPath: m_Name
@@ -2877,17 +2877,17 @@ Prefab:
     - target: {fileID: 65046590607853292, guid: 701a13900dbdf044c9d72e37c8343474,
         type: 2}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 65046590607853292, guid: 701a13900dbdf044c9d72e37c8343474,
         type: 2}
       propertyPath: m_Size.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 65046590607853292, guid: 701a13900dbdf044c9d72e37c8343474,
         type: 2}
       propertyPath: m_Size.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4336191884103816, guid: 701a13900dbdf044c9d72e37c8343474, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4052,13 +4052,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1113307348050604, guid: 1b97b9cf1099d684ebd3cd1c1e9381a9, type: 2}
       propertyPath: m_TagString
-      value: Mur
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 23174073309639458, guid: 1b97b9cf1099d684ebd3cd1c1e9381a9,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 511e02fdf5821b44a8ea2f176b0bb062, type: 2}
+      objectReference: {fileID: 2100000, guid: b99c4cbf2d6722a4aa54288dce2f8061, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b97b9cf1099d684ebd3cd1c1e9381a9, type: 2}
   m_IsPrefabParent: 0
@@ -4530,7 +4530,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4419753997960408, guid: 829634c25a995ef4b921717e6d5f4b0a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 125
+      value: 135
       objectReference: {fileID: 0}
     - target: {fileID: 4419753997960408, guid: 829634c25a995ef4b921717e6d5f4b0a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -4864,7 +4864,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 31
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114623808078451472, guid: 867ac189c4fe49c4c8b8e30fe7aa48d3, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 867ac189c4fe49c4c8b8e30fe7aa48d3, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1732323645
@@ -5145,7 +5146,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4970648334362542, guid: efb28f09b5e11d44fbe6c586cd2efa70, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 100
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 4970648334362542, guid: efb28f09b5e11d44fbe6c586cd2efa70, type: 2}
       propertyPath: m_LocalPosition.y
@@ -5929,7 +5930,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4047586530372676, guid: 1c9d6648ff442ff43b1bddd98bc036ea, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 50
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4047586530372676, guid: 1c9d6648ff442ff43b1bddd98bc036ea, type: 2}
       propertyPath: m_LocalPosition.z
@@ -5978,8 +5979,9 @@ Prefab:
     - target: {fileID: 102001399631779490, guid: 1c9d6648ff442ff43b1bddd98bc036ea,
         type: 2}
       propertyPath: m_Text
-      value: "Astuce :\n\nQuand ils sont tir\xE9s par un laser,\n les drones s'immobilisent
-        pendant un moment"
+      value: "Astuce :\n\nQuand ils sont tir\xE9s par un laser,\nles drones s'immobilisent
+        pendant un moment.\nIls changent aussi de sens lorsqu'ils reprennent leur
+        patrouille."
       objectReference: {fileID: 0}
     - target: {fileID: 114232064759829602, guid: 1c9d6648ff442ff43b1bddd98bc036ea,
         type: 2}

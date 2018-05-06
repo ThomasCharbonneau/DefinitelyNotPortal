@@ -71,7 +71,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     public const int VIE_INITIALE = 50;
     int vie;
 
-    const float TEMPS_ARRÊT_ATTAQUE = 7.5f;
+    const float TEMPS_ARRÊT_ATTAQUE = 4.5f;
     bool DroneArrêté;
     float tempsDepuisArrêt;
     ModeDrone DernierMode;
@@ -641,6 +641,8 @@ public class GestionDrone : MonoBehaviour, Personnage
                 if (value < Vie && Mode != ModeDrone.ATTAQUE)
                 {
                     DernierMode = Mode;
+
+                    PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
 
                     transform.LookAt(Joueur.transform.position);
                     Mode = ModeDrone.ATTAQUE;
