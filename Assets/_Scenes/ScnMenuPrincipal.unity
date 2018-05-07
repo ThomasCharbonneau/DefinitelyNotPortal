@@ -218,22 +218,22 @@ Prefab:
     - target: {fileID: 224744958546023688, guid: 715935baf3b8ed348a8841f14d7a7b17,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224047827097161934, guid: 715935baf3b8ed348a8841f14d7a7b17,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224168528597191358, guid: 715935baf3b8ed348a8841f14d7a7b17,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224327376157783736, guid: 715935baf3b8ed348a8841f14d7a7b17,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1377395550257164, guid: 715935baf3b8ed348a8841f14d7a7b17, type: 2}
       propertyPath: m_Name
@@ -1029,6 +1029,7 @@ MonoBehaviour:
   CanvasControlleur: {fileID: 405798964}
   "SldSensitivit\xE9": {fileID: 1891609784}
   SldSon: {fileID: 1480037571}
+  SonClick: {fileID: 8300000, guid: 919fde87b08284c409d538b4056db91d, type: 3}
 --- !u!1 &570203392
 GameObject:
   m_ObjectHideFlags: 0

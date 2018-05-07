@@ -22,6 +22,7 @@ public class GestionHUD : MonoBehaviour
     [SerializeField] Slider SldSensitivité;
     [SerializeField] Slider SldSon;
     [SerializeField] GameObject PnlMort;
+    [SerializeField] AudioClip SonClick;
     Camera Caméra;
     GestionCamera cameraControlleur;
 
@@ -71,6 +72,7 @@ public class GestionHUD : MonoBehaviour
     }
     public void VerifierMenu(string Choix)
     {
+       // AudioSource.PlayClipAtPoint(SonClick, new Vector3(0, 0, 0));
         if ("Options" == Choix)
         {
             PnlMenu.gameObject.SetActive(true);

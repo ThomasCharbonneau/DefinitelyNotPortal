@@ -23,8 +23,9 @@ public class GestionMenuDemarage : MonoBehaviour
     GestionSauvegarde SauvegardeControlleur;
     [SerializeField] Slider SldSensitivité;
     [SerializeField] Slider SldSon;
+    [SerializeField] AudioClip SonClick;
 
-    
+
 
     Button BtnNewGame;
     Button BtnLoadJeu;
@@ -65,7 +66,6 @@ public class GestionMenuDemarage : MonoBehaviour
         PnlJouer.gameObject.SetActive(false);
         PnlCredit.gameObject.SetActive(false);
         PnlChoixNiveau.gameObject.SetActive(false);
-
         ValeurMiseAjour = true;
       
 
@@ -93,6 +93,7 @@ public class GestionMenuDemarage : MonoBehaviour
     }
     public void VerifierMenu(string Choix)
     {
+        AudioSource.PlayClipAtPoint(SonClick, new Vector3(0,0,0));
         if ("Jouer" == Choix)
         {
             PnlJouer.gameObject.SetActive(true);
