@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 Niveau Sauvegarder =1
+=======
+Niveau Sauvegarder =9
+>>>>>>> 80661193135938fccd2956601553548aefdc12d2
 Sensibilité =5
 Son =5

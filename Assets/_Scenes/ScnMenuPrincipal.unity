@@ -235,6 +235,24 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1377395550257164, guid: 715935baf3b8ed348a8841f14d7a7b17, type: 2}
+      propertyPath: m_Name
+      value: TxtRoulette
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377391780814170, guid: 715935baf3b8ed348a8841f14d7a7b17, type: 2}
+      propertyPath: m_Name
+      value: TxtRoulette
+      objectReference: {fileID: 0}
+    - target: {fileID: 114521549258194952, guid: 715935baf3b8ed348a8841f14d7a7b17,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114521549258194952, guid: 715935baf3b8ed348a8841f14d7a7b17,
+        type: 2}
+      propertyPath: m_Text
+      value: Roulette Souris
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 715935baf3b8ed348a8841f14d7a7b17, type: 2}
   m_IsPrefabParent: 0
