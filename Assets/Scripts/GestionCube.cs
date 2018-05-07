@@ -8,7 +8,7 @@ public class GestionCube : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        scriptGestionMouvement = Personnage.GetComponent<GestionMouvement>();
+       // scriptGestionMouvement = Personnage.GetComponent<GestionMouvement>();
     }
     //private void OnTriggerEnter(Collider other)
     //{
