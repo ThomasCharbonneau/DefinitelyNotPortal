@@ -1426,7 +1426,7 @@ GameObject:
   - component: {fileID: 1803175348}
   m_Layer: 0
   m_Name: Plane (2)
-  m_TagString: Mur
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1458,7 +1458,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 41774a0b03b759241952fb8bac56e65a, type: 2}
+  - {fileID: 2100000, guid: b99c4cbf2d6722a4aa54288dce2f8061, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

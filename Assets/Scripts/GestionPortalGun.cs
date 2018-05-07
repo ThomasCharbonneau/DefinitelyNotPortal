@@ -190,7 +190,7 @@ public class GestionPortalGun : MonoBehaviour
         {
             //if(hit.collider.gameObject.GetComponent<Renderer>().material.name == "SurfaceBlanche")
             //{
-            if (hit.collider.CompareTag("Sol") || hit.collider.CompareTag("Mur")) //Il faudrait trouver un moyen de simplifier avant d'avoir trop de tags
+            if (hit.collider.CompareTag("Sol") || hit.collider.CompareTag("Mur") || hit.collider.CompareTag("ObstaclePortal")) //Il faudrait trouver un moyen de simplifier avant d'avoir trop de tags
             {
                 AudioSource.PlayClipAtPoint(SonTirPortal, Caméra.transform.position);
                 portail.SetActive(true);

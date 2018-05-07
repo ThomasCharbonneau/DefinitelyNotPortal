@@ -1,3 +1,3 @@
-﻿Niveau Sauvegarder =9
+Niveau Sauvegarder =11
 Sensibilité =5
 Son =5
