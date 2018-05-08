@@ -16,6 +16,7 @@ public class GestionMenuDemarage : MonoBehaviour
     Button BtnCredit;
     Button BtnRetour;
     Button BtnChoixNiveau;
+    Button BtnQuitter;
     string Niveau;
     Button[] TableauBoutons;
 
@@ -55,6 +56,8 @@ public class GestionMenuDemarage : MonoBehaviour
 
         BtnNewGame = GameObject.Find("BtnNewGame").GetComponent<Button>();
         BtnLoadJeu = GameObject.Find("BtnLoadJeu").GetComponent<Button>();
+
+        BtnQuitter = GameObject.Find("BtnQuitter").GetComponent<Button>();
 
         CanvasControlleur = GetComponent<Canvas>();
         SauvegardeControlleur = CanvasControlleur.GetComponent<GestionSauvegarde>();
@@ -163,6 +166,11 @@ public class GestionMenuDemarage : MonoBehaviour
         {
             DéterminerNiveau();
             LoaderNiveau(NiveauRendu);
+        }
+
+        if ("Quitter" == Choix)
+        {
+            Application.Quit();
         }
     }
     public void DéterminerNiveau()
