@@ -17,6 +17,10 @@ public class GestionCamera : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        //Debug.Log(QualitySettings.vSyncCount);
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 75;
+
         PAUSE_CAMERA = false;
         personnage = transform.parent.gameObject;
         degréRotation = 0;
