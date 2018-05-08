@@ -16,6 +16,8 @@ public class GestionPortalGun : MonoBehaviour
 
     [SerializeField] GameObject portalBleu;
     [SerializeField] GameObject portalOrange;
+    GameObject portalCameraBleu;
+    GameObject portalCameraOrange;
 
     LineRenderer lineRenderer;
 
@@ -62,6 +64,10 @@ public class GestionPortalGun : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        portalCameraBleu = GameObject.Find("cameraBleu");
+        portalCameraOrange = GameObject.Find("cameraOrange");
+        portalCameraBleu.SetActive(false);
+        portalCameraOrange.SetActive(false);
         lineRenderer = GetComponent<LineRenderer>();
 
         TempsDepuisDernierTirPortails = 0;
@@ -75,6 +81,16 @@ public class GestionPortalGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(portalBleu.activeSelf && portalOrange.activeSelf)
+        {
+            portalCameraBleu.SetActive(true);
+            portalCameraOrange.SetActive(true);
+        }
+        else
+        {
+            portalCameraBleu.SetActive(false);
+            portalCameraOrange.SetActive(false);
+        }
         if (Input.GetAxis("Mouse ScrollWheel") > 0 || Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             if (GunMode == ModePortalGun.LASER)
