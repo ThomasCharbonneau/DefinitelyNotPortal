@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
     {
 		animator = GetComponent<Animator> ();
 		if (arsenal.Length > 0)
-			SetArsenal (arsenal[1].name);
+			SetArsenal (arsenal[2].name);
 	}
 
 	public void SetArsenal(string name) {
@@ -24,12 +24,12 @@ public class PlayerController : MonoBehaviour {
 					Destroy(rightGunBone.GetChild(0).gameObject);
 				if (leftGunBone.childCount > 0)
 					Destroy(leftGunBone.GetChild(0).gameObject);
-				//if (hand.rightGun != null) {
-				//	GameObject newRightGun = (GameObject) Instantiate(hand.rightGun);
-				//	newRightGun.transform.parent = rightGunBone;
-				//	newRightGun.transform.localPosition = Vector3.zero;
-				//	newRightGun.transform.localRotation = Quaternion.Euler(90, 0, 0);
-				//	}
+				if (hand.rightGun != null) {
+					GameObject newRightGun = (GameObject) Instantiate(hand.rightGun);
+					newRightGun.transform.parent = rightGunBone;
+					newRightGun.transform.localPosition = Vector3.zero;
+					newRightGun.transform.localRotation = Quaternion.Euler(90, 0, 0);
+					}
 				if (hand.leftGun != null) {
 					GameObject newLeftGun = (GameObject) Instantiate(hand.leftGun);
 					newLeftGun.transform.parent = leftGunBone;
