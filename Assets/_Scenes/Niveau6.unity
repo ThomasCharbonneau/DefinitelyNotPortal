@@ -1963,6 +1963,11 @@ Prefab:
       propertyPath: SonSurfaceInvalide
       value: 
       objectReference: {fileID: 8300000, guid: b65453a1809f5ef448de03b2905b3b93, type: 3}
+    - target: {fileID: 114027868645080130, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: personnageAvance
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0

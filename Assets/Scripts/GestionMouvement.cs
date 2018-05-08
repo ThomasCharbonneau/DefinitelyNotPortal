@@ -53,17 +53,13 @@ public class GestionMouvement : MonoBehaviour
         sonSourceCourir = tableauSourceAudio[1];
 
         ActionsAnimations = gameObject.GetComponentInChildren<Actions>();
-        ActionsAnimations.Aiming();
+        //ActionsAnimations.Aiming();
 
     }
 
     void FixedUpdate()
     {
-        if (TientObjet)
-        {
-            ObjetTenu.transform.position
-            = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, ValeurTenirObjet);
-        }
+       
         if (!Input.GetKey("w") && !Input.GetKey("s") && !Input.GetKey("a") && !Input.GetKey("d"))
         {
             //sonSourceMarcher.Stop();
@@ -126,6 +122,11 @@ public class GestionMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (TientObjet)
+        {
+            ObjetTenu.transform.position
+            = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, ValeurTenirObjet);
+        }
         if ((personnage.velocity.y > 1) || (personnage.velocity.y < -1))
         {        
             EstAuSol = false;
@@ -141,7 +142,7 @@ public class GestionMouvement : MonoBehaviour
                     AudioSource.PlayClipAtPoint(SonSaut, personnage.transform.position);
                     personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
 
-                    ActionsAnimations.Jump();
+                    //ActionsAnimations.Jump();
                 }
 
                 if (Input.GetKey("w")) //déplacement vers l'avant
@@ -159,7 +160,7 @@ public class GestionMouvement : MonoBehaviour
                     }
                     personnage.velocity += déplacementAvant;
 
-                    ActionsAnimations.Walk();
+                    //ActionsAnimations.Walk();
                 }
 
                 if (Input.GetKey("a")) //déplacement de coté vers la gauche

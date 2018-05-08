@@ -45,7 +45,7 @@ public class GestionUI : MonoBehaviour
         PnlCrosshairBleu = GameObject.Find("PnlBleu");
         PnlCrosshairOrange = GameObject.Find("PnlOrange");
 
-        ÉcranMort = GameObject.Find("ÉcranMort");
+        ÉcranMort =GameObject.Find("ÉcranMort");
         ÉcranMort.SetActive(false);
 
         //ImageChargeLaser = GetComponentInChildren<Image>();
