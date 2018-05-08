@@ -12,7 +12,8 @@ public class GestionFinDePartie : MonoBehaviour {
 
     GestionSauvegarde SauvegardeControlleur;
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         HUD = GameObject.Find("HUD");
         ScriptHUD = HUD.GetComponent<GestionHUD>();;
         SauvegardeControlleur = HUD.GetComponent<GestionSauvegarde>();
