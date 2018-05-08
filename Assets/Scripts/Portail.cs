@@ -76,21 +76,22 @@ public class Portail : MonoBehaviour
             //other.GetComponent<Rigidbody>().AddForce(normale * vitesse * premièreVelocity);
             //Debug.Log(vitesse);
             //Debug.Log("vitesse calculé : " + (normale * vitesse / Time.fixedDeltaTime));
-            angle = Vector3.Angle(other.transform.forward, portailOpposé.transform.forward);
+            //angle = Vector3.Angle(other.transform.forward, portailOpposé.transform.forward);
+            angle = portailOpposé.transform.eulerAngles.y - other.transform.eulerAngles.y;
 
             //if(portailOpposé.transform.eulerAngles.y - other.transform.eulerAngles.y < - 180 && portailOpposé.transform.eulerAngles.y - other.transform.eulerAngles.y > 0)
             //{
             //    angle *= -1;
             //}
 
-            if (portailOpposé.transform.eulerAngles.y < other.transform.eulerAngles.y )
-            {
-                angle *= -1;
-            }
-            if (other.transform.eulerAngles.y - portailOpposé.transform.eulerAngles.y > 180 || portailOpposé.transform.eulerAngles.y - other.transform.eulerAngles.y > 180)
-            {
-                angle *= -1;
-            }
+            //if (portailOpposé.transform.eulerAngles.y < other.transform.eulerAngles.y )
+            //{
+            //    angle *= -1;
+            //}
+            //if (other.transform.eulerAngles.y - portailOpposé.transform.eulerAngles.y > 180 || portailOpposé.transform.eulerAngles.y - other.transform.eulerAngles.y > 180)
+            //{
+            //    angle *= -1;
+            
             //if (other.transform.eulerAngles.y > 180)
             //{
             //    angle *= -1;
