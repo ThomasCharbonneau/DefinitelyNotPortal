@@ -23,7 +23,7 @@ public class GestionBouton : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Cube" || other.tag == ("Personnage"))
+        if (other.tag == ("Personnage"))
         {
             InverserGravité();
             AudioSource.PlayClipAtPoint(SonGravité, other.transform.position, 1000000f);
