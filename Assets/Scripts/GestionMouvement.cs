@@ -37,6 +37,7 @@ public class GestionMouvement : MonoBehaviour
     [SerializeField] AudioClip SonSaut;
     [SerializeField] AudioClip SonLanding;
 
+    Actions ActionsAnimations;
 
     // Use this for initialization
     void Start()
@@ -50,6 +51,9 @@ public class GestionMouvement : MonoBehaviour
         tableauSourceAudio = GetComponents<AudioSource>();
         sonSourceMarcher = tableauSourceAudio[0];
         sonSourceCourir = tableauSourceAudio[1];
+
+        ActionsAnimations = gameObject.GetComponentInChildren<Actions>();
+        ActionsAnimations.Aiming();
 
     }
 
@@ -136,6 +140,8 @@ public class GestionMouvement : MonoBehaviour
                 {
                     AudioSource.PlayClipAtPoint(SonSaut, personnage.transform.position);
                     personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
+
+                    ActionsAnimations.Jump();
                 }
 
                 if (Input.GetKey("w")) //déplacement vers l'avant
@@ -152,6 +158,8 @@ public class GestionMouvement : MonoBehaviour
                         VitesseHorizontaleMax = VITESSE_MARCHE_MAX;
                     }
                     personnage.velocity += déplacementAvant;
+
+                    ActionsAnimations.Walk();
                 }
 
                 if (Input.GetKey("a")) //déplacement de coté vers la gauche
@@ -230,7 +238,10 @@ public class GestionMouvement : MonoBehaviour
                 }
             }
 
-           
+            //if (!Input.anyKey)
+            //{
+            //    ActionsAnimations.Stay();
+            //}
         }        
         
         //if (EstAuSol)
