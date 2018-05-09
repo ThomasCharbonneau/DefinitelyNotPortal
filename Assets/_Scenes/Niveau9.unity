@@ -851,8 +851,8 @@ TextMesh:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 231880997}
-  m_Text: "Astuce : N'oublier pas, les JumpPads \nvous propulse dans la direction
-    que \nvous regard\xE9"
+  m_Text: "Astuce : N'oubliez pas, les JumpPads \nvous propulse dans la direction
+    o\xF9 \nvous regardez"
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
