@@ -63,6 +63,11 @@ public class Portail : MonoBehaviour
             other.transform.position = portailOpposé.transform.position + (portailOpposé.transform.forward * 10);
             angle = portailOpposé.transform.eulerAngles.y - other.transform.eulerAngles.y;
 
+            if(Physics.gravity.y > 0 )
+            {
+                angle *= -1;
+            }
+
             if (other.name == "Personnage")
             {
                 scriptGestionCaméra.degréRotation = angle;
