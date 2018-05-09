@@ -592,7 +592,7 @@ public class GestionDrone : MonoBehaviour, Personnage
         lineRenderer.SetPosition(0, origineLaser);
 
         RaycastHit hit;
-        Ray ray = new Ray(origineLaser, Joueur.transform.position - origineLaser);
+        Ray ray = new Ray(origineLaser, positionCible - origineLaser);
         Physics.Raycast(ray, out hit);
 
         lineRenderer.startWidth = DIAMÈTRE_LASER;

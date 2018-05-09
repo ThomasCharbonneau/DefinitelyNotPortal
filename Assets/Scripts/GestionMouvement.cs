@@ -53,13 +53,11 @@ public class GestionMouvement : MonoBehaviour
         sonSourceCourir = tableauSourceAudio[1];
 
         ActionsAnimations = gameObject.GetComponentInChildren<Actions>();
-        //ActionsAnimations.Aiming();
-
     }
 
     void FixedUpdate()
     {
-       
+
         if (!Input.GetKey("w") && !Input.GetKey("s") && !Input.GetKey("a") && !Input.GetKey("d"))
         {
             //sonSourceMarcher.Stop();
@@ -72,8 +70,12 @@ public class GestionMouvement : MonoBehaviour
             {
                 sonSourceCourir.volume -= 0.1f;
             }
-
         }
+        else
+        {
+            ActionsAnimations.Walk();
+        }
+
         if (personnageAvance)
         {
             if (personnage.velocity.magnitude >= 25.5 && !sonSourceCourir.isPlaying)
@@ -142,7 +144,7 @@ public class GestionMouvement : MonoBehaviour
                     AudioSource.PlayClipAtPoint(SonSaut, personnage.transform.position);
                     personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
 
-                    //ActionsAnimations.Jump();
+                    ActionsAnimations.Jump();
                 }
 
                 if (Input.GetKey("w")) //déplacement vers l'avant
@@ -159,8 +161,6 @@ public class GestionMouvement : MonoBehaviour
                         VitesseHorizontaleMax = VITESSE_MARCHE_MAX;
                     }
                     personnage.velocity += déplacementAvant;
-
-                    //ActionsAnimations.Walk();
                 }
 
                 if (Input.GetKey("a")) //déplacement de coté vers la gauche
@@ -239,10 +239,10 @@ public class GestionMouvement : MonoBehaviour
                 }
             }
 
-            //if (!Input.anyKey)
-            //{
-            //    ActionsAnimations.Stay();
-            //}
+            if (!Input.anyKey)
+            {
+                ActionsAnimations.Stay();
+            }
         }        
         
         //if (EstAuSol)
@@ -313,9 +313,6 @@ public class GestionMouvement : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 180));
 
             //transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 180);
-
-
-
         }
         else
         {
