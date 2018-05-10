@@ -8,29 +8,24 @@ public class FinDePartieScript : MonoBehaviour {
     public static string ancienneScène;
     public static string nouvelleScène;
     float chiffreAncienneScene;
+    float chiffreProchaineScene;
     public string chiffreScene;
 
-    // Use this for initialization
+    // Script qui gère la scène qui apparaît lorsque le joueur complète un niveau
+    // À l'aide d'une variable public static, nous notons, lorsque le joueur finis un niveau, le nom de la scène qu'il vient de compléter ce qui nous permet de trouver quelle est le prochain niveau
     void Start ()
     {
-
-        chiffreScene = ancienneScène.Substring(6);
+        chiffreScene = ancienneScène.Substring(6); //Enlève les 6 premières lettres soit le mot "niveau" pour juste garder le chiffre du niveau
         float.TryParse(chiffreScene, out chiffreAncienneScene);
-        if (chiffreAncienneScene == 12 || chiffreAncienneScene == 0) // remplacer 20 par le nombre max de niveau
+        if (chiffreAncienneScene == 12 || chiffreAncienneScene == 0)  //Si le joueur viens de compléter le dernier niveau, load une scène qui lui informe qu'il a finis le jeu
         {
-            Debug.Log(chiffreAncienneScene);
             SceneManager.LoadScene("ScnFinDuJeu");
         }
         else
         {
-            chiffreAncienneScene += 1;
+            chiffreProchaineScene = chiffreAncienneScene + 1;
         }
-
     }
-	
-	// Update is called once per frame
-	void Update () {}
-
     public void RéessayerNiveau()
     {
         SceneManager.LoadScene(ancienneScène);
@@ -38,7 +33,7 @@ public class FinDePartieScript : MonoBehaviour {
 
     public void ProchainNiveau()
     {
-        SceneManager.LoadScene("Niveau" + chiffreAncienneScene);
+        SceneManager.LoadScene("Niveau" + chiffreProchaineScene);
     }
 
     public void LoaderMenu()

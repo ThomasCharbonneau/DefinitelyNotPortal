@@ -19,30 +19,24 @@ public class GestionMusiqueAmbiance : MonoBehaviour
 
     void Start ()
     {
+        // Nous crééons un tableau avec toutes les différentes chansons d'ambiances que nous avons
         tableauMusique = new AudioClip[6] { Musique1, Musique2, Musique3, Musique4, Musique5, Musique6 };
 		SourceAudio = GetComponent<AudioSource>();
-
         chiffreAléatoirePrécédent = NOMBRE_MAX_CHANSONS + 1;
-
-  //      for (int i = 0; i < NOMBRE_MAX_CHANSONS; ++i)
-  //      {
-  //          tableauMusique[i].mute = true;
-  //      }
-        
     }
 	// Update is called once per frame
 	void Update ()
     {
+        //Lors de chaque update, on vérifie si une chanson joue déja. Si oui, on monte le son légerement jusqu'à un son qui est raisonnable pour créé une approche agréable à la chanson.
+        // Si aucune chanson joue, on génere un chiffre aléatoire pour décider quelle sera la chanson suivante qui jouera.
         if (!(SourceAudio.isPlaying))
         {
             chiffreAléatoire = Random.Range(0, NOMBRE_MAX_CHANSONS);
-
             if(chiffreAléatoire != chiffreAléatoirePrécédent)
             {
                 SourceAudio.clip = tableauMusique[chiffreAléatoire];
                 SourceAudio.volume = 0;
                 SourceAudio.Play();
-
                 chiffreAléatoirePrécédent = chiffreAléatoire;
             }
         }
@@ -50,11 +44,7 @@ public class GestionMusiqueAmbiance : MonoBehaviour
         {
             if (SourceAudio.volume <= 0.15f)
             {
-                SourceAudio.volume += 0.001f;
-                //for (int i = 0; i < NOMBRE_MAX_CHANSONS; ++i)
-                //{
-                //    tableauMusique[i].volume += 0.01f;
-                //}
+                SourceAudio.volume += 0.001f;             
             }
         }
     }

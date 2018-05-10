@@ -24,21 +24,17 @@ public class GestionRespawnLave : MonoBehaviour {
     GameObject portailBleu;
     GameObject portailOrange;
 
-
-
-
-    // Use this for initialization
+    // Script qui gère la réapparition du joueur et des cubes
     void Start () {
         scriptGestionVieJoueur = Personnage.GetComponent<GestionVieJoueur>();
         scriptGestionMouvement = Personnage.GetComponent<GestionMouvement>();
         portailBleu = GameObject.Find("PortailBleu");
         portailOrange = GameObject.Find("PortailOrange");
-        if (cube1 != null)
+        if (cube1 != null) //Si nous avons un cube dans la scène,note sa position et sa rotation. Répète la même chose pour le cube 2 et 3 ainsi que le personnage
         {
             spawnPointCube1 = cube1.transform.position;
             rotationCube1 = cube1.transform.rotation;
-        }
-        
+        }    
         if(cube2 != null)
         {
             spawnPointCube2 = cube2.transform.position;
@@ -51,16 +47,14 @@ public class GestionRespawnLave : MonoBehaviour {
         }
         spawnPointPersonnage = Personnage.transform.position;
         rotationPersonnage = Personnage.transform.rotation;
-    }
-	
+    }	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update () {}
 
+    //s'active lorsque le joueur rentre en collision avec la lave
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Cube")
+        if (other.tag == "Cube") //Replace le cube à son point de départ avec sa rotation de départ et lui met sa vitesse à 0
         {
             if(other.name == "Cube1")
             {
@@ -84,26 +78,23 @@ public class GestionRespawnLave : MonoBehaviour {
                 other.transform.rotation = rotationCube3;
             }
         }
-        if (other.tag == "Personnage")
+        if (other.tag == "Personnage") 
         {
-            scriptGestionVieJoueur.Vie -= 25;
-            if (scriptGestionVieJoueur.Vie != 0)
+            scriptGestionVieJoueur.Vie -= 25; //Fait perdre 25 de vie au joueur
+            if (scriptGestionVieJoueur.Vie != 0) //S'active si le personnage n'est pas mort
             {
-                if(scriptGestionMouvement.TientObjet)
+                if(scriptGestionMouvement.TientObjet) //S'assure que le personnage lache l'objet avant de réaparraitre
                 {
                     scriptGestionMouvement.RelacherObjet();
                 }              
-                Physics.gravity = new Vector3(0f, -9.8f, 0f);
-                other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                Physics.gravity = new Vector3(0f, -9.8f, 0f); //s'assure de rendre la gravité négative sinon le joueur peut rester pris dans certain niveau
+                other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0); //Rend la vitesse du joueur nul
                 other.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, 0, 0);
 
-                other.transform.position = spawnPointPersonnage;
+                other.transform.position = spawnPointPersonnage; //Téléporte le joueur à son point de départ
                 other.transform.rotation = rotationPersonnage;
 
-                Personnage.GetComponentInChildren<GestionPortalGun>().DésactiverPortails();
-
-                //portailOrange.SetActive(false);
-                //portailBleu.SetActive(false);
+                Personnage.GetComponentInChildren<GestionPortalGun>().DésactiverPortails(); //Désactive les portails
             }    
         }
     }
