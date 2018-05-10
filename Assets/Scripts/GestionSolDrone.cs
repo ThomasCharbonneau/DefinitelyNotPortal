@@ -74,16 +74,20 @@ public class GestionSolDrone : MonoBehaviour
 
                 coordonnéesTexture[i] = new Vector3((DeltaTexture.x * k) / ÉTENDUE, (DeltaTexture.y * j) / ÉTENDUE, 0);
 
-                //Noeuds
-                GameObject noeud = Instantiate(PrefabNoeud, Sommets[i], Quaternion.identity, gameObject.transform);
+                //On ne veut pas instancier de noeuds aux extremités du sol car il y aura des murs
+                if((j > 0 && j < NbColonnes) && (k > 0 && k < NbRangées))
+                {
+                    GameObject noeud = Instantiate(PrefabNoeud, Sommets[i], Quaternion.identity, gameObject.transform);
 
-                noeud.name = "Noeud # " + i;
+                    //Nom simplement pour se retrouver dans Unity
+                    noeud.name = "Noeud # " + i;
 
-                noeud.GetComponent<ScriptNoeud>().Rangée = j;
-                noeud.GetComponent<ScriptNoeud>().Colonne = k;
+                    noeud.GetComponent<ScriptNoeud>().Rangée = j;
+                    noeud.GetComponent<ScriptNoeud>().Colonne = k;
 
-                ListeNoeuds.Add(noeud);
-                //
+                    ListeNoeuds.Add(noeud);
+                    //
+                }
 
                 i++;
             }
@@ -99,7 +103,7 @@ public class GestionSolDrone : MonoBehaviour
     ScriptNoeud scriptNoeudJ;
 
     /// <summary>
-    /// Fonction qui trouve et qui ajoute les noeuds qui sont voisins de chacun des noeuds de la grille
+    /// Fonction qui trouve les noeuds qui sont voisins de chacun des noeuds de la grille et qui les ajoutent à la liste de noeuds vosins de ce noeud
     /// </summary>
     void TrouverNoeudsVoisins()
     {
@@ -236,7 +240,6 @@ public class GestionSolDrone : MonoBehaviour
                 {
                     g.GetComponent<ScriptNoeud>().SetDisponibilité(false);
 
-                    //À arranger
                     foreach (GameObject nVoisin in g.GetComponent<ScriptNoeud>().GetNoeudsVoisins())
                     {
                         //Debug.Log("zzz : " + nVoisin.name);
@@ -249,15 +252,15 @@ public class GestionSolDrone : MonoBehaviour
         }
 
         ////Pour des tests:
-        //foreach (GameObject g in ListeNoeuds)
-        //{
-        //    if (!g.GetComponent<ScriptNoeud>().EstDisponible())
-        //    {
-        //        GameObject a = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        //        a.GetComponent<Renderer>().material.color = Color.red;
-        //        a.transform.position = g.transform.position;
-        //    }
-        //}
+        foreach (GameObject g in ListeNoeuds)
+        {
+            if (!g.GetComponent<ScriptNoeud>().EstDisponible())
+            {
+                GameObject a = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                a.GetComponent<Renderer>().material.color = Color.red;
+                a.transform.position = g.transform.position;
+            }
+        }
         ////
     }
 
