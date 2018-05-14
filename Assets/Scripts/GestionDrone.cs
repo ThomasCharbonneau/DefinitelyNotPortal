@@ -1,8 +1,16 @@
-﻿using System.Collections;
+﻿// Auteur :		    Zachary Thuotte
+// Fichier :        GestionDrone.cs
+// Date :		    Hiver 2018
+// Description :    Classe Unity qui gère les déplacement et les actions d’un drone ennemi non-controllable
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Les différents modes du drone qui influencent l'action à réaliser pendant un moment
+/// </summary>
 public enum ModeDrone { PATROUILLE, ATTAQUE, DÉPLACEMENT_VERS_PISTE_PATROUILLE, DÉPLACEMENT_VERS_MARQUEUR }
 
 public class GestionDrone : MonoBehaviour, Personnage
@@ -13,28 +21,26 @@ public class GestionDrone : MonoBehaviour, Personnage
     [SerializeField] AudioClip SonExplosion;
     [SerializeField] AudioClip SonMarqueur;
 
-    public Vector3 PositionMarqueur;
+    public Vector3 PositionMarqueur; //La position du point 3d à atteindre avec le pathfinding
     Vector3 PositionPointPlusProchePiste;
 
     GameObject Joueur;
-    GameObject gameObjectDrone;
 
     Rigidbody drone;
-    Collider colliderDrone;
     LineRenderer lineRenderer;
     GestionPathfinding gestionPathfinding;
     GestionSolDrone gestionSolDrone;
 
-    public ModeDrone Mode;
-    [SerializeField] ModeDrone ModeInitial;
+    public ModeDrone Mode; //Le mode actuel du drone
+    [SerializeField] ModeDrone ModeInitial; //Le mode initial du drone à son entrée dans le niveau
 
     bool laserTiré; //Si un laser de ce drone est présentement dans l'environnement ou non
     float tempsDepuisTirLaser;
     const float DIAMÈTRE_LASER = 0.5f;
     Vector3 origineLaser;
 
-    float tempsDepuisVérouillageCible;
-    const float DÉLAI_VÉROUILLAGE_CIBLE = 0.5f; //Le délai de temps entre le vérouillage de la la cible et le tir à cette position.
+    float tempsDepuisVérouillageCible; //Le temps depuis lequel la position de la cible a été vérouillé
+    const float DÉLAI_VÉROUILLAGE_CIBLE = 0.5f; //Le délai de temps entre le vérouillage de la la cible et le tir à cette position
     bool cibleVérouillée;
     Vector3 positionCible;
 
@@ -56,22 +62,21 @@ public class GestionDrone : MonoBehaviour, Personnage
     List<Vector2> ListePointsPathfinding = new List<Vector2>(); //La liste des points des noeuds à parcourir pour arriver à un point donné
     int IndicePositionPathfinding;
 
-    //public Vector3 MarqueurÀAtteindre;
     bool NoeudsLesPlusProchesTrouvés;
     bool NoeudInitialLePlusProcheAtteint;
     GameObject NoeudInitial;
     GameObject NoeudFinal;
 
     public bool PatrouilleEnSensHoraire; //Vrai si le drone patrouille en sens horaire, faux si il patrouille en sens anti-horaire
-    [SerializeField] bool PatrouilleEnSensHoraireInitiallement;
+    [SerializeField] bool PatrouilleEnSensHoraireInitiallement; //Sens de patrouille au Start
 
-    const int DÉPLACEMENT_X = 0; //10;
-    const int DÉPLACEMENT_Z = 0; //18;
+    const int DÉPLACEMENT_X = 0;
+    const int DÉPLACEMENT_Z = 0;
 
     public const int VIE_INITIALE = 50;
     int vie;
 
-    const float TEMPS_ARRÊT_ATTAQUE = 4.5f;
+    const float TEMPS_ARRÊT_ATTAQUE = 4.5f; //Le temps pour lequel le drone reste en mode attaque avant de revérifier si le joueur est encore assez près
     bool DroneArrêté;
     float tempsDepuisArrêt;
     ModeDrone DernierMode;
@@ -87,26 +92,16 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         //Devra changer en fonction du niveau
         ListePointsPatrouille = ListePistesPatrouille[0].GetPointsDePatrouille();
-        //
 
         //Au début, trouve la piste la moins couteuse en déplacement et s'y rend... Ignorer ligne suivante surement.
         //pistePatrouille = GameObject.Find("PistePatrouille").GetComponent<PistePatrouille>();
 
         drone = GetComponent<Rigidbody>();
-        gameObjectDrone = drone.gameObject;
-        colliderDrone = GetComponent<Collider>();
         lineRenderer = GetComponent<LineRenderer>();
         gestionPathfinding = GetComponent<GestionPathfinding>();
         gestionSolDrone = GameObject.Find("SolDrone").GetComponent<GestionSolDrone>();
 
         Resetter();
-
-        //Pour faire des tests :
-
-        //Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
-        ////MarqueurÀAtteindre = new Vector3(-90, 0, 0);
-
-        //
     }
 
     /// <summary>
@@ -155,14 +150,6 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
     }
 
-    //    if(DernierMode != ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE)
-    //{
-    //    DernierMode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
-    //}
-    //else
-    //{
-    //    DernierMode = ModeDrone.DÉPLACEMENT_VERS_PISTE_PATROUILLE;
-    //}
     private void FixedUpdate()
     {
         GérerHauteurAutomatique();
@@ -235,12 +222,6 @@ public class GestionDrone : MonoBehaviour, Personnage
                 //Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR; //Quoi faire ici? Ne continuera pas... Correct dans un sens?
                 //}
 
-                //if (transform.position == PositionMarqueur)
-                //{
-                //    Mode = ModeDrone.PATROUILLE;
-                //    PointDePisteLePlusPrèsTrouvé = false;
-                //}
-
                 break;
         }
     }
@@ -287,8 +268,6 @@ public class GestionDrone : MonoBehaviour, Personnage
         //Debug.Log(Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPathfinding[IndicePositionPiste]));
 
         if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPatrouille[IndicePositionPiste]) > MAX_DISTANCE_DELTA)
-        //if (!((transform.position.x == ListePointsPatrouille[IndicePositionPiste].x) && (transform.position.z == ListePointsPatrouille[IndicePositionPiste].y)))
-        //if (new Vector2(transform.position.x, transform.position.z) != ListePointsPatrouille[IndicePositionPiste])
         {
             DéplacerVersPoint(ListePointsPatrouille[IndicePositionPiste]);
         }
@@ -430,6 +409,10 @@ public class GestionDrone : MonoBehaviour, Personnage
         tempsDepuisVérouillageCible += Time.deltaTime;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="pointÀAtteindre">Le point 3d à atteindre</param>
     void GérerDéplacementVersPointPathfinding(Vector3 pointÀAtteindre)
     {
         if(!NoeudsLesPlusProchesTrouvés)
@@ -481,7 +464,6 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
         else
         {
-            //if(!((transform.position.x == ListePointsPathfinding[IndicePositionPiste].x) && (transform.position.z == ListePointsPathfinding[IndicePositionPiste].y)))
             if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPathfinding[IndicePositionPathfinding]) > MAX_DISTANCE_DELTA)
             {
                 DéplacerVersPoint(ListePointsPathfinding[IndicePositionPathfinding]);
@@ -610,12 +592,6 @@ public class GestionDrone : MonoBehaviour, Personnage
                 hit.rigidbody.gameObject.GetComponent<GestionVieJoueur>().Vie -= 40;
             }
         }
-
-        //colliderLaser = GetComponent<BoxCollider>();
-        //colliderLaser.enabled = false;
-        //colliderLaser.size = new Vector3(diamètreLaser, diamètreLaser, Vector3.Distance(joueur.transform.position, origineLaser));
-        //colliderLaser.transform.position = origineLaser + (0.5f) * (joueur.transform.position - origineLaser);
-        //colliderLaser.transform.LookAt(joueur.transform.position);
     }
 
     void ArrêterLaser()
@@ -624,6 +600,9 @@ public class GestionDrone : MonoBehaviour, Personnage
         lineRenderer.enabled = false;
     }
 
+    /// <summary>
+    /// Propriété qui gère la vie du drone
+    /// </summary>
     public int Vie
     {
         get
@@ -640,11 +619,11 @@ public class GestionDrone : MonoBehaviour, Personnage
             {
                 if (value < Vie && Mode != ModeDrone.ATTAQUE)
                 {
-                    DernierMode = Mode;
+                    DernierMode = Mode; //Le mode est noté avant de tomber en attaque
 
-                    PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
+                    PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire; //Le drone change de sens de patrouille
 
-                    transform.LookAt(Joueur.transform.position);
+                    transform.LookAt(Joueur.transform.position); //Le drone regarde à la source du tir
                     Mode = ModeDrone.ATTAQUE;
                 }
                 vie = value;

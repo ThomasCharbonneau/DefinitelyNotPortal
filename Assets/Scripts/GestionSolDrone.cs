@@ -36,8 +36,6 @@ public class GestionSolDrone : MonoBehaviour
         TrouverNoeudsVoisins();
 
         TrouverObstacles();
-
-        IndisponibiliserNoeudsObstaclesVoisins();
     }
 
     private void CalculerDonnéesDeBase()
@@ -200,32 +198,8 @@ public class GestionSolDrone : MonoBehaviour
         Maillage.RecalculateNormals();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void TrouverObstacles()
     {
-        //GameObject[] TableauObstacles = GameObject.FindGameObjectsWithTag("Mur");
-
-        //for (int i = 0; i < TableauObstacles.Length; i++)
-        //{
-        //    Vector3[] TableauSommetsObstacle = TableauObstacles[i].GetComponent<Mesh>().vertices;
-        //    //Rendre en localworldSpace ou vice versa
-
-        //    for (int j = 0; j < TableauObstacles.Length; j++)
-        //    {
-        //        if (TableauSommetsObstacle[j].y == 0)
-        //        {
-        //            //foreach(Noeud n in ListeNoeuds.)
-        //            //foreach() dans grille, dire invalide, ajouter à la liste à surveiller aussi.
-        //            //TableauSommets[j]
-        //        }
-        //    }
-        //}
-
         Debug.Log("Count est de :" + ListeNoeuds.Count);
 
         RaycastHit hit;
@@ -234,20 +208,16 @@ public class GestionSolDrone : MonoBehaviour
             Ray ray = new Ray(g.transform.position, Vector3.up);
             Physics.Raycast(ray, out hit);
 
-            //if(hit.collider.GetComponent<GameObject>().name == "plafond")
+            if (hit.collider.tag == "ObstaclePortal" || hit.collider.tag == "ObstacleNoPortal")// || hit.collider.name == "frame_col") //|| hit.collider.tag == "Boutton")
             {
-                if (hit.collider.tag == "ObstaclePortal" || hit.collider.tag == "ObstacleNoPortal")// || hit.collider.name == "frame_col") //|| hit.collider.tag == "Boutton")
+                g.GetComponent<ScriptNoeud>().SetDisponibilité(false);
+
+                foreach (GameObject nVoisin in g.GetComponent<ScriptNoeud>().GetNoeudsVoisins())
                 {
-                    g.GetComponent<ScriptNoeud>().SetDisponibilité(false);
-
-                    foreach (GameObject nVoisin in g.GetComponent<ScriptNoeud>().GetNoeudsVoisins())
-                    {
-                        //Debug.Log("zzz : " + nVoisin.name);
-                        nVoisin.GetComponent<ScriptNoeud>().SetDisponibilité(false);
-                    }
-
-                    Debug.Log(g.name + " : " + hit.collider.name);
+                    nVoisin.GetComponent<ScriptNoeud>().SetDisponibilité(false);
                 }
+
+                Debug.Log(g.name + " : " + hit.collider.name);
             }
         }
 
@@ -262,13 +232,5 @@ public class GestionSolDrone : MonoBehaviour
         //    }
         //}
         ////
-    }
-
-    /// <summary>
-    /// Rend indisponible les noeuds voisins des noeuds qui sont vis-à-vis des obstacles
-    /// </summary>
-    void IndisponibiliserNoeudsObstaclesVoisins()
-    {
-
     }
 }
