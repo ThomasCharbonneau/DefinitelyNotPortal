@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GestionBouton : MonoBehaviour {
+public class GestionGravité : MonoBehaviour {
 
     [SerializeField] AudioClip SonGravité;
 
