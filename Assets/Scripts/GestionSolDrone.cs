@@ -135,11 +135,6 @@ public class GestionSolDrone : MonoBehaviour
     {
         int[] triangles = new int[NbTriangles * NB_SOMMETS_PAR_TRIANGLE];
 
-        //
-        // Vous devez ici produire un algorithme qui permettra de créer le tableau contenant la "description" des triangles 
-        // composant la surface.
-        //
-
         int triangleActuel = 0;
         int rangéeActuelle = 0;
         int colonneActuelle = 0;
@@ -200,6 +195,24 @@ public class GestionSolDrone : MonoBehaviour
 
     void TrouverObstacles()
     {
+        //GameObject[] TableauObstacles = GameObject.FindGameObjectsWithTag("Mur");
+
+        //for (int i = 0; i < TableauObstacles.Length; i++)
+        //{
+        //    Vector3[] TableauSommetsObstacle = TableauObstacles[i].GetComponent<Mesh>().vertices;
+        //    //Rendre en localworldSpace ou vice versa
+
+        //    for (int j = 0; j < TableauObstacles.Length; j++)
+        //    {
+        //        if (TableauSommetsObstacle[j].y == 0)
+        //        {
+        //            //foreach(Noeud n in ListeNoeuds.)
+        //            //foreach() dans grille, dire invalide, ajouter à la liste à surveiller aussi.
+        //            //TableauSommets[j]
+        //        }
+        //    }
+        //}
+
         Debug.Log("Count est de :" + ListeNoeuds.Count);
 
         RaycastHit hit;

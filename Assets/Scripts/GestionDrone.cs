@@ -1,7 +1,7 @@
 ﻿// Auteur :		    Zachary Thuotte
 // Fichier :        GestionDrone.cs
 // Date :		    Hiver 2018
-// Description :    Classe Unity qui gère les déplacement et les actions d’un drone ennemi non-controllable
+// Description :    Classe Unity qui gère les déplacement et les actions intelligents d’un drone ennemi autonome
 
 using System.Collections;
 using System.Collections.Generic;
@@ -90,7 +90,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
         TrouverPistesPatrouille();
 
-        //Devra changer en fonction du niveau
+        //Il était prévu d'avoir plusieurs pistes différentes
         ListePointsPatrouille = ListePistesPatrouille[0].GetPointsDePatrouille();
 
         //Au début, trouve la piste la moins couteuse en déplacement et s'y rend... Ignorer ligne suivante surement.
@@ -102,6 +102,10 @@ public class GestionDrone : MonoBehaviour, Personnage
         gestionSolDrone = GameObject.Find("SolDrone").GetComponent<GestionSolDrone>();
 
         Resetter();
+
+        //Pour faire des tests :
+        //Mode = ModeDrone.DÉPLACEMENT_VERS_MARQUEUR;
+        ////MarqueurÀAtteindre = new Vector3(-90, 0, 0);
     }
 
     /// <summary>
@@ -176,7 +180,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
                     GérerAttaque();
 
-                    if (tempsDepuisArrêt >= TEMPS_ARRÊT_ATTAQUE) //Si le joueur n'est pas visible : retourner au dernier mode
+                    if (tempsDepuisArrêt >= TEMPS_ARRÊT_ATTAQUE) //Si le joueur n'est pas visible après le délai : retourner au dernier mode
                     {
                         if (!VérifierJoueurVisible())
                         {
@@ -262,11 +266,13 @@ public class GestionDrone : MonoBehaviour, Personnage
     /// </summary>
     void Patrouiller()
     {
+        //Pour des tests:
         //Debug.Log("IP" + IndicePositionPiste);
         //Debug.Log("IP206 = " + ListePointsPatrouille[206]);
-
         //Debug.Log(Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPathfinding[IndicePositionPiste]));
 
+        //if (!((transform.position.x == ListePointsPatrouille[IndicePositionPiste].x) && (transform.position.z == ListePointsPatrouille[IndicePositionPiste].y)))
+        //if (new Vector2(transform.position.x, transform.position.z) != ListePointsPatrouille[IndicePositionPiste])
         if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), ListePointsPatrouille[IndicePositionPiste]) > MAX_DISTANCE_DELTA)
         {
             DéplacerVersPoint(ListePointsPatrouille[IndicePositionPiste]);
@@ -303,7 +309,7 @@ public class GestionDrone : MonoBehaviour, Personnage
             DernierMode = Mode;
 
             Mode = ModeDrone.ATTAQUE;
-            Debug.Log("Le joueur est détecté");
+            //Debug.Log("Le joueur est détecté");
         }
     }
 
@@ -311,9 +317,8 @@ public class GestionDrone : MonoBehaviour, Personnage
     {
         if (Mode == ModeDrone.PATROUILLE && other.gameObject.tag != "Boutton")
         {
-            Debug.Log("Changement de sens de patrouille");
+            //Debug.Log("Changement de sens de patrouille");
 
-            //Changer pour faire listePointsPatrouille.Reverse à la place?
             PatrouilleEnSensHoraire = !PatrouilleEnSensHoraire;
         }
 
@@ -372,9 +377,12 @@ public class GestionDrone : MonoBehaviour, Personnage
         return voitJoueur;
     }
 
+    /// <summary>
+    /// Fonction qui gère les actions du drone en mode attaque (quand viser et attaquer) 
+    /// </summary>
     void GérerAttaque()
     {
-        if (Vector3.Distance(transform.position, Joueur.transform.position) <= DISTANCE_LASER_MAX)
+        if (Vector3.Distance(transform.position, Joueur.transform.position) <= DISTANCE_LASER_MAX) //Si le joueur est assez proche
         {
             transform.forward = Vector3.RotateTowards(transform.forward, Joueur.transform.position - transform.position, MAX_DISTANCE_DELTA, MAX_DISTANCE_DELTA);
 
@@ -382,7 +390,7 @@ public class GestionDrone : MonoBehaviour, Personnage
             {
                 if (!cibleVérouillée)
                 {
-                    positionCible = ViserCible();
+                    positionCible = Joueur.transform.position;
                     cibleVérouillée = true;
                     tempsDepuisVérouillageCible = 0;
                 }
@@ -410,9 +418,9 @@ public class GestionDrone : MonoBehaviour, Personnage
     }
 
     /// <summary>
-    /// 
+    /// Fonction qui gère le déplacement du drone par pathfinding vers un point 3D précis
     /// </summary>
-    /// <param name="pointÀAtteindre">Le point 3d à atteindre</param>
+    /// <param name="pointÀAtteindre">Le point 3D à atteindre</param>
     void GérerDéplacementVersPointPathfinding(Vector3 pointÀAtteindre)
     {
         if(!NoeudsLesPlusProchesTrouvés)
@@ -527,7 +535,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     /// <summary>
     /// Trouve le noeud le plus proche d'une position 3d dans la liste de transform des noeuds du sol
     /// </summary>
-    /// <param name="position"></param>
+    /// <param name="position">La position 3D du point par rapport auquel on veut trouver le noeud le plus proche</param>
     /// <returns>Le transform du noeud de la grille le plus proche</returns>
     GameObject TrouverNoeudPlusProche(Vector3 position)
     {
@@ -557,13 +565,8 @@ public class GestionDrone : MonoBehaviour, Personnage
         return NoeudPlusProche;
     }
 
-    Vector3 ViserCible()
-    {
-        return Joueur.transform.position;
-    }
-
     /// <summary>
-    /// 
+    /// Fonction qui gère la projection du laser une fois qu'il est activé
     /// </summary>
     /// <param name="position">La position vers laquelle le laser est tiré</param>
     void TirerLaser(Vector3 positionCible)
@@ -594,6 +597,9 @@ public class GestionDrone : MonoBehaviour, Personnage
         }
     }
 
+    /// <summary>
+    /// Fonction qui arrête le tir du laser
+    /// </summary>
     void ArrêterLaser()
     {
         lineRenderer.positionCount = 0;
