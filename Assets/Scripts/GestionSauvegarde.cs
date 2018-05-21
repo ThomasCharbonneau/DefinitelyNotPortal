@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class GestionSauvegarde : MonoBehaviour
 {
-    //Faire un test pour voir si lecriture du fichier se fait correctement
-    //Creer Une fonction dans Camera ?
     const string nomDuFichier = "SavedSettings.txt";
 
     GestionCamera cameraControlleur;
@@ -24,7 +22,7 @@ void Start()
     }
 
 
-    public void SaveSettings()
+    public void SaveSettings() // Écrit les données dans un fichier Txt
     {
         StreamWriter Sauvegarde = new StreamWriter(nomDuFichier);
         Sauvegarde.WriteLine("Niveau Sauvegarder ={0}", ListeSettings[0]);
@@ -32,7 +30,7 @@ void Start()
         Sauvegarde.WriteLine("Son ={0}", ListeSettings[2]);
         Sauvegarde.Close();
     }
-    public void GenerationSettingsDeBase()
+    public void GenerationSettingsDeBase() // Genere un fichier par defaut si le joueur n'a jamais jouer au paravant
     {
         StreamWriter FichierDeBase = new StreamWriter(nomDuFichier);
         FichierDeBase.WriteLine("Niveau Sauvegarder =0");
@@ -40,7 +38,7 @@ void Start()
         FichierDeBase.WriteLine("Son =5");
         FichierDeBase.Close();
     }
-    public void LoadSettings()
+    public void LoadSettings() // Lire les parametres dans le fichier et les met dans une list pour les acceder
     {
         int i = 0;
         string lignelue;

@@ -43,7 +43,6 @@ public class GestionMouvement : MonoBehaviour
     void Start()
     {
         personnageAvance = false;
-       // Physics.gravity = new Vector3(0f,-19.0f,0f);
         EstAuSol = true;
         TientObjet = false;
         personnage = GetComponent<Rigidbody>();
@@ -57,10 +56,9 @@ public class GestionMouvement : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        //Gestion du son
         if (!Input.GetKey("w") && !Input.GetKey("s") && !Input.GetKey("a") && !Input.GetKey("d"))
         {
-            //sonSourceMarcher.Stop();
             if (sonSourceMarcher.volume > 0)
             {
                 sonSourceMarcher.volume -= 0.1f;
@@ -94,7 +92,8 @@ public class GestionMouvement : MonoBehaviour
             }
         }
     }
-
+    // Permet de rendre le saut et la retomber du joueur plus réaliste ( dans le monde des jeux vidéo)
+    // en lui donnant une retomber plus lourd.
     void RendreSautRéaliste()
     {
         if(Physics.gravity.y < 0)
@@ -124,11 +123,12 @@ public class GestionMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (TientObjet)
+        if (TientObjet) // Permet au joueur de prendre le cube
         {
             ObjetTenu.transform.position
             = Vector3.MoveTowards(ObjetTenu.transform.position, Caméra.transform.position + Caméra.transform.forward * 10, ValeurTenirObjet);
         }
+        // Permet de savoir si le joueur est au sol ou si il est en train de tomber
         if ((personnage.velocity.y > 1) || (personnage.velocity.y < -1))
         {        
             EstAuSol = false;
@@ -137,9 +137,9 @@ public class GestionMouvement : MonoBehaviour
         RendreSautRéaliste();
         if (!GestionCamera.PAUSE_CAMERA)
         {
-            if (EstAuSol)
+            if (EstAuSol) // Systeme de mouvement au sol
             {
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetKey(KeyCode.Space)) // Saut
                 {
                     AudioSource.PlayClipAtPoint(SonSaut, personnage.transform.position);
                     personnage.velocity += (Vector3.up * FORCE_SAUT * Physics.gravity.y * (-1 / 9.81f));
@@ -184,7 +184,7 @@ public class GestionMouvement : MonoBehaviour
                     personnage.velocity = new Vector3(0, personnage.velocity.y, 0) + vitesseHorizontale.normalized * VitesseHorizontaleMax;
                 }
             }
-            else
+            else // Systeme de mouvement dans les airs
             {
                 if (sonSourceMarcher || sonSourceCourir)
                 {
@@ -245,24 +245,9 @@ public class GestionMouvement : MonoBehaviour
             }
         }        
         
-        //if (EstAuSol)
-        //{
-        //    Debug.Log("SOL");
-        //}
-        //else
-        //{
-        //    Debug.Log("Airrrrrrrrr");
-        //}
 
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Sol") || collision.gameObject.CompareTag("Boutton") || collision.gameObject.CompareTag("Plancher")) 
-    //    {
-    //        EstAuSol = true;
-    //    }
-    //}
 
     private void OnCollisionStay(Collision collision)
     {
@@ -312,15 +297,12 @@ public class GestionMouvement : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 180));
 
-            //transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 180);
         }
         else
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, transform.localEulerAngles.y, 0));
-            //transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
             
         }
-       // Debug.Log(Caméra.transform.position);
 
     }
 }

@@ -13,6 +13,8 @@ public class ResetZoneScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Permet d'enlever toute les portails du joueur qui étaient activé précédament dans le niveau
+        // Permet de sauvegarder la progression du joueur dans le niveau
         GestionRespawnLave.spawnPointPersonnage = SavePoint.transform.position;
         if (portalBleu.activeSelf || portalOrange.activeSelf)
         {

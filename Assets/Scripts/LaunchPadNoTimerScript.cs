@@ -38,7 +38,7 @@ public class LaunchPadNoTimerScript : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        if (LAUNCH_MODE)
+        if (LAUNCH_MODE) // Propulse le joueur
         {
             PropulsationVerticale = (Vector3.up * FORCE_Verticale * Physics.gravity.y * (-1 / 9.81f));
             if (CibleALaunch.CompareTag("Personnage"))
@@ -56,26 +56,20 @@ public class LaunchPadNoTimerScript : MonoBehaviour {
 
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) // Demare le lancement
     {
-        Debug.Log("Entre");
         if (scriptGestionMouvement.TientObjet)
         {
             if (other.CompareTag("Personnage"))
             {
-                Debug.Log("Entre");
                 LAUNCH_MODE = true;
                 CibleALaunch = other.GetComponent<Rigidbody>();
                 DirectionJoueur = Personnage.transform.forward;
             }
-            else
-            {
-                Debug.Log("Nest pas un personnage et Il est dans sa main");
-            }
+
         }
         else
         {
-            Debug.Log("Entre");
             LAUNCH_MODE = true;
             CibleALaunch = other.GetComponent<Rigidbody>();
             DirectionJoueur = Personnage.transform.forward;
@@ -83,7 +77,6 @@ public class LaunchPadNoTimerScript : MonoBehaviour {
     }
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("sort");
         LAUNCH_MODE = false;
     }
 }

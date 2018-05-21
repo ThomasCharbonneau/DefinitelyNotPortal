@@ -73,13 +73,13 @@ public class GestionMenuDemarage : MonoBehaviour
       
 
     }
-    public void InitialisationDesParametres()
+    public void InitialisationDesParametres() //Initialise les paramettre du fichier pour les sliders 
     {
         SldSensitivité.value = float.Parse(SauvegardeControlleur.ListeSettings[1]);
         SldSon.value = float.Parse(SauvegardeControlleur.ListeSettings[2]);
 
     }
-    public void SauvegardeDesSettings()
+    public void SauvegardeDesSettings() // Sauvegarde des parametres dans le fichier
     {
         SauvegardeControlleur.ListeSettings[1] = SldSensitivité.value.ToString();
         SauvegardeControlleur.ListeSettings[2] = SldSon.value.ToString();
@@ -87,17 +87,17 @@ public class GestionMenuDemarage : MonoBehaviour
         InitialisationDesParametres();
     }
 
-    public void InitialiserBoutons()
+    public void InitialiserBoutons() // Initialise les niveaux disponibles au joueur en fonction de la progression du joueur
     {
         for (int i = 1; i<= NOMBRE_NIVEAUX_MAX; i++)
         {
             TableauBoutons[i - 1] = GameObject.Find("BtnNiveau" + i).GetComponent<Button>();
         }
     }
-    public void VerifierMenu(string Choix)
+    public void VerifierMenu(string Choix) // Controle du menu
     {
         AudioSource.PlayClipAtPoint(SonClick, new Vector3(0,0,0));
-        if ("Jouer" == Choix)
+        if ("Jouer" == Choix) // Ouvre le menu pour jouer
         {
             PnlJouer.gameObject.SetActive(true);
             PnlPrincipale.gameObject.SetActive(false);
@@ -111,7 +111,7 @@ public class GestionMenuDemarage : MonoBehaviour
             }
             else { BtnLoadJeu.interactable = true; }
         }
-        if ("Option" == Choix)
+        if ("Option" == Choix) // Ouvre le menu options
         {
             PnlOptions.gameObject.SetActive(true);
             PnlJouer.gameObject.SetActive(false);
@@ -121,7 +121,7 @@ public class GestionMenuDemarage : MonoBehaviour
             InitialisationDesParametres();
             ValeurMiseAjour = true;
         }
-        if ("Credit" == Choix)
+        if ("Credit" == Choix) // Montre les personnes impliqué dans le projet
         {
             PnlCredit.gameObject.SetActive(true);
             PnlOptions.gameObject.SetActive(false);
@@ -130,7 +130,7 @@ public class GestionMenuDemarage : MonoBehaviour
             PnlChoixNiveau.gameObject.SetActive(false);
             ValeurMiseAjour = true;
         }
-        if ("Retour" == Choix)
+        if ("Retour" == Choix) // Retour au menu précédent
         {
             PnlPrincipale.gameObject.SetActive(true);
             PnlCredit.gameObject.SetActive(false);
@@ -139,7 +139,7 @@ public class GestionMenuDemarage : MonoBehaviour
             PnlChoixNiveau.gameObject.SetActive(false);
             ValeurMiseAjour = true;
         }
-        if ("ChoixNiveau" == Choix)
+        if ("ChoixNiveau" == Choix) // Ouvre le menu pour choisir le niveau voulu
         {
             PnlPrincipale.gameObject.SetActive(false);
             PnlCredit.gameObject.SetActive(false);
@@ -150,11 +150,11 @@ public class GestionMenuDemarage : MonoBehaviour
             LoaderPanelNiveaux();
             ValeurMiseAjour = true;
         }
-        if ("Sauvegarder" == Choix)
+        if ("Sauvegarder" == Choix) // Sauvegarde des parametres
         {
             SauvegardeDesSettings();
         }
-        if ("New" == Choix)
+        if ("New" == Choix) // Recommence la progression du joueur et l'écrit dans le fichier
         {
             SauvegardeControlleur.ListeSettings[0] = 1f.ToString();
             SauvegardeControlleur.SaveSettings();
@@ -162,30 +162,30 @@ public class GestionMenuDemarage : MonoBehaviour
             LoaderNiveau(NiveauRendu);
 
         }
-        if ("Load" == Choix)
+        if ("Load" == Choix) // Permet au joueur de reprendre sa progression
         {
             DéterminerNiveau();
             LoaderNiveau(NiveauRendu);
         }
 
-        if ("Quitter" == Choix)
+        if ("Quitter" == Choix) // Quit le jeu
         {
             Application.Quit();
         }
     }
-    public void DéterminerNiveau()
+    public void DéterminerNiveau() // Détermine le niveau ou le joueur est rendu
     {
         NiveauRendu = SauvegardeControlleur.ListeSettings[0];
 
         
     }
 
-    public void LoaderNiveau(string chiffre)
+    public void LoaderNiveau(string chiffre) // Permet de mettre le niveau du joueur ou il est rendu
     {
         SceneManager.LoadScene("Niveau" + chiffre);
     }
 
-    public void LoaderPanelNiveaux()
+    public void LoaderPanelNiveaux() // Permet de savoir combien de niveau seront disponible au joueur
     {
         if(CheatCode)
         {

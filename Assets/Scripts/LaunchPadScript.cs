@@ -46,9 +46,8 @@ public class LaunchPadScript : MonoBehaviour
     {
         timer += Time.deltaTime;
         seconds = (int)timer % 60;
-       // Debug.Log(Personnage.velocity.magnitude);
 
-        if (LAUNCH_MODE)
+        if (LAUNCH_MODE) //Debut du décompte
         {
 
             if (seconds == LaunchTime - 2)
@@ -71,7 +70,7 @@ public class LaunchPadScript : MonoBehaviour
             }
             if (seconds == LaunchTime)
             {
-                if(i == 2)
+                if(i == 2) // Lancement de la cible
                 {
                     PropulsationVerticale = (Vector3.up * FORCE_Verticale * Physics.gravity.y * (-1 / 9.81f));
                     if(CibleALaunch.CompareTag("Personnage"))
@@ -91,27 +90,21 @@ public class LaunchPadScript : MonoBehaviour
             }
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) // Detecte la cible a lancer
     {
         if(scriptGestionMouvement.TientObjet)
         {
             if (other.CompareTag("Personnage"))
             {
-                Debug.Log("Entre");
                 LAUNCH_MODE = true;
                 LaunchTime = seconds + 3;
                 CibleALaunch = other.GetComponent<Rigidbody>();
                 DirectionJoueur = Personnage.transform.forward;
                 i = 0;
             }
-            else
-            {
-                Debug.Log("Nest pas un personnage et Il est dans sa main");
-            }
         }
         else
         {
-            Debug.Log("Entre");
             LAUNCH_MODE = true;
             LaunchTime = seconds + 3;
             CibleALaunch = other.GetComponent<Rigidbody>();
@@ -122,6 +115,5 @@ public class LaunchPadScript : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         LAUNCH_MODE = false;
-        Debug.Log("Sort");
     }
 }

@@ -17,7 +17,6 @@ public class GestionCamera : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        //Debug.Log(QualitySettings.vSyncCount);
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 75;
 
@@ -38,7 +37,7 @@ public class GestionCamera : MonoBehaviour
         if (!PAUSE_CAMERA)
         {
             var VariationSouris = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-            Vision.y = Mathf.Clamp(Vision.y, -90f, 90f);
+            Vision.y = Mathf.Clamp(Vision.y, -90f, 90f); // Bloque la caméra de faire des 360
 
             VariationSouris = Vector2.Scale(VariationSouris, new Vector2((Sensitivité /5) * FacteurAdoucir, (Sensitivité /5) * FacteurAdoucir));
             AdoucirCamera.x = Mathf.Lerp(AdoucirCamera.x, VariationSouris.x, 1f / FacteurAdoucir);
@@ -53,7 +52,6 @@ public class GestionCamera : MonoBehaviour
 
             transform.localRotation = Quaternion.AngleAxis(-Vision.y, Vector3.right);
             personnage.transform.localRotation = Quaternion.AngleAxis(Vision.x, personnage.transform.up);
-            ////////////////////////////////////// CETTE LIGNE ME REND FOU
 
         }
     }

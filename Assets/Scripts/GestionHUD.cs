@@ -56,24 +56,23 @@ public class GestionHUD : MonoBehaviour
         Paused = false;
         VerifierMenu("Resumer");
     }
-    public void InitialisationDesParametres()
+    public void InitialisationDesParametres() // Permet de Initialiser chacun des parametres en fonction des données dans le fichier
     {
         SldSensitivité.value = float.Parse(SauvegardeControlleur.ListeSettings[1]);
         SldSon.value = float.Parse(SauvegardeControlleur.ListeSettings[2]);
         cameraControlleur.Sensitivité = float.Parse(SauvegardeControlleur.ListeSettings[1]);
         AudioListener.volume = (float.Parse(SauvegardeControlleur.ListeSettings[2]))/10f;
     }
-    public void SauvegardeDesSettings()
+    public void SauvegardeDesSettings() // Permet de sauvegarder les nouveaux changements et les écrient dans le fichier
     {
         SauvegardeControlleur.ListeSettings[1] = SldSensitivité.value.ToString();
         SauvegardeControlleur.ListeSettings[2] = SldSon.value.ToString();
         SauvegardeControlleur.SaveSettings();
         InitialisationDesParametres();
     }
-    public void VerifierMenu(string Choix)
+    public void VerifierMenu(string Choix) // Permet d'interagir avec le menu
     {
-       // AudioSource.PlayClipAtPoint(SonClick, new Vector3(0, 0, 0));
-        if ("Options" == Choix)
+        if ("Options" == Choix) // Ouvre le menu option
         {
             PnlMenu.gameObject.SetActive(true);
             BtnRetour.gameObject.SetActive(true);
@@ -81,13 +80,13 @@ public class GestionHUD : MonoBehaviour
             PnlBoutons.gameObject.SetActive(false);
             InitialisationDesParametres();
         }
-        if ("Reloader" == Choix)
+        if ("Reloader" == Choix) // Recommence la scene
         {
             VerifierMenu("Resumer");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Physics.gravity = new Vector3(0, -9.81f, 0);
         }
-        if ("Resumer" == Choix)
+        if ("Resumer" == Choix) // Continuer le niveau en cours
         {
             Paused = false;
             Time.timeScale = 1.0f;
@@ -100,14 +99,14 @@ public class GestionHUD : MonoBehaviour
             PnlOptions.gameObject.SetActive(false);
             PnlBoutons.gameObject.SetActive(false);
         }
-        if ("Retour" == Choix)
+        if ("Retour" == Choix) // Revenir au menu précédent
         {
             PnlMenu.gameObject.SetActive(true);
             BtnRetour.gameObject.SetActive(false);
             PnlOptions.gameObject.SetActive(false);
             PnlBoutons.gameObject.SetActive(true);
         }
-        if ("OpenMenu" == Choix)
+        if ("OpenMenu" == Choix) // Ouvre le menu
         {
             GestionCamera.PAUSE_CAMERA = true;
             Time.timeScale = 0.0f;
@@ -120,20 +119,19 @@ public class GestionHUD : MonoBehaviour
             PnlOptions.gameObject.SetActive(false);
             PnlBoutons.gameObject.SetActive(true); ;
         }
-        if ("Sauvegarder" == Choix)
+        if ("Sauvegarder" == Choix) //Sauvegarder les parametres
         {
             SauvegardeDesSettings();
         }
-        if ("SaveQuit" == Choix)
+        if ("SaveQuit" == Choix) // Quit et revien au menu principale
         {
             Paused = false;
             Time.timeScale = 1.0f;
             SceneManager.LoadScene("ScnMenuPrincipal");
             Physics.gravity = new Vector3(0, -9.81f, 0);
         }
-        if ("ReloaderMort" == Choix)
+        if ("ReloaderMort" == Choix) // Mort du joueur
         {
-            Debug.Log(("Jai passer par reloadermort"));
             PnlMort.gameObject.SetActive(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Physics.gravity = new Vector3(0, -9.81f, 0);
