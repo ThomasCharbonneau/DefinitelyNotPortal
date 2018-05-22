@@ -11,36 +11,34 @@ public class GestionPortalGun : MonoBehaviour
 {
     [SerializeField] AudioClip SonTirPortal; //Son du tir d'un portail
     [SerializeField] AudioClip SonDésactivationPortal; //Son de la désactivation simultanée des 2 portails
-    [SerializeField] AudioClip SonSurfaceInvalide; //Son d'un echec de projection de laser du à une surface invalide
+    [SerializeField] AudioClip SonSurfaceInvalide; //Son d'un échec de projection de laser dû à une surface invalide
     [SerializeField] AudioClip SonChangementMode; //Click qui indique le changement de mode du fusil
     [SerializeField] AudioClip SonTirLaser; //Son du tir de laser
 
-    [SerializeField] Camera Caméra;
+    [SerializeField] Camera caméraPrincipale; //La caméra principale
 
-    [SerializeField] GameObject portalBleu;
-    [SerializeField] GameObject portalOrange;
-    GameObject portalCameraBleu;
-    GameObject portalCameraOrange;
+    [SerializeField] GameObject portailBleu;
+    [SerializeField] GameObject portailOrange;
 
-    LineRenderer lineRenderer;
+    GameObject caméraPortailBleu;
+    GameObject caméraPortailOrange;
 
-    Vector3 CentrePortailBleu;
-    Vector3 CentrePortailOrange;
+    LineRenderer lineRenderer; //Servant à la représentation du laser
 
-    const float DÉLAI_RECHARGE_PORTAILS = 0.75f;
-    float TempsDepuisDernierTirPortails;
+    const float DÉLAI_RECHARGE_TIR_PORTAILS = 0.75f; //Le temps que le fusil prends pour tirer un nouveau portail après un tir
+    float tempsDepuisDernierTirPortails; //Temps depuis le dernier essai de tir d'un portail
 
-    Vector3 origineLaser;
-    const float DIAMÈTRE_LASER = 0.1f;
-    const int FORCE_LASER = 300;
-    const float DÉLAI_AVANT_RECHARGE_LASER = 0.5f;
-    public const int CHARGE_LASER_MAX = 100;
+    Vector3 origineLaser; //Le point d'origine du laser (la position du canon du fusil)
+    const float DIAMÈTRE_LASER = 0.1f; //Le diamètre du laser tiré
+    const int FORCE_LASER = 300; //La force que le laser exerce sur les rigidbodies touchés
+    const float DÉLAI_AVANT_RECHARGE_LASER = 0.5f; //Le temps requis pour que le laser commence à charger après un tir
+    public const int CHARGE_LASER_MAX = 100; //La charge maximale du laser
     bool laserTiré; //Si le laser est présentement tiré ou non
-    float tempsDepuisArrêtLaser = 0;
-    float chargeLaser;
+    float tempsDepuisArrêtLaser = 0; //Le temps pour lequel le laser est arrêté
+    float chargeLaser; //La charge du laser (normalement entre 0 et 100 inclusivement)
 
     /// <summary>
-    /// 
+    /// Le niveau de charge du laser actuel
     /// </summary>
     public float ChargeLaser
     {
@@ -50,11 +48,11 @@ public class GestionPortalGun : MonoBehaviour
         }
         private set
         {
-            if(value > CHARGE_LASER_MAX)
+            if(value > CHARGE_LASER_MAX) //Ne peut pas être plus haut que la charge maximale
             {
                 chargeLaser = CHARGE_LASER_MAX;
             }
-            else if(value < 0)
+            else if(value < 0) //Ne peut pas être plus bas que 0
             {
                 chargeLaser = 0;
             }
@@ -73,13 +71,16 @@ public class GestionPortalGun : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        portalCameraBleu = GameObject.Find("cameraBleu");
-        portalCameraOrange = GameObject.Find("cameraOrange");
-        portalCameraBleu.SetActive(false);
-        portalCameraOrange.SetActive(false);
+        caméraPortailBleu = GameObject.Find("cameraBleu");
+        caméraPortailOrange = GameObject.Find("cameraOrange");
+
+        caméraPortailBleu.SetActive(false); //Les caméras dans les portails sont désactivées au début
+        caméraPortailOrange.SetActive(false);
+
         lineRenderer = GetComponent<LineRenderer>();
 
-        TempsDepuisDernierTirPortails = 0;
+        tempsDepuisArrêtLaser = 0;
+        tempsDepuisDernierTirPortails = 0;
         laserTiré = false;
 
         GunMode = ModePortalGun.PORTAIL;
@@ -90,16 +91,17 @@ public class GestionPortalGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(portalBleu.activeSelf && portalOrange.activeSelf)
+        if (portailBleu.activeSelf && portailOrange.activeSelf)
         {
-            portalCameraBleu.SetActive(true);
-            portalCameraOrange.SetActive(true);
+            caméraPortailBleu.SetActive(true);
+            caméraPortailOrange.SetActive(true);
         }
         else
         {
-            portalCameraBleu.SetActive(false);
-            portalCameraOrange.SetActive(false);
+            caméraPortailBleu.SetActive(false);
+            caméraPortailOrange.SetActive(false);
         }
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0 || Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             if (GunMode == ModePortalGun.LASER)
@@ -111,12 +113,12 @@ public class GestionPortalGun : MonoBehaviour
                 GunMode = ModePortalGun.LASER;
             }
 
-            AudioSource.PlayClipAtPoint(SonChangementMode, Caméra.transform.position);
+            AudioSource.PlayClipAtPoint(SonChangementMode, caméraPrincipale.transform.position);
         }
 
-        TempsDepuisDernierTirPortails += Time.deltaTime;
+        tempsDepuisDernierTirPortails += Time.deltaTime;
 
-        if (TempsDepuisDernierTirPortails >= DÉLAI_RECHARGE_PORTAILS)
+        if (tempsDepuisDernierTirPortails >= DÉLAI_RECHARGE_TIR_PORTAILS)
         {
             if (!GestionCamera.PAUSE_CAMERA)
             {
@@ -126,11 +128,11 @@ public class GestionPortalGun : MonoBehaviour
 
                         if (Input.GetMouseButton(1))
                         {
-                            TirerPortail(portalOrange);
+                            TirerPortail(portailOrange);
                         }
                         if (Input.GetMouseButton(0))
                         {
-                            TirerPortail(portalBleu);
+                            TirerPortail(portailBleu);
                         }
 
                         break;
@@ -140,7 +142,7 @@ public class GestionPortalGun : MonoBehaviour
                         if (!(ChargeLaser <= (float)CHARGE_LASER_MAX / 4) && Input.GetMouseButtonDown(0))
                         {
                             lineRenderer.enabled = true;
-                            AudioSource.PlayClipAtPoint(SonTirLaser, Caméra.transform.position);
+                            AudioSource.PlayClipAtPoint(SonTirLaser, caméraPrincipale.transform.position);
                         }
 
                         if (!laserTiré)
@@ -171,7 +173,7 @@ public class GestionPortalGun : MonoBehaviour
             }
         }
 
-        if ((portalBleu.activeSelf || portalOrange.activeSelf) && Input.GetKeyDown("r"))
+        if ((portailBleu.activeSelf || portailOrange.activeSelf) && Input.GetKeyDown("r"))
         {
             DésactiverPortails();
         }
@@ -182,10 +184,10 @@ public class GestionPortalGun : MonoBehaviour
     /// </summary>
     public void DésactiverPortails()
     {
-        portalBleu.SetActive(false);
-        portalOrange.SetActive(false);
+        portailBleu.SetActive(false);
+        portailOrange.SetActive(false);
 
-        AudioSource.PlayClipAtPoint(SonDésactivationPortal, Caméra.transform.position);
+        AudioSource.PlayClipAtPoint(SonDésactivationPortal, caméraPrincipale.transform.position);
     }
 
     /// <summary>
@@ -196,14 +198,13 @@ public class GestionPortalGun : MonoBehaviour
     {
         RaycastHit hit;
 
-        Ray ray = new Ray(GetComponentInParent<Camera>().transform.position, Caméra.transform.forward);
+        Ray ray = new Ray(GetComponentInParent<Camera>().transform.position, caméraPrincipale.transform.forward);
 
         //Ray ray = new Ray(Caméra.transform.position, Caméra.transform.forward);
 
         //if (Physics.gravity.y < 0)
         //{
         //    ray = new Ray(Caméra.transform.position, Caméra.transform.forward);
-
         //}
         //else
         //{
@@ -220,10 +221,10 @@ public class GestionPortalGun : MonoBehaviour
         else
         {
             //if(hit.collider.gameObject.GetComponent<Renderer>().material.name == "SurfaceBlanche")
-            //{
-            if (hit.collider.CompareTag("Sol") || hit.collider.CompareTag("Mur") || hit.collider.CompareTag("ObstaclePortal")) //Il faudrait trouver un moyen de simplifier avant d'avoir trop de tags
+            //Technique changée pour utiliser les tags...
+            if (hit.collider.CompareTag("Sol") || hit.collider.CompareTag("Mur") || hit.collider.CompareTag("ObstaclePortal")) //Il aurait fallu trouver un moyen de simplifier avant d'avoir trop de tags
             {
-                AudioSource.PlayClipAtPoint(SonTirPortal, Caméra.transform.position);
+                AudioSource.PlayClipAtPoint(SonTirPortal, caméraPrincipale.transform.position);
                 portail.SetActive(true);
 
                 portail.transform.position = hit.point;
@@ -231,10 +232,10 @@ public class GestionPortalGun : MonoBehaviour
             }
             else
             {
-                AudioSource.PlayClipAtPoint(SonSurfaceInvalide, Caméra.transform.position);
+                AudioSource.PlayClipAtPoint(SonSurfaceInvalide, caméraPrincipale.transform.position);
             }
 
-            TempsDepuisDernierTirPortails = 0;
+            tempsDepuisDernierTirPortails = 0;
         }
 
         //Pour faire des tests
@@ -250,7 +251,7 @@ public class GestionPortalGun : MonoBehaviour
         origineLaser = transform.position + 3f * transform.forward - 0.1f * transform.up - 0.1f * transform.right; //Valeurs pour bien enligner le rayon avec le fusil
 
         RaycastHit hit;
-        Ray ray = new Ray(origineLaser, Caméra.transform.forward);
+        Ray ray = new Ray(origineLaser, caméraPrincipale.transform.forward);
         Physics.Raycast(ray, out hit);
 
         lineRenderer.positionCount = 2;
@@ -258,15 +259,8 @@ public class GestionPortalGun : MonoBehaviour
         lineRenderer.startWidth = DIAMÈTRE_LASER;
         lineRenderer.endWidth = DIAMÈTRE_LASER;
 
-        lineRenderer.SetPosition(1, hit.point);
         //if(hit.point != null)
-        //{
-        //    lineRenderer.SetPosition(1, hit.point);
-        //}
-        //else
-        //{
-        //    lineRenderer.SetPosition(1, );
-        //}
+        lineRenderer.SetPosition(1, hit.point);
 
         if (hit.rigidbody != null)
         {
@@ -275,12 +269,13 @@ public class GestionPortalGun : MonoBehaviour
                 hit.rigidbody.gameObject.GetComponent<GestionDrone>().Vie -= 1;
             }
 
-            if(hit.rigidbody.gameObject.name.Substring(0,4) == "Cube")
+            if(hit.rigidbody.gameObject.tag == "Cube")
             {
                 hit.rigidbody.AddForce(ray.direction * FORCE_LASER);
             }
         }
 
+        //La charge du laser est diminuée
         ChargeLaser -= 2;
 
         laserTiré = true;

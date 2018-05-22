@@ -24,7 +24,7 @@ public class GestionDrone : MonoBehaviour, Personnage
     public Vector3 PositionMarqueur; //La position du point 3d à atteindre avec le pathfinding
     Vector3 PositionPointPlusProchePiste;
 
-    GameObject Joueur;
+    GameObject Joueur; //Le joueur
 
     Rigidbody drone;
     LineRenderer lineRenderer;
@@ -41,7 +41,7 @@ public class GestionDrone : MonoBehaviour, Personnage
 
     float tempsDepuisVérouillageCible; //Le temps depuis lequel la position de la cible a été vérouillé
     const float DÉLAI_VÉROUILLAGE_CIBLE = 0.5f; //Le délai de temps entre le vérouillage de la la cible et le tir à cette position
-    bool cibleVérouillée;
+    bool cibleVérouillée; //Si la position de la cible est vérouillée ou non
     Vector3 positionCible;
 
     const float DÉLAI_TIR_LASER = 0.8f; //Le temps que le rayon laser prend pour est projeté après avoir trouvé la position de la cible
