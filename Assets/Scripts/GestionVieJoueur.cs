@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GestionVieJoueur : MonoBehaviour, Personnage
 {
     GestionUI GestionUI;
-    
 
     public const int VIE_INITIALE = 100;
     static int vie;
@@ -15,7 +14,6 @@ public class GestionVieJoueur : MonoBehaviour, Personnage
     void Start ()
     {
         GestionUI = GameObject.Find("UI").GetComponent<GestionUI>();
-        
 
         vie = VIE_INITIALE;
     }
@@ -26,7 +24,6 @@ public class GestionVieJoueur : MonoBehaviour, Personnage
         if (Vie <= 0)
         {
             GestionUI.AfficherÉcranMort();
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Les différents modes que peuvent prendre le fusil
+/// </summary>
 public enum ModePortalGun { PORTAIL, LASER }
 
 public class GestionPortalGun : MonoBehaviour
 {
-    [SerializeField] AudioClip SonTirPortal;
-    [SerializeField] AudioClip SonDésactivationPortal;
-    [SerializeField] AudioClip SonSurfaceInvalide;
+    [SerializeField] AudioClip SonTirPortal; //Son du tir d'un portail
+    [SerializeField] AudioClip SonDésactivationPortal; //Son de la désactivation simultanée des 2 portails
+    [SerializeField] AudioClip SonSurfaceInvalide; //Son d'un echec de projection de laser du à une surface invalide
     [SerializeField] AudioClip SonChangementMode; //Click qui indique le changement de mode du fusil
-    [SerializeField] AudioClip SonTirLaser;
+    [SerializeField] AudioClip SonTirLaser; //Son du tir de laser
 
     [SerializeField] Camera Caméra;
 
@@ -32,10 +35,13 @@ public class GestionPortalGun : MonoBehaviour
     const int FORCE_LASER = 300;
     const float DÉLAI_AVANT_RECHARGE_LASER = 0.5f;
     public const int CHARGE_LASER_MAX = 100;
-    bool laserTiré;
+    bool laserTiré; //Si le laser est présentement tiré ou non
     float tempsDepuisArrêtLaser = 0;
     float chargeLaser;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public float ChargeLaser
     {
         get
@@ -59,6 +65,9 @@ public class GestionPortalGun : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Le mode actuel du fusil
+    /// </summary>
     public ModePortalGun GunMode { get; private set; }
 
     // Use this for initialization
@@ -102,7 +111,6 @@ public class GestionPortalGun : MonoBehaviour
                 GunMode = ModePortalGun.LASER;
             }
 
-            //Arranger audio, joue tout le temps
             AudioSource.PlayClipAtPoint(SonChangementMode, Caméra.transform.position);
         }
 
@@ -169,6 +177,9 @@ public class GestionPortalGun : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Fonction qui indisponibilise les portails
+    /// </summary>
     public void DésactiverPortails()
     {
         portalBleu.SetActive(false);
@@ -177,6 +188,10 @@ public class GestionPortalGun : MonoBehaviour
         AudioSource.PlayClipAtPoint(SonDésactivationPortal, Caméra.transform.position);
     }
 
+    /// <summary>
+    /// Fonction qui fait instancier un portail à la position touchée par un tir
+    /// </summary>
+    /// <param name="portail">Un des deux portails choisi pour être tiré</param>
     void TirerPortail(GameObject portail)
     {
         RaycastHit hit;
@@ -222,10 +237,14 @@ public class GestionPortalGun : MonoBehaviour
             TempsDepuisDernierTirPortails = 0;
         }
 
+        //Pour faire des tests
         //Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
         //Debug.Break();
     }
 
+    /// <summary>
+    /// Fonction qui tire le laser de son origine vers la position désirée
+    /// </summary>
     void TirerLaser()
     {
         origineLaser = transform.position + 3f * transform.forward - 0.1f * transform.up - 0.1f * transform.right; //Valeurs pour bien enligner le rayon avec le fusil
@@ -256,7 +275,7 @@ public class GestionPortalGun : MonoBehaviour
                 hit.rigidbody.gameObject.GetComponent<GestionDrone>().Vie -= 1;
             }
 
-            if(hit.rigidbody.gameObject.name == "Cube")
+            if(hit.rigidbody.gameObject.name.Substring(0,4) == "Cube")
             {
                 hit.rigidbody.AddForce(ray.direction * FORCE_LASER);
             }
@@ -267,6 +286,9 @@ public class GestionPortalGun : MonoBehaviour
         laserTiré = true;
     }
 
+    /// <summary>
+    /// Fonction qui arrête le tir du laser
+    /// </summary>
     void ArrêterLaser()
     {
         lineRenderer.positionCount = 0;

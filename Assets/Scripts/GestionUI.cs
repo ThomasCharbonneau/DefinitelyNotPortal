@@ -48,14 +48,10 @@ public class GestionUI : MonoBehaviour
         ÉcranMort =GameObject.Find("ÉcranMort");
         ÉcranMort.SetActive(false);
 
-        //ImageChargeLaser = GetComponentInChildren<Image>();
-        //ImageGunMode = ModePortalGun.PORTAIL;
         PortalGun = Joueur.GetComponentInChildren<GestionPortalGun>();
 
         PnlModeLaser = GameObject.Find("PnlModeLaser");
         PnlModePortail = GameObject.Find("PnlModePortail");
-
-        //PnlCrossair = GameObject.Find("PnlCrossair");
     }
 	
 	// Update is called once per frame

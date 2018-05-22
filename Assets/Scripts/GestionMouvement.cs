@@ -244,8 +244,6 @@ public class GestionMouvement : MonoBehaviour
                 ActionsAnimations.Stay();
             }
         }        
-        
-
     }
 
 
@@ -303,6 +301,5 @@ public class GestionMouvement : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, transform.localEulerAngles.y, 0));
             
         }
-
     }
 }
