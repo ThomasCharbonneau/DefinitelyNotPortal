@@ -1650,6 +1650,16 @@ Prefab:
       propertyPath: SonLancerObjet
       value: 
       objectReference: {fileID: 8300000, guid: 61db8b04b029ea64cb10adfc936d8570, type: 3}
+    - target: {fileID: 114351959307232994, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: portailBleu
+      value: 
+      objectReference: {fileID: 1053046176}
+    - target: {fileID: 114351959307232994, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: portailOrange
+      value: 
+      objectReference: {fileID: 1484545896}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0

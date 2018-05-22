@@ -2110,7 +2110,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1264821272808600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 38.4, y: -2.4, z: -16.5}
+  m_LocalPosition: {x: 0, y: 10, z: -95}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4060116352892802}
@@ -3695,9 +3695,9 @@ MonoBehaviour:
   SonSurfaceInvalide: {fileID: 8300000, guid: d9e0ff4005dcd1143a417f1273dd077f, type: 3}
   SonChangementMode: {fileID: 8300000, guid: 8f5bd10ffee3aaa4692fa05e8b87e0e7, type: 3}
   SonTirLaser: {fileID: 8300000, guid: f4b548df8fff68843b1181697bbf7ca3, type: 3}
-  "Cam\xE9ra": {fileID: 20082536506674630}
-  portalBleu: {fileID: 0}
-  portalOrange: {fileID: 0}
+  "cam\xE9raPrincipale": {fileID: 20082536506674630}
+  portailBleu: {fileID: 0}
+  portailOrange: {fileID: 0}
 --- !u!114 &114537473515706732
 MonoBehaviour:
   m_ObjectHideFlags: 1

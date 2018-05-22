@@ -1153,6 +1153,16 @@ Prefab:
       propertyPath: portalOrange
       value: 
       objectReference: {fileID: 336462313}
+    - target: {fileID: 114351959307232994, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: portailBleu
+      value: 
+      objectReference: {fileID: 1918978205}
+    - target: {fileID: 114351959307232994, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: portailOrange
+      value: 
+      objectReference: {fileID: 336462313}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0

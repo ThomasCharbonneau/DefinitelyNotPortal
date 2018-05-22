@@ -1953,6 +1953,16 @@ Prefab:
       propertyPath: personnageAvance
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114351959307232994, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: portailBleu
+      value: 
+      objectReference: {fileID: 1677157220}
+    - target: {fileID: 114351959307232994, guid: 555564ceb8c4e0242b030c9fa2637ef9,
+        type: 2}
+      propertyPath: portailOrange
+      value: 
+      objectReference: {fileID: 984491884}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555564ceb8c4e0242b030c9fa2637ef9, type: 2}
   m_IsPrefabParent: 0
